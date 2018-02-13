@@ -2,6 +2,10 @@
 
 Chemics is a Python package for developing reactor models.
 
+**Beta** - This software is still under development. Official release will be announced at a later date.
+
+Questions and other feedback can be submitted on the [Issues](https://github.com/ccpcode/chemics/issues) page.
+
 ## Installation
 
 Install on your local computer with `pip install -e .` from within this folder.
