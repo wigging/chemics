@@ -149,24 +149,31 @@ def mass2mole(mw, mass_fracs):
     return mole_fracs
 
 
-def slm_to_lpm(slm, pgas, tgas):
+def slm_to_lpm(slm, Pgas, Tgas):
     """
     Convert volumetric gas flow from standard liters per minute (SLM or SLPM)
-    to liters per minute (LPM).
+    to liters per minute (LPM). Assume STP defined as 273.25 K and 101,325 Pa.
+
+    Conversion
+    ----------
+    1 LPM = 1 SLPM * (Tgas / 273.15 K) * (14.696 psi / Pgas)
+
+    Reference
+    ---------
+    Wikipedia contributors. (2018, February 8). Standard litre per minute.
+    In Wikipedia online. Retrieved from
+    https://en.wikipedia.org/wiki/Standard_litre_per_minute
 
     Parameters
     ----------
-    pgas : scalar
-        Absolute gas pressure in kPa
-    tgas : scalar
-        Gas temperature in Kelvin
+    Pgas = absolute gas pressure, kPa
+    Tgas = gas temperature, Kelvin
 
     Returns
     -------
-    lpm : scalar
-        Volumetric gas flow in liter per minutre or liter/min
+    lpm = volumetric gas flow, liter/min
     """
     # equation assumes pgas in psi so convert kPa to psi
-    pgas = pgas * 0.1450377
-    lpm = slm * (tgas / 294.26) * (14.696 / pgas)
+    Pgas = Pgas * 0.1450377
+    lpm = slm * (Tgas / 273.15) * (14.696 / Pgas)
     return lpm

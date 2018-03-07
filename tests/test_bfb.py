@@ -7,9 +7,7 @@ from pytest import approx
 
 
 def test_fbexp():
-    """
-    Fluidized bed expansion
-    """
+    """ fluidized bed expansion factor """
 
     db = 0.05232    # bed diameter, m
     dp = 0.0004     # diameter of bed particle, m
@@ -21,4 +19,4 @@ def test_fbexp():
     # bed expansion factor, fbexp (-)
     fbexp = cm.fbexp(db, dp, rhog, rhop, umf, us)
 
-    assert fbexp == approx(1.486434)
+    assert fbexp == approx(1.48, rel=1e-2)

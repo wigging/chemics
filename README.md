@@ -6,6 +6,13 @@ Chemics is a Python package for developing reactor models.
 
 Questions and other feedback can be submitted on the [Issues](https://github.com/ccpcode/chemics/issues) page.
 
+### Requirements
+
+The [Anaconda](https://www.anaconda.com/download/) or [Miniconda](https://conda.io/miniconda.html) distribution of Python is preferred.
+
+- Python 3
+- NumPy
+
 ## Installation
 
 Copy the `chemics/` folder to your Python project then import the module with `import chemics as cm`. Functions in the module are called with the usual syntax such as `cm.rhog(28, 170100, 773)`.
@@ -22,3 +29,7 @@ conductivity, and viscosity.
 **util** - dimensionless numbers and other utility functions.
 
 **vel** - terminal velocity, transport velocity, and choking velocity functions.
+
+## Tests
+
+
