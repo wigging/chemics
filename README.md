@@ -6,7 +6,7 @@ Chemics is a Python package for developing reactor models.
 
 Questions and other feedback can be submitted on the [Issues](https://github.com/ccpcode/chemics/issues) page.
 
-**Requirements**
+### Requirements
 
 The [Anaconda](https://www.anaconda.com/download/) or [Miniconda](https://conda.io/miniconda.html) distribution of Python is preferred.
 
@@ -32,4 +32,4 @@ conductivity, and viscosity.
 
 ## Tests
 
-
+Tests are implemented with the [pytest](https://docs.pytest.org/en/latest/) framework. To avoid creating cache folders, run the tests with the following command: `pytest -p no:cacheprovider`
