@@ -2,10 +2,6 @@
 Tests for bfb.py module
 """
 
-# add parent directory to python path
-import sys
-sys.path.append('.')
-
 import chemics as cm
 from pytest import approx
 
