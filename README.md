@@ -33,3 +33,7 @@ conductivity, and viscosity.
 ## Tests
 
 Tests are implemented with the [pytest](https://docs.pytest.org/en/latest/) framework. To avoid creating cache folders, run the tests with the following command: `pytest -p no:cacheprovider`
+
+## License
+
+This Python package is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
