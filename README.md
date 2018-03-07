@@ -2,13 +2,13 @@
 
 Chemics is a Python package for developing reactor models.
 
-**Beta** - This software is still under development. Official release will be announced at a later date.
+:warning: This software is still under development. Official release will be announced at a later date. Public contributions will also be accepted once a more complete version of the package is available.
 
 Questions and other feedback can be submitted on the [Issues](https://github.com/ccpcode/chemics/issues) page.
 
 ## Installation
 
-Install on your local computer with `pip install -e .` from within this folder.
+Copy the `chemics/` folder to your Python project then import the module with `import chemics as cm`. Functions in the module are called with the usual syntax such as `cm.rhog(28, 170100, 773)`.
 
 ## Modules
 
@@ -22,11 +22,3 @@ conductivity, and viscosity.
 **util** - dimensionless numbers and other utility functions.
 
 **vel** - terminal velocity, transport velocity, and choking velocity functions.
-
-## Contribute
-
-To add new features to the package, create a new branch then issue a Merge
-Request. Make sure all code is documented and references to original equations
-are included. See the comments in the code for example documentation. You can
-also contribute by providing feedback in the Issues section of this repository.
-
