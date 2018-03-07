@@ -13,7 +13,6 @@ dpSauter
 mole2mass
 mass2mole
 slm_to_lpm
-rhog
 """
 
 import numpy as np
@@ -61,9 +60,8 @@ def mw_avg(mw, mole_fracs=None, mass_fracs=None):
     elif mass_fracs is not None:
         mwa = 1./np.sum(np.divide(mass_fracs, mw))
     else:
-        raise ValueError(
-            'No mass or mole fractions specified in calculation of average molar mass')
-
+        raise ValueError('No mass or mole fractions specified in calculation '
+                         'of average molar mass')
     return mwa
 
 
@@ -172,30 +170,3 @@ def slm_to_lpm(slm, pgas, tgas):
     pgas = pgas * 0.1450377
     lpm = slm * (tgas / 294.26) * (14.696 / pgas)
     return lpm
-
-
-def rhog(mw, pgas, tgas):
-    """
-    Calculate gas density from molecular weight, pressure, and temperature.
-
-    Parameters
-    ----------
-    mw : scalar
-        Molecular weight in g/mol
-    pgas : scalar
-        Absolute gas pressure in Pa
-    tgas : scalar
-        Gas temperature in Kelvin
-
-    Returns
-    -------
-    rhog : scalar
-        Gas density in kg/m^3
-    """
-    # R is ideal gas constant in (m^3 Pa)/(mol K)
-    # convert mw in g/mol to kg/mol
-    R = 8.314
-    mw = mw / 1000
-    rhog = (mw * pgas) / (R * tgas)
-    return rhog
-

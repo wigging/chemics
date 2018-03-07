@@ -34,7 +34,7 @@ def k_n2(T):
 
     Reference
     ---------
-    Yaw's Transport Properties of Chemicals and Hydrocarbons (Electonic Edition)
+    Yaw's Transport Properties of Chemicals and Hydrocarbons
     """
     A = -0.000226779
     B = 0.000102746
@@ -62,7 +62,7 @@ def k_o2(T):
 
     Reference
     ---------
-    Yaw's Transport Properties of Chemicals and Hydrocarbons (Electonic Edition)
+    Yaw's Transport Properties of Chemicals and Hydrocarbons
     """
     A = 0.000154746
     B = 9.41534E-05
@@ -144,23 +144,25 @@ def patm(alt):
     return Patm
 
 
-def rhog(mw, p, T):
+def rhog(mw, Pgas, Tgas):
     """
-    Calculate the density of a gas at temperature and pressure using the ideal
-    gas law.
+    Calculate gas density from molecular weight, pressure, and temperature.
+
+    Equation
+    --------
+    rho = (P * MW) / (R * T)
 
     Parameters
     ----------
     mw = molecular weight of gas, g/mol
-    p = pressure of gas, Pa
-    T = temperature of gas, K
+    Pgas = pressure of the gas, Pa
+    Tgas = temperature of the gas, K
 
     Returns
     -------
-    rho = density of gas, g/m^3
+    rho = density of gas, kg/m^3
     """
-    R = 8.3145  # universal gas constant, (m^3 Pa)/(K mol)
-    rho = (p*mw) / (R*T)
+    mw = mw / 1000  # convert g/mol to kg/mol
+    R = 8.3145      # ideal gas constant, (m^3 Pa)/(K mol)
+    rho = (Pgas*mw) / (R*Tgas)
     return rho
-
-
