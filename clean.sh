@@ -11,7 +11,6 @@ rm -rf noarch/
 rm -rf osx-64/
 
 echo "Removing pytest cache folder..."
-rm -rf .cache/
+rm -rf .pytest_cache/
 
 echo "Cleanup complete."
-
