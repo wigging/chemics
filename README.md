@@ -6,11 +6,7 @@ Chemics is a Python package for developing reactor models.
 
 Questions and other feedback can be submitted on the [Issues](https://github.com/ccpcode/chemics/issues) page.
 
-[![PyPI version](https://badge.fury.io/py/chemics.svg)](https://badge.fury.io/py/chemics)
-
-[![Anaconda-Server Badge](https://anaconda.org/wigging/chemics/badges/downloads.svg)](https://anaconda.org/wigging/chemics)
-
-[![Anaconda-Server Badge](https://anaconda.org/wigging/chemics/badges/installer/conda.svg)](https://conda.anaconda.org/wigging)
+[![PyPI version](https://badge.fury.io/py/chemics.svg)](https://badge.fury.io/py/chemics) [![Anaconda-Server Badge](https://anaconda.org/wigging/chemics/badges/downloads.svg)](https://anaconda.org/wigging/chemics)
 
 ## Getting Started
 
