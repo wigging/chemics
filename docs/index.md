@@ -1,4 +1,4 @@
-# Chemics documentation
+# Chemics Documentation
 
 Chemics is a Python package for developing reactor models.
 
