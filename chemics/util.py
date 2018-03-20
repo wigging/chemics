@@ -121,7 +121,7 @@ def mole2mass(mw, mole_fracs):
     mwa = mw_avg(mw, mole_fracs=mole_fracs)
 
     # Calculate the mass fractions
-    mass_fracs = np.dot(mole_fracs, mw) / mwa
+    mass_fracs = (mole_fracs * mw) / mwa
 
     return mass_fracs
 
@@ -149,7 +149,7 @@ def mass2mole(mw, mass_fracs):
     return mole_fracs
 
 
-def slm_to_lpm(slm, Pgas, Tgas):
+def slm2lpm(slm, pgas, tgas):
     """
     Convert volumetric gas flow from standard liters per minute (SLM or SLPM)
     to liters per minute (LPM). Assume STP defined as 273.25 K and 101,325 Pa.
@@ -166,14 +166,14 @@ def slm_to_lpm(slm, Pgas, Tgas):
 
     Parameters
     ----------
-    Pgas = absolute gas pressure, kPa
-    Tgas = gas temperature, Kelvin
+    pgas = absolute gas pressure, kPa
+    tgas = gas temperature, Kelvin
 
     Returns
     -------
     lpm = volumetric gas flow, liter/min
     """
-    # equation assumes pgas in psi so convert kPa to psi
-    Pgas = Pgas * 0.1450377
-    lpm = slm * (Tgas / 273.15) * (14.696 / Pgas)
+    # equation requires gas pressure as psi so convert kPa to psi
+    pgas_psi = pgas * 0.1450377
+    lpm = slm * (tgas / 273.15) * (14.696 / pgas_psi)
     return lpm
