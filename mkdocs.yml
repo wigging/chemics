@@ -1,0 +1,16 @@
+# Site title
+site_name: chemics
+
+# Site pages
+pages:
+  - Home: index.md
+  - BFB module: bfb.md
+  - Gas module: gas.md
+
+# Site theme
+theme:
+  name: 'material'
+
+# Repository
+repo_name: 'ccpcode/chemics'
+repo_url: 'https://github.com/ccpcode/chemics'
