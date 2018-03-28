@@ -1,55 +1,3 @@
-"""
-Bubbling Fluidized Bed (BFB)
-============================
-
-Functions for modeling bubbling fluidized bed (BFB) reactors. All references to
-K/L are to Fluidization Engineering book by Kunii & Levenspiel. Lists of the
-functions in this module are provided below. See the doc string in each
-function for more details.
-
-Emulsion
---------
-fbexp
-eexp
-emf
-dbMoriWen
-ubMoriWen
-ueGas
-bubbleFraction
-solidsDistribution
-massTransferCoeff
-solidsFluxWenChen
-solidsFLuxPembNose
-solidsFLuxPembWake
-solidsMassFlow
-
-Minimum Fluidization Velocity
------------------------------
-umfWenYu
-umfRich
-umfSaxVog
-umfBabu
-umfGrace
-umfChit
-umfErgun
-umfLargeRe
-umfSmallRe
-
-Miscellaneous
--------------
-uTerminal
-tdhDecayConstant
-tdhHeight
-
-References
-----------
-[1] Kunii, Daizo, and Octave Levenspiel. Fluidization engineering. Elsevier;
-Butterworth-Heinemann, 2nd edition, 1991.
-[2] Marcio de Souza-Santos. Solid Fuels Combustion and Gasification: Modeling,
-Simulation, and Equipment Operations. CRC Press, Taylor and Francis Group, 2nd
-edition, 2010.
-"""
-
 from math import pi, exp, sqrt, log
 import numpy as np
 
@@ -58,20 +6,33 @@ def fbexp(db, dp, rhog, rhop, umf, us):
     """
     Bed expansion factor for calculating expanded bed height of a bubbling
     fluidized bed reactor. See equations 14.7, 14.8, 14.18 in the Souza-Santos
-    2010 book.
+    2010 book [#santos2010]_.
 
     Parameters
     ----------
-    db = diameter of bed, m
-    dp = diameter of bed particle, m
-    rhog = density of gas, kg/m^3
-    rhop = density of bed particle, kg/m^3
-    umf = minimum fluidization velocity, m/s
-    us = superficial gas velocity, m/s
+    db : float
+        Diameter of the bed [m]
+    dp : float
+        Diameter of the bed particle [m]
+    rhog : float
+        Density of gas [kg/m^3]
+    rhop : float
+        Density of bed particle [kg/m^3]
+    umf : float
+        Minimum fluidization velocity [m/s]
+    us : float
+        Superficial gas velocity [m/s]
 
     Returns
     -------
-    fbx = bed expansion factor, (-)
+    fbx : float
+        Bed expansion factor [-]
+
+    References
+    ----------
+    .. [#santos2010] Marcio de Souza-Santos. Solid Fuels Combustion and
+       Gasification: Modeling, Simulation, and Equipment Operations. CRC Press,
+       Taylor and Francis Group, 2nd edition, 2010.
     """
     if db < 0.0635:
         # diameter of bed as db < 0.0635 m from Eq 14.7
