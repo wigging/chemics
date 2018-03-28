@@ -1,40 +1,33 @@
-"""
-Gas Properties
-==============
-
-See doc string and comments in each function for more details.
-
-Functions
----------
-k_n2
-k_o2
-mug_n2
-patm
-rhog
-"""
-
 import numpy as np
 
 
 def k_n2(T):
     """
     Equation for thermal conductivity of nitrogen gas, N2, as a function of
-    temperature based on formula from Yaw's online reference. Valid at
+    temperature based on formula from Yaw's online reference [#yaw1]_. Valid at
     temperatures from 63-1500 K.
 
-    k_N2 = A + B*T + C*T^2 + D*T^3
+    .. math::
+       k_{N_2} = A + B*T + C*T^2 + D*T^3
 
     Parameters
     ----------
-    T = temperature of N2 gas, K
+    T : float
+        Temperature of N2 gas [K]
 
     Returns
     -------
-    k = thermal conductivity of N2 gas, W/mK
+    k : float
+        Thermal conductivity of N2 gas [W/mK]
 
-    Reference
-    ---------
-    Yaw's Transport Properties of Chemicals and Hydrocarbons
+    Examples
+    --------
+    >>> k_n2(773)
+    0.0535
+
+    References
+    ----------
+    .. [#yaw1] Yaw's Transport Properties of Chemicals and Hydrocarbons.
     """
     A = -0.000226779
     B = 0.000102746
@@ -47,22 +40,30 @@ def k_n2(T):
 def k_o2(T):
     """
     Equation for thermal conductivity of oxygen gas, O2, as a function of
-    temperature based on formula from Yaw's online reference. Valid at
+    temperature based on formula from Yaw's online reference [#yaw2]_. Valid at
     temperatures from 80-2000 K.
 
-    k_O2 = A + B*T + C*T^2 + D*T^3
+    .. math::
+       k_{O_2} = A + B*T + C*T^2 + D*T^3
 
     Parameters
     ----------
-    T = temperature of O2 gas, K
+    T : float
+        Temperature of O2 gas [K]
 
     Returns
     -------
-    k = thermal conductivity of O2 gas, W/mK
+    k : float
+        Thermal conductivity of O2 gas [W/mK]
 
-    Reference
-    ---------
-    Yaw's Transport Properties of Chemicals and Hydrocarbons
+    Examples
+    --------
+    >>> k_o2(773)
+    0.0588
+
+    References
+    ----------
+    .. [#yaw2] Yaw's Transport Properties of Chemicals and Hydrocarbons.
     """
     A = 0.000154746
     B = 9.41534E-05
@@ -75,22 +76,37 @@ def k_o2(T):
 def mug_n2(T):
     """
     Equation for viscosity of nitrogen gas, N2, as a function of temperature.
-    Valid at temperatures from 150-1500 K.
+    Valid at nitrogen gas temperatures from 150-1500 K. Based on Ludwig's 4th
+    edition book [#ludwig]_.
 
-    mug_N2 = A + B*T + C*T^2
+    .. math::
+       \\mu_{g_{N_2}} = A + B*T + C*T^2
 
-    Parameter
-    ---------
-    T = tempreature of gas, K
+    Parameters
+    ----------
+    T : float
+        Tempreature of gas [K]
 
     Returns
     -------
-    mug = viscosity of gas, uP (micropoise)
+    mug : float
+        Viscosity of nitrogen gas [uP micropoise]
 
-    Reference
-    ---------
-    Ludwig's Applied Process Design for Chemical and Petrochemical Plants,
-    Volume 1, 4th Edition.
+    Examples
+    --------
+    .. code-block:: python
+
+        # in units of micropoise, uP
+        >>> mug_n2(773)
+        350.74
+        # in units of kilogram per meter per second, kg/(ms)
+        >>> mug_n2(773) / 1e7
+        3.5074e-05
+
+    References
+    ----------
+    .. [#ludwig] Ludwig's Applied Process Design for Chemical and Petrochemical
+       Plants, Volume 1, 4th Edition.
     """
     A = 42.606
     B = 4.75e-1
@@ -101,20 +117,23 @@ def mug_n2(T):
 
 def patm(alt):
     """
-    Determine atmospheric pressure at altitudes up to 51 km.
+    Determine atmospheric pressure at altitudes up to 51 km. Based on article
+    by Roland Stull [#stull]_.
 
     Parameters
     ----------
-    alt = altitude or elevation above sea level, m
+    alt : float
+        Altitude or elevation above sea level [m]
 
     Returns
     -------
-    Patm = atmospheric pressure, Pa
+    Patm : float
+        Atmospheric pressure [Pa]
 
-    Reference
-    ---------
-    Practical Meteorology: An Algebra-based Survey of Atmospheric Science by
-    Roland Stull.
+    References
+    ----------
+    .. [#stull] Practical Meteorology: An Algebra-based Survey of Atmospheric
+       Science by Roland Stull.
     """
     alt = alt/1000              # convert altitude from meters to kilometers
     Ro = 6356.766               # average radius of the Earth, km
@@ -148,19 +167,27 @@ def rhog(mw, Pgas, Tgas):
     """
     Calculate gas density from molecular weight, pressure, and temperature.
 
-    Equation
-    --------
-    rho = (P * MW) / (R * T)
+    .. math::
+       \\rho = \\frac{P * MW}{R * T}
 
     Parameters
     ----------
-    mw = molecular weight of gas, g/mol
-    Pgas = pressure of the gas, Pa
-    Tgas = temperature of the gas, K
+    mw : float
+        Molecular weight of gas [g/mol]
+    Pgas : float
+        Pressure of the gas [Pa]
+    Tgas : float
+        Temperature of the gas [K]
 
     Returns
     -------
-    rho = density of gas, kg/m^3
+    rho : float
+        Density of gas [kg/m^3]
+
+    Examples
+    --------
+    >>> rhog(28, 101325, 773)
+    0.4414
     """
     mw = mw / 1000  # convert g/mol to kg/mol
     R = 8.3145      # ideal gas constant, (m^3 Pa)/(K mol)
