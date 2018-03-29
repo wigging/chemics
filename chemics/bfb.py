@@ -54,17 +54,24 @@ def eexp(db, hb, rhop, mp):
 
     Parameters
     ----------
-    db = diameter of the bed, m
-    hb = height of the expanded bed, m
-    rhop = mass density of the solids, kg/m^3
-    mp = mass of solids in the bed, kg
+    db : float
+        Diameter of the bed [m]
+    hb : float
+        Height of the expanded bed [m]
+    rhop : float
+        Mass density of the solids [kg/m^3]
+    mp : float
+        Mass of solids in the bed [kg]
 
-    NOTE: specific mass and length units are not important, provided they are
+    Note
+    ----
+    Specific mass and length units are not important, provided they are
     all self-consistent as the returned quantity is dimensionless.
 
     Returns
     -------
-    ep_exp = overall void fraction of the expanded bed (-)
+    ep_exp : float
+        Overall void fraction of the expanded bed [-]
     """
 
     # Volume of the expanded bed
@@ -85,12 +92,15 @@ def emf(fbexp, ep_exp):
 
     Parameters
     ----------
-    fbexp = bed expansion factor, (-)
-    ep_exp = void fraction in the expanded bed (-)
+    fbexp : float
+        Bed expansion factor [-]
+    ep_exp : float
+        Void fraction in the expanded bed [-]
 
     Returns
     -------
-    e_mf = void fraction at minimum fluidization
+    e_mf : float
+        Void fraction at minimum fluidization [-]
     """
 
     e_mf = 1 - fbexp * (1 - ep_exp)
@@ -104,14 +114,19 @@ def umfWenYu(dp, rhog, rhop, ug):
 
     Parameters
     ----------
-    dp = diameter of bed particle, m
-    rhog = density of gas, kg/m^3
-    rhop = density of bed particle, kg/m^3
-    ug = viscosity of gas, kg/ms
+    dp : float
+        Diameter of bed particle [m]
+    rhog : float
+        Density of gas [kg/m^3]
+    rhop : float
+        Density of bed particle [kg/m^3]
+    ug : float
+        Viscosity of gas [kg/ms]
 
     Returns
     -------
-    umf = minimum fluidization velocity, m/s
+    umf : float
+        Minimum fluidization velocity [m/s]
     """
     a1 = 33.7       # a1 coefficient, (-)
     a2 = 0.0408     # a2 coefficient, (-)
@@ -133,14 +148,19 @@ def umfRich(dp, rhog, rhop, ug):
 
     Parameters
     ----------
-    dp = diameter of bed particle, m
-    rhog = density of gas, kg/m^3
-    rhop = density of bed particle, kg/m^3
-    ug = viscosity of gas, kg/ms
+    dp : float
+        Diameter of bed particle [m]
+    rhog : float
+        Density of gas [kg/m^3]
+    rhop : float
+        Density of bed particle [kg/m^3]
+    ug : float
+        Viscosity of gas [kg/ms]
 
     Returns
     -------
-    umf = minimum fluidization velocity, m/s
+    umf : float
+        Minimum fluidization velocity [m/s]
     """
     a1 = 25.7       # a1 coefficient, (-)
     a2 = 0.0365     # a2 coefficient, (-)
@@ -162,14 +182,19 @@ def umfSaxVog(dp, rhog, rhop, ug):
 
     Parameters
     ----------
-    dp = diameter of bed particle, m
-    rhog = density of gas, kg/m^3
-    rhop = density of bed particle, kg/m^3
-    ug = viscosity of gas, kg/ms
+    dp : float
+        Diameter of bed particle [m]
+    rhog : float
+        Density of gas [kg/m^3]
+    rhop : float
+        Density of bed particle [kg/m^3]
+    ug : float
+        Viscosity of gas [kg/ms]
 
     Returns
     -------
-    umf = minimum fluidization velocity, m/s
+    umf : float
+        Minimum fluidization velocity [m/s]
     """
     a1 = 25.3       # a1 coefficient, (-)
     a2 = 0.0571     # a2 coefficient, (-)
@@ -188,14 +213,19 @@ def umfBabu(dp, rhog, rhop, ug):
 
     Parameters
     ----------
-    dp = diameter of bed particle, m
-    rhog = density of gas, kg/m^3
-    rhop = density of bed particle, kg/m^3
-    ug = viscosity of gas, kg/ms
+    dp : float
+        Diameter of bed particle [m]
+    rhog : float
+        Density of gas [kg/m^3]
+    rhop : float
+        Density of bed particle [kg/m^3]
+    ug : float
+        Viscosity of gas [kg/ms]
 
     Returns
     -------
-    umf = minimum fluidization velocity, m/s
+    umf : float
+        Minimum fluidization velocity [m/s]
     """
     a1 = 25.3       # a1 coefficient, (-)
     a2 = 0.0651     # a2 coefficient, (-)
@@ -214,14 +244,19 @@ def umfGrace(dp, rhog, rhop, ug):
 
     Parameters
     ----------
-    dp = diameter of bed particle, m
-    rhog = density of gas, kg/m^3
-    rhop = density of bed particle, kg/m^3
-    ug = viscosity of gas, kg/ms
+    dp : float
+        Diameter of bed particle [m]
+    rhog : float
+        Density of gas [kg/m^3]
+    rhop : float
+        Density of bed particle [kg/m^3]
+    ug : float
+        Viscosity of gas [kg/ms]
 
     Returns
     -------
-    umf = minimum fluidization velocity, m/s
+    umf : float
+        Minimum fluidization velocity [m/s]
     """
     a1 = 27.2       # a1 coefficient, (-)
     a2 = 0.0408     # a2 coefficient, (-)
@@ -240,14 +275,19 @@ def umfChit(dp, rhog, rhop, ug):
 
     Parameters
     ----------
-    dp = diameter of bed particle, m
-    rhog = density of gas, kg/m^3
-    rhop = density of bed particle, kg/m^3
-    ug = viscosity of gas, kg/ms
+    dp : float
+        Diameter of bed particle [m]
+    rhog : float
+        Density of gas [kg/m^3]
+    rhop : float
+        Density of bed particle [kg/m^3]
+    ug : float
+        Viscosity of gas [kg/ms]
 
     Returns
     -------
-    umf = minimum fluidization velocity, m/s
+    umf : float
+        Minimum fluidization velocity [m/s]
     """
     a1 = 28.7       # a1 coefficient, (-)
     a2 = 0.0494     # a2 coefficient, (-)
@@ -266,16 +306,23 @@ def umfErgun(dp, ep, phi, rhog, rhop, ug):
 
     Parameters
     ----------
-    dp = diameter of bed particle, m
-    ep = void fraction, (-)
-    phi = sphericity of bed particle, (-)
-    rhog = density of gas, kg/m^3
-    rhop = density of bed particle, kg/m^3
-    ug = viscosity of gas, kg/ms
+    dp : float
+        Diameter of bed particle [m]
+    ep : float
+        Void fraction [-]
+    phi : float
+        Sphericity of bed particle [-]
+    rhog : float
+        Density of gas [kg/m^3]
+    rhop : float
+        Density of bed particle [kg/m^3]
+    ug : float
+        Viscosity of gas [kg/ms]
 
     Returns
     -------
-    umf = minimum fluidization velocity, m/s
+    umf : float
+        Minimum fluidization velocity [m/s]
     """
     g = 9.81                                # gravity, m/s^2
     K1 = 1.75 / (ep**3 * phi)               # K1 term, (-)
@@ -297,15 +344,21 @@ def umfLargeRe(dp, ep, phi, rhog, rhop):
 
     Parameters
     ----------
-    dp = diameter of bed particle, m
-    ep = void fraction, (-)
-    phi = sphericity of bed particle, (-)
-    rhog = density of gas, kg/m^3
-    rhop = density of bed particle, kg/m^3
+    dp : float
+        Diameter of bed particle [m]
+    ep : float
+        Void fraction [-]
+    phi : float
+        Sphericity of bed particle [-]
+    rhog : float
+        Density of gas [kg/m^3]
+    rhop : float
+        Density of bed particle [kg/m^3]
 
     Returns
     -------
-    umf = minimum fluidization velocity, m/s
+    umf : float
+        Minimum fluidization velocity [m/s]
     """
     g = 9.81    # gravity, m/s^2
     umf = np.sqrt((dp * (rhop - rhog) * g * ep**3 * phi) / (1.75 * rhog))
@@ -319,16 +372,23 @@ def umfSmallRe(dp, ep, phi, rhog, rhop, ug):
 
     Parameters
     ----------
-    dp = diameter of bed particle, m
-    ep = void fraction, (-)
-    phi = sphericity of bed particle, (-)
-    rhog = density of gas, kg/m^3
-    rhop = density of bed particle, kg/m^3
-    ug = viscosity of gas, kg/ms
+    dp : float
+        Diameter of bed particle [m]
+    ep : float
+        Void fraction [-]
+    phi : float
+        Sphericity of bed particle [-]
+    rhog : float
+        Density of gas [kg/m^3]
+    rhop : float
+        Density of bed particle [kg/m^3]
+    ug : float
+        Viscosity of gas [kg/ms]
 
     Returns
     -------
-    umf = minimum fluidization velocity, m/s
+    umf : float
+        Minimum fluidization velocity [m/s]
     """
     g = 9.81    # gravity, m/s^2
     umf = ((dp**2*(rhop-rhog)*g)/(150 * ug)) * ((ep**3 * phi**2) / (1 - ep))
@@ -345,20 +405,27 @@ def dbMoriWen(z, us, umf, d_bed, l_or, distributor_type):
 
     Parameters
     ----------
-    z = height of the bubble along the vertical axis of the bed, m
-    us = superficial velocity of the gas, m/s
-    umf = minimum fluidization velocity, m/s
-    d_bed = bed diameter, m
-    l_or = orifice spacing, m (only if perforated plate distributor used)
-    distributor_type = type of distributor plate: options are
+    z : float
+        Height of the bubble along the vertical axis of the bed [m]
+    us : float
+        Superficial velocity of the gas [m/s]
+    umf : float
+        Minimum fluidization velocity [m/s]
+    d_bed : float
+        Bed diameter [m]
+    l_or : float
+        Orifice spacing [m] (only if perforated plate distributor used)
+    distributor_type : string
+        Type of distributor plate
+        Options are
         'perf_sq' = perforated, square arrangement of orifices
         'perf_tri' = perforated, triangular arrangement of orifices
-        'porous' = porous (equivalent to perforated triangular arrangement of
-            tiny orifices)
+        'porous' = porous (equivalent to perforated triangular arrangement of tiny orifices)
 
     Returns
     -------
-    db = equivalent bubble diameter at the specified z position, m
+    db : float
+        Equivalent bubble diameter at the specified z position [m]
     """
 
     # Constants
@@ -430,13 +497,17 @@ def ubMoriWen(us, umf, db):
 
     Parameters
     ----------
-    us = superficial gas velocity, m/s
-    umf = minimum fluidization velocity, m/s
-    db = bubble diameter, m
+    us : float
+        Superficial gas velocity [m/s]
+    umf : float
+        Minimum fluidization velocity [m/s]
+    db : float
+        Bubble diameter [m]
 
     Returns
     -------
-    ub = bubble rise velocity, m/s
+    ub : float
+        Bubble rise velocity [m/s]
     """
 
     # Constants
@@ -459,15 +530,21 @@ def ueGas(ub, umf, emf, delta, fw):
 
     Parameters
     ----------
-    ub = bubble rise velocity (m/s)
-    umf = minimum fluidization velocity (m/s)
-    emf = void fraction at minimum fluidization
-    delta = fraction of bed volume in bubbles (-)
-    fw = ratio of wake volume to bubble volume (-)
+    ub : float
+        Bubble rise velocity [m/s]
+    umf : float
+        Minimum fluidization velocity [m/s]
+    emf : float
+        Void fraction at minimum fluidization [-]
+    delta : float
+        Fraction of bed volume in bubbles [-]
+    fw : float
+        Ratio of wake volume to bubble volume [-]
 
     Returns
     -------
-    ue = emulsion gas velocity (m/s)
+    ue : float
+        Emulsion gas velocity [m/s]
     """
 
     ue = umf / emf - fw * delta * ub / (1 - delta - fw * delta)
@@ -481,17 +558,24 @@ def bubbleFraction(ub, us, umf, emf):
 
     Parameters
     ----------
-    ub = bubble rise velocity (m/s, cm/s, etc.)
-    us = superficial gas velocity (m/s, cm/s, etc.)
-    umf = minimum fluidization velocity (m/s, cm/s, etc.)
-    emf = minimum fluidization void fraction (-)
+    ub : float
+        Bubble rise velocity [m/s, cm/s, etc.]
+    us : float
+        Superficial gas velocity [m/s, cm/s, etc.]
+    umf : float
+        Minimum fluidization velocity [m/s, cm/s, etc.]
+    emf : float
+        Minimum fluidization void fraction [-]
 
-    NOTE: Units are not important, provided they are consistent, as the
-    calculation returns a dimensionless quantity.
+    Note
+    ----
+    Units are not important, provided they are consistent, as the calculation
+    returns a dimensionless quantity.
 
     Returns
     -------
-    delta = the fraction of the total bed volume that is in bubbles.
+    delta : float
+     Fraction of the total bed volume that is in bubbles [-]
     """
 
     # Velocity of gas in the emulsion -- used to decide which regime we are in
@@ -522,19 +606,29 @@ def solidsDistribution(delta, emf, umf, ub, fw):
 
     Parameters
     ----------
-    delta = volume fraction of gas in the bubbles (-)
-    emf = void fraction at minimum fluidization (-)
-    umf = minimum fluidization velocity (m/s)
-    ub = bubble rise velocity (m/s)
-    fw = ratio of the wake volume to the bubble volume
+    delta : float
+        Volume fraction of gas in the bubbles [-]
+    emf : float
+        Void fraction at minimum fluidization [-]
+    umf : float
+        Minimum fluidization velocity [m/s]
+    ub : float
+        Bubble rise velocity [m/s]
+    fw : float
+        Ratio of the wake volume to the bubble volume [-]
+
+    Note
+    ----
+    gamma_b is for the moment a hard-coded constant. See K/L eq. 6.37.
 
     Returns
     -------
-    gamma_b = volume of solids in the bubble divided by the bubble volume
-    gamma_c = volume of solids in the cloud/wake divided by the bubble volume
-    gamma_e = volume of solids in the emulsion divided by the bubble volume
-
-    NOTE: gamma_b is for the moment a hard-coded constant. See K/L eq. 6.37.
+    gamma_b : float
+        Volume of solids in the bubble divided by the bubble volume
+    gamma_c : float
+        Volume of solids in the cloud/wake divided by the bubble volume
+    gamma_e : float
+        Volume of solids in the emulsion divided by the bubble volume
     """
 
     gamma_b = 0.005
@@ -550,19 +644,26 @@ def massTransferCoeff(umf, emf, db, ub, diff, approx=True, method=None):
 
     Parameters
     ----------
-    umf = minimum fluidization velocity (m/s)
-    emf = void fraction at minimum fluidization (-)
-    db = bubble diameter (m)
-    ub = bubble rise velocity (m/s)
-    diff = diffusion coefficient (m^2/s)
-    approx = boolean controlling whether to use a simpler expression that does
-        not employ the diffusion coefficient
-    method = correlation to use -- either 'KL' (Kunii-Levenspiel) or 'SG'
-        (Sit-Grace)
+    umf : float
+        Minimum fluidization velocity [m/s]
+    emf : float
+        Void fraction at minimum fluidization [-]
+    db : float
+        Bubble diameter [m]
+    ub : float
+        Bubble rise velocity [m/s]
+    diff : float
+        Diffusion coefficient [m^2/s]
+    approx : boolean
+        Control whether to use a simpler expression that does not employ the
+        diffusion coefficient
+    method : string
+        Correlation to use as either KL for Kunii-Levenspiel or SG for Sit-Grace
 
     Returns
     -------
-    kbe = the rate constant (s^-1) for exchanging gas between the bubble and the
+    kbe : float
+        Rate constant (s^-1) for exchanging gas between the bubble and the
         emulsion
     """
 
@@ -611,17 +712,25 @@ def uTerminal(dp, rhog, rhop, ug, phi):
 
     Parameters
     ----------
-    dp = diameter of the particle (m)
-    rhog = gas mass density (kg/m^3)
-    rhop = particle mass density (kg/m^3)
-    ug = gas dynamic viscosity (kg/m/s)
-    phi = particle sphericity (-)
+    dp : float
+        Diameter of the particle [m]
+    rhog : float
+        Gas mass density [kg/m^3]
+    rhop : float
+        Particle mass density [kg/m^3]
+    ug : float
+        Gas dynamic viscosity [kg/m/s]
+    phi : float
+        Particle sphericity [-]
 
-    NOTE: This calculation is only valid if 0.5 < phi < 1
+    Note
+    ----
+    This calculation is only valid if 0.5 < phi < 1
 
     Returns
     -------
-    ut = terminal velocity (m/s) of the particle
+    ut : float
+        Terminal velocity of the particle [m/s]
     """
 
     # Constants
@@ -651,16 +760,23 @@ def solidsFluxWenChen(db, dt, umf, us, rhog, ug):
 
     Parameters
     ----------
-    db = bubble diameter (m)
-    dt = bed/tank diameter (m)
-    umf = minimum fluidization velocity (m/s)
-    us = superficial velocity (m/s)
-    rhog = gas mass density (kg/m^3)
-    ug = gas viscosity (kg/m/s)
+    db : float
+        Bubble diameter [m]
+    dt : float
+        Bed/tank diameter [m]
+    umf : float
+        Minimum fluidization velocity [m/s]
+    us : float
+        Superficial velocity [m/s]
+    rhog : float
+        Gas mass density [kg/m^3]
+    ug : float
+        Gas viscosity [kg/m/s]
 
     Returns
     -------
-    F0 = the mass flux of entrained solids (kg/m^2/s)
+    F0 : float
+        Mass flux of entrained solids [kg/m^2/s]
     """
 
     g = 9.81    # m/s^2
@@ -687,15 +803,21 @@ def solidsFluxPembNose(dp, db, emf, umf, us):
 
     Parameters
     ----------
-    dp = particle diameter (m)
-    db = bubble diameter (m)
-    emf = void fraction at minimum fluidization (-)
-    umf = minimum fluidization velocity (m/s)
-    us = superficial gas velocity (m/s)
+    dp : float
+        Particle diameter [m]
+    db : float
+        Bubble diameter [m]
+    emf : float
+        Void fraction at minimum fluidization [-]
+    umf : float
+        Minimum fluidization velocity [m/s]
+    us : float
+        Superficial gas velocity [m/s]
 
     Returns
     -------
-    F0 = solids entrainment flux at the top of the bed (kg/m^2/s)
+    F0 : float
+        Solids entrainment flux at the top of the bed [kg/m^2/s]
     """
 
     F0 = 3.0 * dp / db * (1 - emf) * (us - umf)
@@ -711,14 +833,19 @@ def solidsFluxPembWake(rhop, emf, umf, us):
 
     Parameters
     ----------
-    rhop = mass density of the particles
-    emf = void fraction at minimum fluidization (-)
-    umf = minimum fluidization velocity (m/s)
-    us = superficial gas velocity (m/s)
+    rhop : float
+        Mass density of the particles
+    emf : float
+        Void fraction at minimum fluidization [-]
+    umf : float
+        Minimum fluidization velocity [m/s]
+    us : float
+        Superficial gas velocity [m/s]
 
     Returns
     -------
-    F0 = solids entrainment flux at the top of the bed (kg/m^2/s)
+    F0 : float
+        Solids entrainment flux at the top of the bed [kg/m^2/s]
     """
 
     F0 = 0.1 * rhop * (1 - emf) * (us - umf)
@@ -732,12 +859,15 @@ def solidsMassFlow(F0, A):
 
     Parameters
     ----------
-    F0 = mass flux (kg/m^2/s)
-    A = cross-sectional area (m^2)
+    F0 : float
+        Mass flux [kg/m^2/s]
+    A : float
+        Cross-sectional area [m^2]
 
     Returns
     -------
-    mdot = mass flow rate (kg/s)
+    mdot : float
+        Mass flow rate [kg/s]
     """
 
     mdot = F0 * A
@@ -753,12 +883,14 @@ def tdhDecayConstant(dp):
 
     Parameters
     ----------
-    dp = particle diameter (m)
+    dp : float
+        Particle diameter [m]
 
     Returns
     -------
-    a_us = the transport disengagement decay constant (1/m) multiplied by the
-        superficial velocity (m/s) for a product with units (1/s)
+    a_us : float
+        Transport disengagement decay constant (1/m) multiplied by the
+        superficial velocity (m/s) for a product with units [1/s]
     """
 
     # This is the raw data that we use to fit the trend line to. It has been
@@ -785,17 +917,20 @@ def tdhDecayConstant(dp):
 def tdhHeight(a, x):
     """
     Calculates the transport disengagement height for the specified decay
-    constant and fraction of upward solids flux at that height. It assumes total
-    reflux (no solids elutriation).
+    constant and fraction of upward solids flux at that height. It assumes
+    total reflux (no solids elutriation).
 
     Parameters
     ----------
-    a = decay constant (1/m)
-    x = fraction of entrained solids at the TDH (-)
+    a : float
+        Decay constant [1/m]
+    x : float
+        Fraction of entrained solids at the TDH [-]
 
     Returns
     -------
-    tdh = transport disengagement height (m)
+    tdh : float
+        Transport disengagement height [m]
     """
 
     tdh = -log(x) / a

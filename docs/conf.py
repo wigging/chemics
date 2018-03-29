@@ -99,6 +99,9 @@ html_theme = 'alabaster'
 #
 html_theme_options = {
     'description': 'Description goes here.',
+    'github_user': 'ccpcode',
+    'github_repo': 'chemics',
+    'github_type': 'star',
 }
 
 # Add any paths that contain custom static files (such as style sheets) here,
