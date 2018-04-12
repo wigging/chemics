@@ -49,6 +49,10 @@ conductivity, and viscosity.
 
 Tests are implemented with the [pytest](https://docs.pytest.org/en/latest/) framework. To avoid creating cache folders, run the tests with the following command: `pytest -p no:cacheprovider`
 
+## Documentation
+
+[Sphinx](http://www.sphinx-doc.org/en/stable/index.html) is used to build the documentation for the chemics package using RST files and the autodoc extension. All Sphinx files are contained in the `sphinx/` folder. After building the HTML files, run the `move_sphinx_html.sh` script. This will move the HTML to the `docs/` folder which is used by GitHub to host the documentation website.
+
 ## License
 
 This Python package is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
