@@ -34,7 +34,7 @@
 <span></span><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
 
 
-<div class="viewcode-block" id="k_n2"><a class="viewcode-back" href="../../gas.html#chemics.gas.k_n2">[docs]</a><span class="k">def</span> <span class="nf">k_n2</span><span class="p">(</span><span class="n">T</span><span class="p">):</span>
+<div class="viewcode-block" id="k_n2"><a class="viewcode-back" href="../../gas.html#chemics.k_n2">[docs]</a><span class="k">def</span> <span class="nf">k_n2</span><span class="p">(</span><span class="n">T</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Equation for thermal conductivity of nitrogen gas, N2, as a function of</span>
 <span class="sd">    temperature based on formula from Yaw&#39;s online reference [#yaw1]_. Valid at</span>
@@ -60,7 +60,7 @@
 
 <span class="sd">    References</span>
 <span class="sd">    ----------</span>
-<span class="sd">    .. [#yaw1] Yaw&#39;s Transport Properties of Chemicals and Hydrocarbons.</span>
+<span class="sd">    .. [#yaw1] Yaws&#39; Transport Properties of Chemicals and Hydrocarbons.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="n">A</span> <span class="o">=</span> <span class="o">-</span><span class="mf">0.000226779</span>
     <span class="n">B</span> <span class="o">=</span> <span class="mf">0.000102746</span>
@@ -70,11 +70,11 @@
     <span class="k">return</span> <span class="n">k</span></div>
 
 
-<div class="viewcode-block" id="k_o2"><a class="viewcode-back" href="../../gas.html#chemics.gas.k_o2">[docs]</a><span class="k">def</span> <span class="nf">k_o2</span><span class="p">(</span><span class="n">T</span><span class="p">):</span>
+<div class="viewcode-block" id="k_o2"><a class="viewcode-back" href="../../gas.html#chemics.k_o2">[docs]</a><span class="k">def</span> <span class="nf">k_o2</span><span class="p">(</span><span class="n">T</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Equation for thermal conductivity of oxygen gas, O2, as a function of</span>
 <span class="sd">    temperature based on formula from Yaw&#39;s online reference [#yaw2]_. Valid at</span>
-<span class="sd">    temperatures from 80-2000 K.</span>
+<span class="sd">    temperatures from 80 K to 2000 K.</span>
 
 <span class="sd">    .. math::</span>
 <span class="sd">       k_{O_2} = A + B*T + C*T^2 + D*T^3</span>
@@ -96,7 +96,7 @@
 
 <span class="sd">    References</span>
 <span class="sd">    ----------</span>
-<span class="sd">    .. [#yaw2] Yaw&#39;s Transport Properties of Chemicals and Hydrocarbons.</span>
+<span class="sd">    .. [#yaw2] Yaws&#39; Transport Properties of Chemicals and Hydrocarbons.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="n">A</span> <span class="o">=</span> <span class="mf">0.000154746</span>
     <span class="n">B</span> <span class="o">=</span> <span class="mf">9.41534E-05</span>
@@ -106,49 +106,91 @@
     <span class="k">return</span> <span class="n">k</span></div>
 
 
-<div class="viewcode-block" id="mug_n2"><a class="viewcode-back" href="../../gas.html#chemics.gas.mug_n2">[docs]</a><span class="k">def</span> <span class="nf">mug_n2</span><span class="p">(</span><span class="n">T</span><span class="p">):</span>
+<div class="viewcode-block" id="mu_h2"><a class="viewcode-back" href="../../gas.html#chemics.mu_h2">[docs]</a><span class="k">def</span> <span class="nf">mu_h2</span><span class="p">(</span><span class="n">T</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">    Equation for viscosity of nitrogen gas, N2, as a function of temperature.</span>
-<span class="sd">    Valid at nitrogen gas temperatures from 150-1500 K. Based on Ludwig&#39;s 4th</span>
-<span class="sd">    edition book [#ludwig]_.</span>
+<span class="sd">    Calculate viscosity of hydrogen gas, H2, as a function of temperture. Valid</span>
+<span class="sd">    at temperatures from 15 K to 1500 K. Equation and coefficients from Yaws&#39;</span>
+<span class="sd">    Handbook [#yaw3]_.</span>
 
 <span class="sd">    .. math::</span>
-<span class="sd">       \\mu_{g_{N_2}} = A + B*T + C*T^2</span>
+<span class="sd">       \\mu_{H_2} = A + B \\cdot T + C \\cdot T^2 + D \\cdot T^3</span>
 
 <span class="sd">    Parameters</span>
 <span class="sd">    ----------</span>
 <span class="sd">    T : float</span>
-<span class="sd">        Tempreature of gas [K]</span>
+<span class="sd">       Temperature of hydrogen gas [K]</span>
 
 <span class="sd">    Returns</span>
 <span class="sd">    -------</span>
-<span class="sd">    mug : float</span>
-<span class="sd">        Viscosity of nitrogen gas [uP micropoise]</span>
+<span class="sd">    mu : float</span>
+<span class="sd">        Viscosity of hydrogen gas in micropoise [uP]</span>
 
 <span class="sd">    Examples</span>
 <span class="sd">    --------</span>
 <span class="sd">    .. code-block:: python</span>
 
 <span class="sd">        # in units of micropoise, uP</span>
-<span class="sd">        &gt;&gt;&gt; mug_n2(773)</span>
-<span class="sd">        350.74</span>
-<span class="sd">        # in units of kilogram per meter per second, kg/(ms)</span>
-<span class="sd">        &gt;&gt;&gt; mug_n2(773) / 1e7</span>
-<span class="sd">        3.5074e-05</span>
+<span class="sd">        &gt;&gt;&gt; mu_h2(773)</span>
+<span class="sd">        179.73</span>
+<span class="sd">        # in units of kilogram per meter per second, kg/(m s)</span>
+<span class="sd">        &gt;&gt;&gt; mu_h2(773) / 1e7</span>
+<span class="sd">        1.79e-05</span>
 
 <span class="sd">    References</span>
 <span class="sd">    ----------</span>
-<span class="sd">    .. [#ludwig] Ludwig&#39;s Applied Process Design for Chemical and Petrochemical</span>
-<span class="sd">       Plants, Volume 1, 4th Edition.</span>
+<span class="sd">    .. [#yaw3] Yaws&#39; Handbook of Properties of the Chemical Elements.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
-    <span class="n">A</span> <span class="o">=</span> <span class="mf">42.606</span>
-    <span class="n">B</span> <span class="o">=</span> <span class="mf">4.75e-1</span>
-    <span class="n">C</span> <span class="o">=</span> <span class="o">-</span><span class="mf">9.88e-5</span>
-    <span class="n">mug</span> <span class="o">=</span> <span class="n">A</span> <span class="o">+</span> <span class="n">B</span><span class="o">*</span><span class="n">T</span> <span class="o">+</span> <span class="n">C</span><span class="o">*</span><span class="n">T</span><span class="o">**</span><span class="mi">2</span>
-    <span class="k">return</span> <span class="n">mug</span></div>
+    <span class="n">a</span> <span class="o">=</span> <span class="mf">1.761132</span>
+    <span class="n">b</span> <span class="o">=</span> <span class="mf">0.341654</span>
+    <span class="n">c</span> <span class="o">=</span> <span class="o">-</span><span class="mf">0.000183676</span>
+    <span class="n">d</span> <span class="o">=</span> <span class="mf">5.114748e-8</span>
+    <span class="n">mu</span> <span class="o">=</span> <span class="n">a</span> <span class="o">+</span> <span class="p">(</span><span class="n">b</span> <span class="o">*</span> <span class="n">T</span><span class="p">)</span> <span class="o">+</span> <span class="p">(</span><span class="n">c</span> <span class="o">*</span> <span class="n">T</span><span class="o">**</span><span class="mi">2</span><span class="p">)</span> <span class="o">+</span> <span class="p">(</span><span class="n">d</span> <span class="o">*</span> <span class="n">T</span><span class="o">**</span><span class="mi">3</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">mu</span></div>
 
 
-<div class="viewcode-block" id="patm"><a class="viewcode-back" href="../../gas.html#chemics.gas.patm">[docs]</a><span class="k">def</span> <span class="nf">patm</span><span class="p">(</span><span class="n">alt</span><span class="p">):</span>
+<div class="viewcode-block" id="mu_n2"><a class="viewcode-back" href="../../gas.html#chemics.mu_n2">[docs]</a><span class="k">def</span> <span class="nf">mu_n2</span><span class="p">(</span><span class="n">T</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Calculate viscosity of nitrogen gas, N2, as a function of temperature.</span>
+<span class="sd">    Valid at temperatures from 63.15 K to 1970 K. Equation and coefficients</span>
+<span class="sd">    from Yaws&#39; Handbook [#yaw4]_.</span>
+
+<span class="sd">    .. math::</span>
+<span class="sd">       \\mu_{N_2} = A + B \\cdot T + C \\cdot T^2 + D \\cdot T^3</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    T : float</span>
+<span class="sd">        Tempreature of nitrogen gas [K]</span>
+
+<span class="sd">    Returns</span>
+<span class="sd">    -------</span>
+<span class="sd">    mug : float</span>
+<span class="sd">        Viscosity of nitrogen gas in micropoise [uP]</span>
+
+<span class="sd">    Examples</span>
+<span class="sd">    --------</span>
+<span class="sd">    .. code-block:: python</span>
+
+<span class="sd">        # in units of micropoise, uP</span>
+<span class="sd">        &gt;&gt;&gt; mu_n2(773)</span>
+<span class="sd">        363.82</span>
+<span class="sd">        # in units of kilogram per meter per second, kg/(ms)</span>
+<span class="sd">        &gt;&gt;&gt; mu_n2(773) / 1e7</span>
+<span class="sd">        3.63e-05</span>
+
+<span class="sd">    References</span>
+<span class="sd">    ----------</span>
+<span class="sd">    .. [#yaw4] Yaws&#39; Handbook of Properties of the Chemical Elements.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">a</span> <span class="o">=</span> <span class="mf">4.465557</span>
+    <span class="n">b</span> <span class="o">=</span> <span class="mf">0.638137</span>
+    <span class="n">c</span> <span class="o">=</span> <span class="o">-</span><span class="mf">0.000265956</span>
+    <span class="n">d</span> <span class="o">=</span> <span class="mf">5.411268e-8</span>
+    <span class="n">mu</span> <span class="o">=</span> <span class="n">a</span> <span class="o">+</span> <span class="p">(</span><span class="n">b</span> <span class="o">*</span> <span class="n">T</span><span class="p">)</span> <span class="o">+</span> <span class="p">(</span><span class="n">c</span> <span class="o">*</span> <span class="n">T</span><span class="o">**</span><span class="mi">2</span><span class="p">)</span> <span class="o">+</span> <span class="p">(</span><span class="n">d</span> <span class="o">*</span> <span class="n">T</span><span class="o">**</span><span class="mi">3</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">mu</span></div>
+
+
+<div class="viewcode-block" id="patm"><a class="viewcode-back" href="../../gas.html#chemics.patm">[docs]</a><span class="k">def</span> <span class="nf">patm</span><span class="p">(</span><span class="n">alt</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Determine atmospheric pressure at altitudes up to 51 km. Based on article</span>
 <span class="sd">    by Roland Stull [#stull]_.</span>
@@ -196,7 +238,7 @@
     <span class="k">return</span> <span class="n">Patm</span></div>
 
 
-<div class="viewcode-block" id="rhog"><a class="viewcode-back" href="../../gas.html#chemics.gas.rhog">[docs]</a><span class="k">def</span> <span class="nf">rhog</span><span class="p">(</span><span class="n">mw</span><span class="p">,</span> <span class="n">Pgas</span><span class="p">,</span> <span class="n">Tgas</span><span class="p">):</span>
+<div class="viewcode-block" id="rhog"><a class="viewcode-back" href="../../gas.html#chemics.rhog">[docs]</a><span class="k">def</span> <span class="nf">rhog</span><span class="p">(</span><span class="n">mw</span><span class="p">,</span> <span class="n">Pgas</span><span class="p">,</span> <span class="n">Tgas</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Calculate gas density from molecular weight, pressure, and temperature.</span>
 

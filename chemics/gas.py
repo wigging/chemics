@@ -27,7 +27,7 @@ def k_n2(T):
 
     References
     ----------
-    .. [#yaw1] Yaw's Transport Properties of Chemicals and Hydrocarbons.
+    .. [#yaw1] Yaws' Transport Properties of Chemicals and Hydrocarbons.
     """
     A = -0.000226779
     B = 0.000102746
@@ -41,7 +41,7 @@ def k_o2(T):
     """
     Equation for thermal conductivity of oxygen gas, O2, as a function of
     temperature based on formula from Yaw's online reference [#yaw2]_. Valid at
-    temperatures from 80-2000 K.
+    temperatures from 80 K to 2000 K.
 
     .. math::
        k_{O_2} = A + B*T + C*T^2 + D*T^3
@@ -63,7 +63,7 @@ def k_o2(T):
 
     References
     ----------
-    .. [#yaw2] Yaw's Transport Properties of Chemicals and Hydrocarbons.
+    .. [#yaw2] Yaws' Transport Properties of Chemicals and Hydrocarbons.
     """
     A = 0.000154746
     B = 9.41534E-05
@@ -73,46 +73,88 @@ def k_o2(T):
     return k
 
 
-def mug_n2(T):
+def mu_h2(T):
     """
-    Equation for viscosity of nitrogen gas, N2, as a function of temperature.
-    Valid at nitrogen gas temperatures from 150-1500 K. Based on Ludwig's 4th
-    edition book [#ludwig]_.
+    Calculate viscosity of hydrogen gas, H2, as a function of temperture. Valid
+    at temperatures from 15 K to 1500 K. Equation and coefficients from Yaws'
+    Handbook [#yaw3]_.
 
     .. math::
-       \\mu_{g_{N_2}} = A + B*T + C*T^2
+       \\mu_{H_2} = A + B \\cdot T + C \\cdot T^2 + D \\cdot T^3
 
     Parameters
     ----------
     T : float
-        Tempreature of gas [K]
+       Temperature of hydrogen gas [K]
 
     Returns
     -------
-    mug : float
-        Viscosity of nitrogen gas [uP micropoise]
+    mu : float
+        Viscosity of hydrogen gas in micropoise [uP]
 
     Examples
     --------
     .. code-block:: python
 
         # in units of micropoise, uP
-        >>> mug_n2(773)
-        350.74
-        # in units of kilogram per meter per second, kg/(ms)
-        >>> mug_n2(773) / 1e7
-        3.5074e-05
+        >>> mu_h2(773)
+        179.73
+        # in units of kilogram per meter per second, kg/(m s)
+        >>> mu_h2(773) / 1e7
+        1.79e-05
 
     References
     ----------
-    .. [#ludwig] Ludwig's Applied Process Design for Chemical and Petrochemical
-       Plants, Volume 1, 4th Edition.
+    .. [#yaw3] Yaws' Handbook of Properties of the Chemical Elements.
     """
-    A = 42.606
-    B = 4.75e-1
-    C = -9.88e-5
-    mug = A + B*T + C*T**2
-    return mug
+    a = 1.761132
+    b = 0.341654
+    c = -0.000183676
+    d = 5.114748e-8
+    mu = a + (b * T) + (c * T**2) + (d * T**3)
+    return mu
+
+
+def mu_n2(T):
+    """
+    Calculate viscosity of nitrogen gas, N2, as a function of temperature.
+    Valid at temperatures from 63.15 K to 1970 K. Equation and coefficients
+    from Yaws' Handbook [#yaw4]_.
+
+    .. math::
+       \\mu_{N_2} = A + B \\cdot T + C \\cdot T^2 + D \\cdot T^3
+
+    Parameters
+    ----------
+    T : float
+        Tempreature of nitrogen gas [K]
+
+    Returns
+    -------
+    mug : float
+        Viscosity of nitrogen gas in micropoise [uP]
+
+    Examples
+    --------
+    .. code-block:: python
+
+        # in units of micropoise, uP
+        >>> mu_n2(773)
+        363.82
+        # in units of kilogram per meter per second, kg/(ms)
+        >>> mu_n2(773) / 1e7
+        3.63e-05
+
+    References
+    ----------
+    .. [#yaw4] Yaws' Handbook of Properties of the Chemical Elements.
+    """
+    a = 4.465557
+    b = 0.638137
+    c = -0.000265956
+    d = 5.411268e-8
+    mu = a + (b * T) + (c * T**2) + (d * T**3)
+    return mu
 
 
 def patm(alt):
