@@ -17,20 +17,26 @@ The [Anaconda](https://www.anaconda.com/download/) or [Miniconda](https://conda.
 - Python 3
 - NumPy
 
-### Installation
+### Installation and Usage
 
-Copy the `chemics/` folder to your Python project.
+Several options are available to install the chemics package.
 
-### Usage
+Download from GitHub
+1. download or clone this repository from GitHub
+2. copy the chemics subfolder into your Python project
 
-Functions in the chemics package are called with the usual dot syntax for accessing module features. For example:
+Install locally with pip
+1. download or clone this repository from GitHub
+2. from within the chemics folder, run `pip install -e .` to install the package to your local machine
+
+Options to install from [PyPi](https://pypi.org) via `pip` and from [Anaconda](https://anaconda.org) via `conda` will be available soon.
+
+Functions in the chemics package are called with the usual dot syntax for accessing module features. The example below calculates the density of a gas based on its molecular weight, pressure, and temperature.
 
 ```python
 import chemics as cm
 cm.rhog(28, 170100, 773)
 ```
-
-calculates the density of a gas based on its molecular weight, pressure, and temperature.
 
 ## Modules
 
