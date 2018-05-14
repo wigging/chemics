@@ -1,135 +1,8 @@
 """
-Velocity
-========
-
-See doc string and comments in each function for more details.
-
-Terminal Velocity
------------------
-ut
-ut_ganser
-
-Choking and Transport Velocity
-------------------------------
-utr
-uch_bifan
-uch_leung
-uch_matsen
-uch_psri
-uch_punwani
-uch_yang
-uch_yousfi
-uch_zhang
+Choking and transport velocity
 """
 
 import numpy as np
-
-
-def ut(cd, dp, rhog, rhos):
-    """
-    Terminal velocity of a single particle.
-
-    Parameters
-    ----------
-    cd = drag coefficient, (-)
-    dp = diameter of particle, m
-    rhog = density of gas, kg/m^3
-    rhos = density of solid, kg/m^3
-
-    Return
-    ------
-    Ut = terminal velocity, m/s
-    """
-    g = 9.81  # gravity acceleration, m/s^2
-    tm1 = 4*dp*(rhos - rhog)*g
-    tm2 = 3*dp*cd
-    Ut = (tm1/tm2)**(1/2)
-    return Ut
-
-
-def ut_ganser(dp, mug, rhog, rhos, sp):
-    """
-    Uses Ganser correlation to estimate terminal velocity of a specified
-    particle in a gas with specified properties. According to the Chhabra 1999
-    paper, the Ganser 1993 Cd correlation is applicable for sphericity values
-    from 0.09 to 1. Cd drag coefficient from Ganser 1993 Eq. 18, Cd also
-    referenced in Cui 2007 Eq. 2, and in Chhabra 1999 Eq. 6.
-
-    Parameters
-    ----------
-    dp = particle diameter, m
-    mug = gas viscosity, kg/(m s)
-    rhog = gas density, kg/m^3
-    rhos = solid particle density, kg/m^3
-    sp = sphericity, -
-
-    Returns
-    -------
-    Cd = particle terminal drag coefficient, (-)
-    Re = particle terminal Reynolds number, (-)
-    ut = particle terminal velocity, m/s
-
-    References
-    ----------
-    Ganser, 1993. A rational approach to drag prediction of spherical and
-    nonsperical particles. Powder Technology, 77, 143-152.
-
-    Cui, Grace, 2007. Fluidization of biomass particles: A review of
-    experimental multiphase flow aspects. Chemical Engineering Science, 62,
-    45-55.
-
-    Chhabra, Agarwal, Sinha, 1999. Drag on non-spherical particles: An
-    evaluation of available methods. Powder Technology, 101, 288-295.
-    """
-    g = 9.81    # acceleration from gravity, m/s^2
-
-    # shape factors
-    # papers Cui 2007 and Chhabra 1999 leave out the -2.25*dv/D term
-    K1 = (1/3 + 2/3*(sp**-0.5))**(-1)           # Stokes' shape factor
-    K2 = 10**(1.8148*((-np.log(sp))**0.5743))   # Newton's shape factor
-
-    # guess a range for terminal velocity, m/s
-    ut = np.arange(0.001, 20, 0.001)
-
-    # evaluate drag coefficients for range of ut
-    # Re is Reynolds number, (-)
-    # Cd is Ganser 1993 drag coefficient as function of Re, K1, K2 (-)
-    # Cdd is drag coefficient as function of ut, etc. (-)
-    Re = (dp*rhog*ut)/mug
-    Cd = (24/(Re*K1))*(1 + 0.1118*((Re*K1*K2)**0.6567)) + (0.4305*K2)/(1+(3305/(Re*K1*K2)))
-    Cdd = (4*g*dp*(rhos-rhog))/(3*(ut**2)*rhog)
-
-    delta = np.abs(Cd-Cdd)  # compare difference between Cd and Cdd
-    idx = np.argmin(delta)  # find index of minimum value in delta
-
-    # select values to return based on above index
-    return Cd[idx], Re[idx], ut[idx]
-
-
-def utr(dp, rhog, rhos, mug):
-    """
-    Transport velocity of particles.
-
-    Parameters
-    ----------
-    dp = diameter of particle, m
-    rhog = density of gas, kg/m^3
-    rhos = density of solid particle, kg/m^3
-    mug = viscosity of gas, kg/(m s)
-
-    Returns
-    -------
-    Utr = transport velocity, m/s
-
-    Reference
-    ---------
-    Zhang, Degreve, Dewil, Baeyens, 2015. Operation diagram of Circulating
-    Fluidized Beds. Procedia Engineering 102, 1092-1103.
-    """
-    g = 9.81  # gravitational constant, m/s^2
-    Ar = ((dp**3)*rhog*(rhos-rhog)*g)/(mug**2)  # Archimedes number, (-)
-    Utr = (mug/(dp*rhog))*(3.23 + 0.23*Ar)
-    return Utr
 
 
 def uch_bifan(Ar, dp, G, rhog):
@@ -357,3 +230,27 @@ def uch_zhang(Ar, dp, G, rhog):
     return uch
 
 
+def utr(dp, rhog, rhos, mug):
+    """
+    Transport velocity of particles.
+
+    Parameters
+    ----------
+    dp = diameter of particle, m
+    rhog = density of gas, kg/m^3
+    rhos = density of solid particle, kg/m^3
+    mug = viscosity of gas, kg/(m s)
+
+    Returns
+    -------
+    Utr = transport velocity, m/s
+
+    Reference
+    ---------
+    Zhang, Degreve, Dewil, Baeyens, 2015. Operation diagram of Circulating
+    Fluidized Beds. Procedia Engineering 102, 1092-1103.
+    """
+    g = 9.81  # gravitational constant, m/s^2
+    Ar = ((dp**3)*rhog*(rhos-rhog)*g)/(mug**2)  # Archimedes number, (-)
+    Utr = (mug/(dp*rhog))*(3.23 + 0.23*Ar)
+    return Utr

@@ -111,5 +111,3 @@ def weibull(x, lam, k):
     """
     w = (k/lam)*((x/lam)**(k-1))*np.exp(-(x/lam)**k)
     return w
-
-

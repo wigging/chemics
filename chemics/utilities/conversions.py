@@ -1,41 +1,8 @@
 """
-Utilities
-=========
-
-See doc string and comments in each function for more details.
-
-Functions
----------
-archimedes
-mw_avg
-rho_avg
-dpSauter
-mole2mass
-mass2mole
-slm_to_lpm
+Conversions
 """
 
 import numpy as np
-
-
-def archimedes(dp, rhog, rhos, mug):
-    """
-    Archimedes number as a dimensionless constant.
-
-    Parameters
-    ----------
-    dp = diameter of particle, m
-    rhos = density of solid particle, kg/m^3
-    rhog = density of gas, kg/m^3
-    mug = viscosity of gas, kg/(m s)
-
-    Returns
-    -------
-    Ar = Archimedes number, (-)
-    """
-    g = 9.81    # gravitational constant, m/s^2
-    Ar = ((dp**3)*rhog*(rhos-rhog)*g)/(mug**2)
-    return Ar
 
 
 def mw_avg(mw, mole_fracs=None, mass_fracs=None):
@@ -103,7 +70,7 @@ def dpSauter(dp, mass_fracs):
     return dp_bar
 
 
-def mole2mass(mw, mole_fracs):
+def mole_to_mass(mw, mole_fracs):
     """
     This function converts mole fractions to mass fractions.
 
@@ -126,7 +93,7 @@ def mole2mass(mw, mole_fracs):
     return mass_fracs
 
 
-def mass2mole(mw, mass_fracs):
+def mass_to_mole(mw, mass_fracs):
     """
     This function converts mass fractions to mole fractions.
 
@@ -149,7 +116,7 @@ def mass2mole(mw, mass_fracs):
     return mole_fracs
 
 
-def slm2lpm(slm, pgas, tgas):
+def slm_to_lpm(slm, pgas, tgas):
     """
     Convert volumetric gas flow from standard liters per minute (SLM or SLPM)
     to liters per minute (LPM). Assume STP defined as 273.25 K and 101,325 Pa.
