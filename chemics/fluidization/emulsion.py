@@ -1,5 +1,8 @@
 """
 Emulsion
+--------
+
+Descripton goes here.
 """
 
 from math import pi, sqrt

@@ -1,5 +1,8 @@
 """
 Minimum fluidization velocity
+-----------------------------
+
+Description goes here.
 """
 
 import numpy as np

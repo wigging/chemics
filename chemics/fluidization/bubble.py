@@ -1,5 +1,9 @@
 """
 Bubble
+------
+
+This module contains functions for calculating bubble diameter and bubble
+velocity.
 """
 
 from math import exp, pi, sqrt

@@ -1,0 +1,727 @@
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge" />
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>Fluidization &#8212; Chemics 0.1 documentation</title>
+    <link rel="stylesheet" href="_static/alabaster.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    <script type="text/javascript" src="_static/documentation_options.js"></script>
+    <script type="text/javascript" src="_static/jquery.js"></script>
+    <script type="text/javascript" src="_static/underscore.js"></script>
+    <script type="text/javascript" src="_static/doctools.js"></script>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="Thermodynamics" href="thermodynamics.html" />
+    <link rel="prev" title="Chemics Documentation" href="index.html" />
+   
+  <link rel="stylesheet" href="_static/custom.css" type="text/css" />
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
+
+  </head><body>
+  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <div class="section" id="fluidization">
+<h1>Fluidization<a class="headerlink" href="#fluidization" title="Permalink to this headline">¶</a></h1>
+<p>This subpackage contains modules with functions for fluidization engineering. See the sections below for functions available in each module.</p>
+<span class="target" id="module-chemics.fluidization.bubble"></span><div class="section" id="bubble">
+<h2>Bubble<a class="headerlink" href="#bubble" title="Permalink to this headline">¶</a></h2>
+<p>This module contains functions for calculating bubble diameter and bubble
+velocity.</p>
+<dl class="function">
+<dt id="chemics.fluidization.bubble.bubbleFraction">
+<code class="descclassname">chemics.fluidization.bubble.</code><code class="descname">bubbleFraction</code><span class="sig-paren">(</span><em>ub</em>, <em>us</em>, <em>umf</em>, <em>emf</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/chemics/fluidization/bubble.html#bubbleFraction"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#chemics.fluidization.bubble.bubbleFraction" title="Permalink to this definition">¶</a></dt>
+<dd><p>Calculates the fraction of the bed that is in the bubble phase using K/L
+eqs. 6.26-6.29.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><strong>ub</strong> (<em>float</em>) – Bubble rise velocity [m/s, cm/s, etc.]</li>
+<li><strong>us</strong> (<em>float</em>) – Superficial gas velocity [m/s, cm/s, etc.]</li>
+<li><strong>umf</strong> (<em>float</em>) – Minimum fluidization velocity [m/s, cm/s, etc.]</li>
+<li><strong>emf</strong> (<em>float</em>) – Minimum fluidization void fraction [-]</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">Units are not important, provided they are consistent, as the calculation
+returns a dimensionless quantity.</p>
+</div>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body"><strong>delta</strong> (<em>float</em>) – Fraction of the total bed volume that is in bubbles [-]</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="function">
+<dt id="chemics.fluidization.bubble.dbMoriWen">
+<code class="descclassname">chemics.fluidization.bubble.</code><code class="descname">dbMoriWen</code><span class="sig-paren">(</span><em>z</em>, <em>us</em>, <em>umf</em>, <em>d_bed</em>, <em>l_or</em>, <em>distributor_type</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/chemics/fluidization/bubble.html#dbMoriWen"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#chemics.fluidization.bubble.dbMoriWen" title="Permalink to this definition">¶</a></dt>
+<dd><p>Calculates the equivalent diameter of the gas bubble in the bed, assuming
+that all of the volume in bubbles in the bed were combined into a single
+spherical bubble. This uses the Mori/Wen correlation as given in
+Fluidization Engineering by Kunii &amp; Levenspiel (K/L), eqs. 5.15, 5.19, and
+6.5.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>z</strong> (<em>float</em>) – Height of the bubble along the vertical axis of the bed [m]</li>
+<li><strong>us</strong> (<em>float</em>) – Superficial velocity of the gas [m/s]</li>
+<li><strong>umf</strong> (<em>float</em>) – Minimum fluidization velocity [m/s]</li>
+<li><strong>d_bed</strong> (<em>float</em>) – Bed diameter [m]</li>
+<li><strong>l_or</strong> (<em>float</em>) – Orifice spacing [m] (only if perforated plate distributor used)</li>
+<li><strong>distributor_type</strong> (<em>string</em>) – Type of distributor plate
+Options are
+‘perf_sq’ = perforated, square arrangement of orifices
+‘perf_tri’ = perforated, triangular arrangement of orifices
+‘porous’ = porous (equivalent to perforated triangular arrangement of tiny orifices)</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first last"><strong>db</strong> (<em>float</em>) – Equivalent bubble diameter at the specified z position [m]</p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="function">
+<dt id="chemics.fluidization.bubble.ubMoriWen">
+<code class="descclassname">chemics.fluidization.bubble.</code><code class="descname">ubMoriWen</code><span class="sig-paren">(</span><em>us</em>, <em>umf</em>, <em>db</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/chemics/fluidization/bubble.html#ubMoriWen"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#chemics.fluidization.bubble.ubMoriWen" title="Permalink to this definition">¶</a></dt>
+<dd><p>Estimates the velocity of a bubble in a manner consistent with the Mori/Wen
+correlation. This is eq. &lt;&gt; in Kunii &amp; Levenspiel.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>us</strong> (<em>float</em>) – Superficial gas velocity [m/s]</li>
+<li><strong>umf</strong> (<em>float</em>) – Minimum fluidization velocity [m/s]</li>
+<li><strong>db</strong> (<em>float</em>) – Bubble diameter [m]</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first last"><strong>ub</strong> (<em>float</em>) – Bubble rise velocity [m/s]</p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+</div>
+<span class="target" id="module-chemics.fluidization.emulsion"></span><div class="section" id="emulsion">
+<h2>Emulsion<a class="headerlink" href="#emulsion" title="Permalink to this headline">¶</a></h2>
+<p>Descripton goes here.</p>
+<dl class="function">
+<dt id="chemics.fluidization.emulsion.eexp">
+<code class="descclassname">chemics.fluidization.emulsion.</code><code class="descname">eexp</code><span class="sig-paren">(</span><em>db</em>, <em>hb</em>, <em>rhop</em>, <em>mp</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/chemics/fluidization/emulsion.html#eexp"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#chemics.fluidization.emulsion.eexp" title="Permalink to this definition">¶</a></dt>
+<dd><p>Calculates the overall void fraction of the expanded bed.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><strong>db</strong> (<em>float</em>) – Diameter of the bed [m]</li>
+<li><strong>hb</strong> (<em>float</em>) – Height of the expanded bed [m]</li>
+<li><strong>rhop</strong> (<em>float</em>) – Mass density of the solids [kg/m^3]</li>
+<li><strong>mp</strong> (<em>float</em>) – Mass of solids in the bed [kg]</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">Specific mass and length units are not important, provided they are
+all self-consistent as the returned quantity is dimensionless.</p>
+</div>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body"><strong>ep_exp</strong> (<em>float</em>) – Overall void fraction of the expanded bed [-]</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="function">
+<dt id="chemics.fluidization.emulsion.emf">
+<code class="descclassname">chemics.fluidization.emulsion.</code><code class="descname">emf</code><span class="sig-paren">(</span><em>fbexp</em>, <em>ep_exp</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/chemics/fluidization/emulsion.html#emf"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#chemics.fluidization.emulsion.emf" title="Permalink to this definition">¶</a></dt>
+<dd><p>Calculate the void fraction at minimum fluidization for the specified bed.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>fbexp</strong> (<em>float</em>) – Bed expansion factor [-]</li>
+<li><strong>ep_exp</strong> (<em>float</em>) – Void fraction in the expanded bed [-]</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first last"><strong>e_mf</strong> (<em>float</em>) – Void fraction at minimum fluidization [-]</p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="function">
+<dt id="chemics.fluidization.emulsion.fbexp">
+<code class="descclassname">chemics.fluidization.emulsion.</code><code class="descname">fbexp</code><span class="sig-paren">(</span><em>db</em>, <em>dp</em>, <em>rhog</em>, <em>rhop</em>, <em>umf</em>, <em>us</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/chemics/fluidization/emulsion.html#fbexp"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#chemics.fluidization.emulsion.fbexp" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bed expansion factor for calculating expanded bed height of a bubbling
+fluidized bed reactor. See equations 14.7, 14.8, 14.18 in the Souza-Santos
+2010 book <a class="footnote-reference" href="#santos2010" id="id1">[1]</a>.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>db</strong> (<em>float</em>) – Diameter of the bed [m]</li>
+<li><strong>dp</strong> (<em>float</em>) – Diameter of the bed particle [m]</li>
+<li><strong>rhog</strong> (<em>float</em>) – Density of gas [kg/m^3]</li>
+<li><strong>rhop</strong> (<em>float</em>) – Density of bed particle [kg/m^3]</li>
+<li><strong>umf</strong> (<em>float</em>) – Minimum fluidization velocity [m/s]</li>
+<li><strong>us</strong> (<em>float</em>) – Superficial gas velocity [m/s]</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first last"><strong>fbx</strong> (<em>float</em>) – Bed expansion factor [-]</p>
+</td>
+</tr>
+</tbody>
+</table>
+<p class="rubric">References</p>
+<table class="docutils footnote" frame="void" id="santos2010" rules="none">
+<colgroup><col class="label" /><col /></colgroup>
+<tbody valign="top">
+<tr><td class="label"><a class="fn-backref" href="#id1">[1]</a></td><td>Marcio de Souza-Santos. Solid Fuels Combustion and
+Gasification: Modeling, Simulation, and Equipment Operations. CRC Press,
+Taylor and Francis Group, 2nd edition, 2010.</td></tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="function">
+<dt id="chemics.fluidization.emulsion.massTransferCoeff">
+<code class="descclassname">chemics.fluidization.emulsion.</code><code class="descname">massTransferCoeff</code><span class="sig-paren">(</span><em>umf</em>, <em>emf</em>, <em>db</em>, <em>ub</em>, <em>diff</em>, <em>approx=True</em>, <em>method=None</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/chemics/fluidization/emulsion.html#massTransferCoeff"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#chemics.fluidization.emulsion.massTransferCoeff" title="Permalink to this definition">¶</a></dt>
+<dd><p>Calculates the rate constant for gas exchange between the bubble and the
+emulsion. See K/L eqs. 10.27, 10.34, and 10.36.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>umf</strong> (<em>float</em>) – Minimum fluidization velocity [m/s]</li>
+<li><strong>emf</strong> (<em>float</em>) – Void fraction at minimum fluidization [-]</li>
+<li><strong>db</strong> (<em>float</em>) – Bubble diameter [m]</li>
+<li><strong>ub</strong> (<em>float</em>) – Bubble rise velocity [m/s]</li>
+<li><strong>diff</strong> (<em>float</em>) – Diffusion coefficient [m^2/s]</li>
+<li><strong>approx</strong> (<em>boolean</em>) – Control whether to use a simpler expression that does not employ the
+diffusion coefficient</li>
+<li><strong>method</strong> (<em>string</em>) – Correlation to use as either KL for Kunii-Levenspiel or SG for Sit-Grace</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first last"><strong>kbe</strong> (<em>float</em>) – Rate constant (s^-1) for exchanging gas between the bubble and the
+emulsion</p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="function">
+<dt id="chemics.fluidization.emulsion.solidsDistribution">
+<code class="descclassname">chemics.fluidization.emulsion.</code><code class="descname">solidsDistribution</code><span class="sig-paren">(</span><em>delta</em>, <em>emf</em>, <em>umf</em>, <em>ub</em>, <em>fw</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/chemics/fluidization/emulsion.html#solidsDistribution"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#chemics.fluidization.emulsion.solidsDistribution" title="Permalink to this definition">¶</a></dt>
+<dd><p>Calculates the distribution of solids in the bubble, cloud/wake, and
+emulsion phases using K/L eqs. 6.35-6.37.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><strong>delta</strong> (<em>float</em>) – Volume fraction of gas in the bubbles [-]</li>
+<li><strong>emf</strong> (<em>float</em>) – Void fraction at minimum fluidization [-]</li>
+<li><strong>umf</strong> (<em>float</em>) – Minimum fluidization velocity [m/s]</li>
+<li><strong>ub</strong> (<em>float</em>) – Bubble rise velocity [m/s]</li>
+<li><strong>fw</strong> (<em>float</em>) – Ratio of the wake volume to the bubble volume [-]</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">gamma_b is for the moment a hard-coded constant. See K/L eq. 6.37.</p>
+</div>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body"><ul class="simple">
+<li><strong>gamma_b</strong> (<em>float</em>) – Volume of solids in the bubble divided by the bubble volume</li>
+<li><strong>gamma_c</strong> (<em>float</em>) – Volume of solids in the cloud/wake divided by the bubble volume</li>
+<li><strong>gamma_e</strong> (<em>float</em>) – Volume of solids in the emulsion divided by the bubble volume</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="function">
+<dt id="chemics.fluidization.emulsion.solidsFluxPembNose">
+<code class="descclassname">chemics.fluidization.emulsion.</code><code class="descname">solidsFluxPembNose</code><span class="sig-paren">(</span><em>dp</em>, <em>db</em>, <em>emf</em>, <em>umf</em>, <em>us</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/chemics/fluidization/emulsion.html#solidsFluxPembNose"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#chemics.fluidization.emulsion.solidsFluxPembNose" title="Permalink to this definition">¶</a></dt>
+<dd><p>Calculates the solids entrainment flux for the surface of a bubbling bed
+with the bubble nose ejection model of Pemberton and Davidsion (Chem. Eng.
+Sci., 1986, 41, pp. 243-251). This model is suitable if there is a single
+bubble in the bed.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>dp</strong> (<em>float</em>) – Particle diameter [m]</li>
+<li><strong>db</strong> (<em>float</em>) – Bubble diameter [m]</li>
+<li><strong>emf</strong> (<em>float</em>) – Void fraction at minimum fluidization [-]</li>
+<li><strong>umf</strong> (<em>float</em>) – Minimum fluidization velocity [m/s]</li>
+<li><strong>us</strong> (<em>float</em>) – Superficial gas velocity [m/s]</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first last"><strong>F0</strong> (<em>float</em>) – Solids entrainment flux at the top of the bed [kg/m^2/s]</p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="function">
+<dt id="chemics.fluidization.emulsion.solidsFluxPembWake">
+<code class="descclassname">chemics.fluidization.emulsion.</code><code class="descname">solidsFluxPembWake</code><span class="sig-paren">(</span><em>rhop</em>, <em>emf</em>, <em>umf</em>, <em>us</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/chemics/fluidization/emulsion.html#solidsFluxPembWake"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#chemics.fluidization.emulsion.solidsFluxPembWake" title="Permalink to this definition">¶</a></dt>
+<dd><p>Calculates the solids entrainment flux for the surface of a bubbling bed
+with the bubble wake ejection model of Pemberton and Davidsion (Chem. Eng.
+Sci., 1986, 41, pp. 243-251). This model is suitable if multiple bubbles
+coalesce at the surface before bursting.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>rhop</strong> (<em>float</em>) – Mass density of the particles</li>
+<li><strong>emf</strong> (<em>float</em>) – Void fraction at minimum fluidization [-]</li>
+<li><strong>umf</strong> (<em>float</em>) – Minimum fluidization velocity [m/s]</li>
+<li><strong>us</strong> (<em>float</em>) – Superficial gas velocity [m/s]</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first last"><strong>F0</strong> (<em>float</em>) – Solids entrainment flux at the top of the bed [kg/m^2/s]</p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="function">
+<dt id="chemics.fluidization.emulsion.solidsFluxWenChen">
+<code class="descclassname">chemics.fluidization.emulsion.</code><code class="descname">solidsFluxWenChen</code><span class="sig-paren">(</span><em>db</em>, <em>dt</em>, <em>umf</em>, <em>us</em>, <em>rhog</em>, <em>ug</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/chemics/fluidization/emulsion.html#solidsFluxWenChen"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#chemics.fluidization.emulsion.solidsFluxWenChen" title="Permalink to this definition">¶</a></dt>
+<dd><p>Calculates the solids flux at the surface of the bubbling bed according to
+the method of Wen and Chen (AIChE J, 28, 1, pp. 117-128) with a correction
+recommended by Wells, Kulver, and Krishnan in ORNL/TM-7847 (TVA AFBC
+Simulation Interim Annual Report, Dec. 1980) for large bed diameters.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>db</strong> (<em>float</em>) – Bubble diameter [m]</li>
+<li><strong>dt</strong> (<em>float</em>) – Bed/tank diameter [m]</li>
+<li><strong>umf</strong> (<em>float</em>) – Minimum fluidization velocity [m/s]</li>
+<li><strong>us</strong> (<em>float</em>) – Superficial velocity [m/s]</li>
+<li><strong>rhog</strong> (<em>float</em>) – Gas mass density [kg/m^3]</li>
+<li><strong>ug</strong> (<em>float</em>) – Gas viscosity [kg/m/s]</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first last"><strong>F0</strong> (<em>float</em>) – Mass flux of entrained solids [kg/m^2/s]</p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="function">
+<dt id="chemics.fluidization.emulsion.solidsMassFlow">
+<code class="descclassname">chemics.fluidization.emulsion.</code><code class="descname">solidsMassFlow</code><span class="sig-paren">(</span><em>F0</em>, <em>A</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/chemics/fluidization/emulsion.html#solidsMassFlow"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#chemics.fluidization.emulsion.solidsMassFlow" title="Permalink to this definition">¶</a></dt>
+<dd><p>Calculates the solids mass flow rate for the specified flux and
+cross-sectional area.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>F0</strong> (<em>float</em>) – Mass flux [kg/m^2/s]</li>
+<li><strong>A</strong> (<em>float</em>) – Cross-sectional area [m^2]</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first last"><strong>mdot</strong> (<em>float</em>) – Mass flow rate [kg/s]</p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="function">
+<dt id="chemics.fluidization.emulsion.ueGas">
+<code class="descclassname">chemics.fluidization.emulsion.</code><code class="descname">ueGas</code><span class="sig-paren">(</span><em>ub</em>, <em>umf</em>, <em>emf</em>, <em>delta</em>, <em>fw</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/chemics/fluidization/emulsion.html#ueGas"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#chemics.fluidization.emulsion.ueGas" title="Permalink to this definition">¶</a></dt>
+<dd><p>This function calculates the velocity of the gas in the emulsion phase with
+K/L eqs. 6.39-6.40.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>ub</strong> (<em>float</em>) – Bubble rise velocity [m/s]</li>
+<li><strong>umf</strong> (<em>float</em>) – Minimum fluidization velocity [m/s]</li>
+<li><strong>emf</strong> (<em>float</em>) – Void fraction at minimum fluidization [-]</li>
+<li><strong>delta</strong> (<em>float</em>) – Fraction of bed volume in bubbles [-]</li>
+<li><strong>fw</strong> (<em>float</em>) – Ratio of wake volume to bubble volume [-]</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first last"><strong>ue</strong> (<em>float</em>) – Emulsion gas velocity [m/s]</p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+</div>
+<span class="target" id="module-chemics.fluidization.minimum_fluidization_velocity"></span><div class="section" id="minimum-fluidization-velocity">
+<h2>Minimum fluidization velocity<a class="headerlink" href="#minimum-fluidization-velocity" title="Permalink to this headline">¶</a></h2>
+<p>Description goes here.</p>
+<dl class="function">
+<dt id="chemics.fluidization.minimum_fluidization_velocity.umfBabu">
+<code class="descclassname">chemics.fluidization.minimum_fluidization_velocity.</code><code class="descname">umfBabu</code><span class="sig-paren">(</span><em>dp</em>, <em>rhog</em>, <em>rhop</em>, <em>ug</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/chemics/fluidization/minimum_fluidization_velocity.html#umfBabu"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#chemics.fluidization.minimum_fluidization_velocity.umfBabu" title="Permalink to this definition">¶</a></dt>
+<dd><p>Calculate minimum fluidization velocity, Umf, using the Babu coefficients.
+See pages 69, 70, Table 4 in the Kunii and Levenspiel 1991 book.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>dp</strong> (<em>float</em>) – Diameter of bed particle [m]</li>
+<li><strong>rhog</strong> (<em>float</em>) – Density of gas [kg/m^3]</li>
+<li><strong>rhop</strong> (<em>float</em>) – Density of bed particle [kg/m^3]</li>
+<li><strong>ug</strong> (<em>float</em>) – Viscosity of gas [kg/ms]</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first last"><strong>umf</strong> (<em>float</em>) – Minimum fluidization velocity [m/s]</p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="function">
+<dt id="chemics.fluidization.minimum_fluidization_velocity.umfChit">
+<code class="descclassname">chemics.fluidization.minimum_fluidization_velocity.</code><code class="descname">umfChit</code><span class="sig-paren">(</span><em>dp</em>, <em>rhog</em>, <em>rhop</em>, <em>ug</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/chemics/fluidization/minimum_fluidization_velocity.html#umfChit"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#chemics.fluidization.minimum_fluidization_velocity.umfChit" title="Permalink to this definition">¶</a></dt>
+<dd><p>Calculate minimum fluidization velocity, Umf, according to the Chitester
+coefficients. See pages 69, 70, Table 4 in Kunii and Levenspiel 1991 book.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>dp</strong> (<em>float</em>) – Diameter of bed particle [m]</li>
+<li><strong>rhog</strong> (<em>float</em>) – Density of gas [kg/m^3]</li>
+<li><strong>rhop</strong> (<em>float</em>) – Density of bed particle [kg/m^3]</li>
+<li><strong>ug</strong> (<em>float</em>) – Viscosity of gas [kg/ms]</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first last"><strong>umf</strong> (<em>float</em>) – Minimum fluidization velocity [m/s]</p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="function">
+<dt id="chemics.fluidization.minimum_fluidization_velocity.umfErgun">
+<code class="descclassname">chemics.fluidization.minimum_fluidization_velocity.</code><code class="descname">umfErgun</code><span class="sig-paren">(</span><em>dp</em>, <em>ep</em>, <em>phi</em>, <em>rhog</em>, <em>rhop</em>, <em>ug</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/chemics/fluidization/minimum_fluidization_velocity.html#umfErgun"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#chemics.fluidization.minimum_fluidization_velocity.umfErgun" title="Permalink to this definition">¶</a></dt>
+<dd><p>Calculate minimum fluidization velocity, Umf, based on the Ergun equation.
+See pages 69 and 70 in Kunii and Levenspiel 1991 book.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>dp</strong> (<em>float</em>) – Diameter of bed particle [m]</li>
+<li><strong>ep</strong> (<em>float</em>) – Void fraction [-]</li>
+<li><strong>phi</strong> (<em>float</em>) – Sphericity of bed particle [-]</li>
+<li><strong>rhog</strong> (<em>float</em>) – Density of gas [kg/m^3]</li>
+<li><strong>rhop</strong> (<em>float</em>) – Density of bed particle [kg/m^3]</li>
+<li><strong>ug</strong> (<em>float</em>) – Viscosity of gas [kg/ms]</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first last"><strong>umf</strong> (<em>float</em>) – Minimum fluidization velocity [m/s]</p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="function">
+<dt id="chemics.fluidization.minimum_fluidization_velocity.umfGrace">
+<code class="descclassname">chemics.fluidization.minimum_fluidization_velocity.</code><code class="descname">umfGrace</code><span class="sig-paren">(</span><em>dp</em>, <em>rhog</em>, <em>rhop</em>, <em>ug</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/chemics/fluidization/minimum_fluidization_velocity.html#umfGrace"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#chemics.fluidization.minimum_fluidization_velocity.umfGrace" title="Permalink to this definition">¶</a></dt>
+<dd><p>Calculate minimum fluidization velocity, Umf, using the Grace coefficients.
+See pages 69, 70, Table 4 in the Kunii and Levenspiel 1991 book.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>dp</strong> (<em>float</em>) – Diameter of bed particle [m]</li>
+<li><strong>rhog</strong> (<em>float</em>) – Density of gas [kg/m^3]</li>
+<li><strong>rhop</strong> (<em>float</em>) – Density of bed particle [kg/m^3]</li>
+<li><strong>ug</strong> (<em>float</em>) – Viscosity of gas [kg/ms]</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first last"><strong>umf</strong> (<em>float</em>) – Minimum fluidization velocity [m/s]</p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="function">
+<dt id="chemics.fluidization.minimum_fluidization_velocity.umfLargeRe">
+<code class="descclassname">chemics.fluidization.minimum_fluidization_velocity.</code><code class="descname">umfLargeRe</code><span class="sig-paren">(</span><em>dp</em>, <em>ep</em>, <em>phi</em>, <em>rhog</em>, <em>rhop</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/chemics/fluidization/minimum_fluidization_velocity.html#umfLargeRe"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#chemics.fluidization.minimum_fluidization_velocity.umfLargeRe" title="Permalink to this definition">¶</a></dt>
+<dd><p>Calculate minimum fluidization velocity, Umf, for large Reynolds number
+where Re &gt; 1000. See pages 70, equation 22, in Kunii and Levenspiel 1991
+book.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>dp</strong> (<em>float</em>) – Diameter of bed particle [m]</li>
+<li><strong>ep</strong> (<em>float</em>) – Void fraction [-]</li>
+<li><strong>phi</strong> (<em>float</em>) – Sphericity of bed particle [-]</li>
+<li><strong>rhog</strong> (<em>float</em>) – Density of gas [kg/m^3]</li>
+<li><strong>rhop</strong> (<em>float</em>) – Density of bed particle [kg/m^3]</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first last"><strong>umf</strong> (<em>float</em>) – Minimum fluidization velocity [m/s]</p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="function">
+<dt id="chemics.fluidization.minimum_fluidization_velocity.umfRich">
+<code class="descclassname">chemics.fluidization.minimum_fluidization_velocity.</code><code class="descname">umfRich</code><span class="sig-paren">(</span><em>dp</em>, <em>rhog</em>, <em>rhop</em>, <em>ug</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/chemics/fluidization/minimum_fluidization_velocity.html#umfRich"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#chemics.fluidization.minimum_fluidization_velocity.umfRich" title="Permalink to this definition">¶</a></dt>
+<dd><p>Calculate minimum fluidization velocity, Umf, from the Richardson
+coefficients. See pages 69, 70, Table 4 in Kunii and Levenspiel 1991 book.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>dp</strong> (<em>float</em>) – Diameter of bed particle [m]</li>
+<li><strong>rhog</strong> (<em>float</em>) – Density of gas [kg/m^3]</li>
+<li><strong>rhop</strong> (<em>float</em>) – Density of bed particle [kg/m^3]</li>
+<li><strong>ug</strong> (<em>float</em>) – Viscosity of gas [kg/ms]</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first last"><strong>umf</strong> (<em>float</em>) – Minimum fluidization velocity [m/s]</p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="function">
+<dt id="chemics.fluidization.minimum_fluidization_velocity.umfSaxVog">
+<code class="descclassname">chemics.fluidization.minimum_fluidization_velocity.</code><code class="descname">umfSaxVog</code><span class="sig-paren">(</span><em>dp</em>, <em>rhog</em>, <em>rhop</em>, <em>ug</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/chemics/fluidization/minimum_fluidization_velocity.html#umfSaxVog"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#chemics.fluidization.minimum_fluidization_velocity.umfSaxVog" title="Permalink to this definition">¶</a></dt>
+<dd><p>Calculate minimum fluidization velocity, Umf, from the Saxena and Vogel
+coefficients. See pages 69, 70, Table 4 in Kunii and Levenspiel 1991 book.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>dp</strong> (<em>float</em>) – Diameter of bed particle [m]</li>
+<li><strong>rhog</strong> (<em>float</em>) – Density of gas [kg/m^3]</li>
+<li><strong>rhop</strong> (<em>float</em>) – Density of bed particle [kg/m^3]</li>
+<li><strong>ug</strong> (<em>float</em>) – Viscosity of gas [kg/ms]</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first last"><strong>umf</strong> (<em>float</em>) – Minimum fluidization velocity [m/s]</p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="function">
+<dt id="chemics.fluidization.minimum_fluidization_velocity.umfSmallRe">
+<code class="descclassname">chemics.fluidization.minimum_fluidization_velocity.</code><code class="descname">umfSmallRe</code><span class="sig-paren">(</span><em>dp</em>, <em>ep</em>, <em>phi</em>, <em>rhog</em>, <em>rhop</em>, <em>ug</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/chemics/fluidization/minimum_fluidization_velocity.html#umfSmallRe"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#chemics.fluidization.minimum_fluidization_velocity.umfSmallRe" title="Permalink to this definition">¶</a></dt>
+<dd><p>Calculate minimum fluidization velocity, Umf, for small Reynolds number
+where Re &lt; 20. See page 69, equation 21, in Kunii and Levenspiel 1991 book.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>dp</strong> (<em>float</em>) – Diameter of bed particle [m]</li>
+<li><strong>ep</strong> (<em>float</em>) – Void fraction [-]</li>
+<li><strong>phi</strong> (<em>float</em>) – Sphericity of bed particle [-]</li>
+<li><strong>rhog</strong> (<em>float</em>) – Density of gas [kg/m^3]</li>
+<li><strong>rhop</strong> (<em>float</em>) – Density of bed particle [kg/m^3]</li>
+<li><strong>ug</strong> (<em>float</em>) – Viscosity of gas [kg/ms]</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first last"><strong>umf</strong> (<em>float</em>) – Minimum fluidization velocity [m/s]</p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="function">
+<dt id="chemics.fluidization.minimum_fluidization_velocity.umfWenYu">
+<code class="descclassname">chemics.fluidization.minimum_fluidization_velocity.</code><code class="descname">umfWenYu</code><span class="sig-paren">(</span><em>dp</em>, <em>rhog</em>, <em>rhop</em>, <em>ug</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/chemics/fluidization/minimum_fluidization_velocity.html#umfWenYu"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#chemics.fluidization.minimum_fluidization_velocity.umfWenYu" title="Permalink to this definition">¶</a></dt>
+<dd><p>Calculate minimum fluidization velocity, Umf, according to the Wen and Yu
+coefficients. See pages 69, 70, Table 4 in Kunii and Levenspiel 1991 book.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>dp</strong> (<em>float</em>) – Diameter of bed particle [m]</li>
+<li><strong>rhog</strong> (<em>float</em>) – Density of gas [kg/m^3]</li>
+<li><strong>rhop</strong> (<em>float</em>) – Density of bed particle [kg/m^3]</li>
+<li><strong>ug</strong> (<em>float</em>) – Viscosity of gas [kg/ms]</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first last"><strong>umf</strong> (<em>float</em>) – Minimum fluidization velocity [m/s]</p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+<h1 class="logo"><a href="index.html">Chemics</a></h1>
+
+
+
+<p class="blurb">Description goes here.</p>
+
+
+
+
+<p>
+<iframe src="https://ghbtns.com/github-btn.html?user=ccpcode&repo=chemics&type=star&count=true&size=large&v=2"
+  allowtransparency="true" frameborder="0" scrolling="0" width="200px" height="35px"></iframe>
+</p>
+
+
+
+
+
+<h3>Navigation</h3>
+<ul class="current">
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Fluidization</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#bubble">Bubble</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#emulsion">Emulsion</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#minimum-fluidization-velocity">Minimum fluidization velocity</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="thermodynamics.html">Thermodynamics</a></li>
+</ul>
+
+<div class="relations">
+<h3>Related Topics</h3>
+<ul>
+  <li><a href="index.html">Documentation overview</a><ul>
+      <li>Previous: <a href="index.html" title="previous chapter">Chemics Documentation</a></li>
+      <li>Next: <a href="thermodynamics.html" title="next chapter">Thermodynamics</a></li>
+  </ul></li>
+</ul>
+</div>
+<div id="searchbox" style="display: none" role="search">
+  <h3>Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="search.html" method="get">
+      <input type="text" name="q" />
+      <input type="submit" value="Go" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    </div>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="footer">
+      &copy;2018, Gavin Wiggins, Jonathan Sutton.
+      
+      |
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 1.7.4</a>
+      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.10</a>
+      
+      |
+      <a href="_sources/fluidization.rst.txt"
+          rel="nofollow">Page source</a>
+    </div>
+
+    
+
+    
+  </body>
+</html>

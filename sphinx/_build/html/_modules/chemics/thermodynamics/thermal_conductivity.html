@@ -1,0 +1,178 @@
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge" />
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>chemics.thermodynamics.thermal_conductivity &#8212; Chemics 0.1 documentation</title>
+    <link rel="stylesheet" href="../../../_static/alabaster.css" type="text/css" />
+    <link rel="stylesheet" href="../../../_static/pygments.css" type="text/css" />
+    <script type="text/javascript" src="../../../_static/documentation_options.js"></script>
+    <script type="text/javascript" src="../../../_static/jquery.js"></script>
+    <script type="text/javascript" src="../../../_static/underscore.js"></script>
+    <script type="text/javascript" src="../../../_static/doctools.js"></script>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <link rel="index" title="Index" href="../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../search.html" />
+   
+  <link rel="stylesheet" href="../../../_static/custom.css" type="text/css" />
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
+
+  </head><body>
+  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <h1>Source code for chemics.thermodynamics.thermal_conductivity</h1><div class="highlight"><pre>
+<span></span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">Thermal conductivity</span>
+<span class="sd">&quot;&quot;&quot;</span>
+
+
+<div class="viewcode-block" id="k_n2"><a class="viewcode-back" href="../../../thermodynamics.html#chemics.thermodynamics.thermal_conductivity.k_n2">[docs]</a><span class="k">def</span> <span class="nf">k_n2</span><span class="p">(</span><span class="n">T</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Equation for thermal conductivity of nitrogen gas, N2, as a function of</span>
+<span class="sd">    temperature based on formula from Yaw&#39;s online reference [#yaw1]_. Valid at</span>
+<span class="sd">    temperatures from 63-1500 K.</span>
+
+<span class="sd">    .. math::</span>
+<span class="sd">       k_{N_2} = A + B*T + C*T^2 + D*T^3</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    T : float</span>
+<span class="sd">        Temperature of N2 gas [K]</span>
+
+<span class="sd">    Returns</span>
+<span class="sd">    -------</span>
+<span class="sd">    k : float</span>
+<span class="sd">        Thermal conductivity of N2 gas [W/mK]</span>
+
+<span class="sd">    Examples</span>
+<span class="sd">    --------</span>
+<span class="sd">    &gt;&gt;&gt; k_n2(773)</span>
+<span class="sd">    0.0535</span>
+
+<span class="sd">    References</span>
+<span class="sd">    ----------</span>
+<span class="sd">    .. [#yaw1] Yaws&#39; Transport Properties of Chemicals and Hydrocarbons.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">A</span> <span class="o">=</span> <span class="o">-</span><span class="mf">0.000226779</span>
+    <span class="n">B</span> <span class="o">=</span> <span class="mf">0.000102746</span>
+    <span class="n">C</span> <span class="o">=</span> <span class="o">-</span><span class="mf">6.01514e-8</span>
+    <span class="n">D</span> <span class="o">=</span> <span class="mf">2.23319E-11</span>
+    <span class="n">k</span> <span class="o">=</span> <span class="n">A</span> <span class="o">+</span> <span class="n">B</span><span class="o">*</span><span class="n">T</span> <span class="o">+</span> <span class="n">C</span><span class="o">*</span><span class="p">(</span><span class="n">T</span><span class="o">**</span><span class="mi">2</span><span class="p">)</span> <span class="o">+</span> <span class="n">D</span><span class="o">*</span><span class="p">(</span><span class="n">T</span><span class="o">**</span><span class="mi">3</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">k</span></div>
+
+
+<div class="viewcode-block" id="k_o2"><a class="viewcode-back" href="../../../thermodynamics.html#chemics.thermodynamics.thermal_conductivity.k_o2">[docs]</a><span class="k">def</span> <span class="nf">k_o2</span><span class="p">(</span><span class="n">T</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Equation for thermal conductivity of oxygen gas, O2, as a function of</span>
+<span class="sd">    temperature based on formula from Yaw&#39;s online reference [#yaw2]_. Valid at</span>
+<span class="sd">    temperatures from 80 K to 2000 K.</span>
+
+<span class="sd">    .. math::</span>
+<span class="sd">       k_{O_2} = A + B*T + C*T^2 + D*T^3</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    T : float</span>
+<span class="sd">        Temperature of O2 gas [K]</span>
+
+<span class="sd">    Returns</span>
+<span class="sd">    -------</span>
+<span class="sd">    k : float</span>
+<span class="sd">        Thermal conductivity of O2 gas [W/mK]</span>
+
+<span class="sd">    Examples</span>
+<span class="sd">    --------</span>
+<span class="sd">    &gt;&gt;&gt; k_o2(773)</span>
+<span class="sd">    0.0588</span>
+
+<span class="sd">    References</span>
+<span class="sd">    ----------</span>
+<span class="sd">    .. [#yaw2] Yaws&#39; Transport Properties of Chemicals and Hydrocarbons.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">A</span> <span class="o">=</span> <span class="mf">0.000154746</span>
+    <span class="n">B</span> <span class="o">=</span> <span class="mf">9.41534E-05</span>
+    <span class="n">C</span> <span class="o">=</span> <span class="o">-</span><span class="mf">2.75292E-08</span>
+    <span class="n">D</span> <span class="o">=</span> <span class="mf">5.20693E-12</span>
+    <span class="n">k</span> <span class="o">=</span> <span class="n">A</span> <span class="o">+</span> <span class="n">B</span><span class="o">*</span><span class="n">T</span> <span class="o">+</span> <span class="n">C</span><span class="o">*</span><span class="p">(</span><span class="n">T</span><span class="o">**</span><span class="mi">2</span><span class="p">)</span> <span class="o">+</span> <span class="n">D</span><span class="o">*</span><span class="p">(</span><span class="n">T</span><span class="o">**</span><span class="mi">3</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">k</span></div>
+</pre></div>
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+<h1 class="logo"><a href="../../../index.html">Chemics</a></h1>
+
+
+
+<p class="blurb">Description goes here.</p>
+
+
+
+
+<p>
+<iframe src="https://ghbtns.com/github-btn.html?user=ccpcode&repo=chemics&type=star&count=true&size=large&v=2"
+  allowtransparency="true" frameborder="0" scrolling="0" width="200px" height="35px"></iframe>
+</p>
+
+
+
+
+
+<h3>Navigation</h3>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../fluidization.html">Fluidization</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../thermodynamics.html">Thermodynamics</a></li>
+</ul>
+
+<div class="relations">
+<h3>Related Topics</h3>
+<ul>
+  <li><a href="../../../index.html">Documentation overview</a><ul>
+  <li><a href="../../index.html">Module code</a><ul>
+  </ul></li>
+  </ul></li>
+</ul>
+</div>
+<div id="searchbox" style="display: none" role="search">
+  <h3>Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="../../../search.html" method="get">
+      <input type="text" name="q" />
+      <input type="submit" value="Go" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    </div>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="footer">
+      &copy;2018, Gavin Wiggins, Jonathan Sutton.
+      
+      |
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 1.7.4</a>
+      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.10</a>
+      
+    </div>
+
+    
+
+    
+  </body>
+</html>
