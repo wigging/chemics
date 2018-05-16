@@ -16,7 +16,7 @@
     <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
-    <link rel="next" title="Bubbling Fluidized Bed (BFB) module" href="bfb.html" />
+    <link rel="next" title="Fluidization" href="fluidization.html" />
    
   <link rel="stylesheet" href="_static/custom.css" type="text/css" />
   
@@ -48,23 +48,27 @@
 </div>
 <div class="section" id="usage">
 <h2>Usage<a class="headerlink" href="#usage" title="Permalink to this headline">¶</a></h2>
-<p>Functions in the chemics package are called with the usual dot syntax for accessing module features. For example:</p>
+<p>Functions in the chemics package are called with the usual dot syntax for accessing module features. The example below imports the chemics package then calculates the density of a gas based on its molecular weight, pressure, and temperature.</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">chemics</span> <span class="kn">as</span> <span class="nn">cm</span>
 <span class="n">cm</span><span class="o">.</span><span class="n">rhog</span><span class="p">(</span><span class="mi">28</span><span class="p">,</span> <span class="mi">170100</span><span class="p">,</span> <span class="mi">773</span><span class="p">)</span>
 </pre></div>
 </div>
-<p>calculates the density of a gas based on its molecular weight, pressure, and temperature.</p>
 </div>
 <div class="section" id="modules">
 <h2>Modules<a class="headerlink" href="#modules" title="Permalink to this headline">¶</a></h2>
 <p>The following modules are available in the chemics package:</p>
 <div class="toctree-wrapper compound">
 <ul>
-<li class="toctree-l1"><a class="reference internal" href="bfb.html">BFB functions</a></li>
-<li class="toctree-l1"><a class="reference internal" href="gas.html">Gas properties</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="gas.html#density-and-pressure">Density and pressure</a></li>
-<li class="toctree-l2"><a class="reference internal" href="gas.html#thermal-conductivity">Thermal conductivity</a></li>
-<li class="toctree-l2"><a class="reference internal" href="gas.html#viscosity">Viscosity</a></li>
+<li class="toctree-l1"><a class="reference internal" href="fluidization.html">Fluidization</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="fluidization.html#bubble">Bubble</a></li>
+<li class="toctree-l2"><a class="reference internal" href="fluidization.html#emulsion">Emulsion</a></li>
+<li class="toctree-l2"><a class="reference internal" href="fluidization.html#minimum-fluidization-velocity">Minimum fluidization velocity</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="thermodynamics.html">Thermodynamics</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="thermodynamics.html#density-and-pressure">Density and pressure</a></li>
+<li class="toctree-l2"><a class="reference internal" href="thermodynamics.html#thermal-conductivity">Thermal conductivity</a></li>
+<li class="toctree-l2"><a class="reference internal" href="thermodynamics.html#viscosity">Viscosity</a></li>
 </ul>
 </li>
 </ul>
@@ -106,15 +110,15 @@
 
 <h3>Navigation</h3>
 <ul>
-<li class="toctree-l1"><a class="reference internal" href="bfb.html">BFB functions</a></li>
-<li class="toctree-l1"><a class="reference internal" href="gas.html">Gas properties</a></li>
+<li class="toctree-l1"><a class="reference internal" href="fluidization.html">Fluidization</a></li>
+<li class="toctree-l1"><a class="reference internal" href="thermodynamics.html">Thermodynamics</a></li>
 </ul>
 
 <div class="relations">
 <h3>Related Topics</h3>
 <ul>
   <li><a href="#">Documentation overview</a><ul>
-      <li>Next: <a href="bfb.html" title="next chapter">Bubbling Fluidized Bed (BFB) module</a></li>
+      <li>Next: <a href="fluidization.html" title="next chapter">Fluidization</a></li>
   </ul></li>
 </ul>
 </div>
@@ -138,7 +142,7 @@
       &copy;2018, Gavin Wiggins, Jonathan Sutton.
       
       |
-      Powered by <a href="http://sphinx-doc.org/">Sphinx 1.7.2</a>
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 1.7.4</a>
       &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.10</a>
       
       |

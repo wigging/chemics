@@ -19,14 +19,12 @@ Stuff here.
 Usage
 -----
 
-Functions in the chemics package are called with the usual dot syntax for accessing module features. For example:
+Functions in the chemics package are called with the usual dot syntax for accessing module features. The example below imports the chemics package then calculates the density of a gas based on its molecular weight, pressure, and temperature.
 
 .. code-block:: python
 
     import chemics as cm
     cm.rhog(28, 170100, 773)
-
-calculates the density of a gas based on its molecular weight, pressure, and temperature.
 
 Modules
 -------
@@ -36,8 +34,8 @@ The following modules are available in the chemics package:
 .. toctree::
    :maxdepth: 2
 
-   BFB functions <bfb>
-   Gas properties <gas>
+   fluidization
+   thermodynamics
 
 Package index and modules
 -------------------------

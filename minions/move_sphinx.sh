@@ -1,3 +1,5 @@
+# Run this script to move Sphinx HTML files to the docs/ folder.
+
 echo -e "\033[1mMove Sphinx html files to docs/ folder.\033[0m"
 
 if [ ! -d "docs" ]; then
