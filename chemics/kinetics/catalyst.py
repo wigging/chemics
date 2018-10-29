@@ -1,3 +1,0 @@
-"""
-Catalyst kinetic schemes
-"""
