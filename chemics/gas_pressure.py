@@ -1,7 +1,3 @@
-"""
-Pressure
-"""
-
 import numpy as np
 
 

@@ -1,7 +1,3 @@
-"""
-Density
-"""
-
 
 def rhog(mw, Pgas, Tgas):
     """

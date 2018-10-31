@@ -1,7 +1,3 @@
-"""
-Thermal conductivity
-"""
-
 
 def k_n2(T):
     """
