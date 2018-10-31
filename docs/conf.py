@@ -11,7 +11,7 @@
 # If extensions (or modules to document with autodoc) are in another directory,
 # add these directories to sys.path here. If the directory is relative to the
 # documentation root, use os.path.abspath to make it absolute, like shown here.
-#
+
 import os
 import sys
 sys.path.insert(0, os.path.abspath('..'))
@@ -20,13 +20,13 @@ sys.path.insert(0, os.path.abspath('..'))
 # -- Project information -----------------------------------------------------
 
 project = 'Chemics'
-copyright = '2018, Gavin Wiggins, Jonathan Sutton'
-author = 'Gavin Wiggins, Jonathan Sutton'
+copyright = '2018, Gavin Wiggins'
+author = 'Gavin Wiggins'
 
 # The short X.Y version
-version = ''
+version = '0.0.1'
 # The full version, including alpha/beta/rc tags
-release = '0.1'
+release = '0.0.1'
 
 
 # -- General configuration ---------------------------------------------------
@@ -42,6 +42,7 @@ extensions = [
     'sphinx.ext.autodoc',
     'sphinx.ext.mathjax',
     'sphinx.ext.viewcode',
+    'sphinx.ext.githubpages',
     'sphinx.ext.napoleon',
 ]
 
@@ -83,7 +84,12 @@ language = None
 exclude_patterns = ['_build', 'Thumbs.db', '.DS_Store']
 
 # The name of the Pygments (syntax highlighting) style to use.
-pygments_style = 'sphinx'
+pygments_style = 'default'
+
+
+# Use custom css file in _static folder
+def setup(app):
+    app.add_stylesheet('custom.css')
 
 
 # -- Options for HTML output -------------------------------------------------
@@ -91,18 +97,19 @@ pygments_style = 'sphinx'
 # The theme to use for HTML and HTML Help pages.  See the documentation for
 # a list of builtin themes.
 #
-html_theme = 'alabaster'
+html_theme = 'sphinx_rtd_theme'
 
 # Theme options are theme-specific and customize the look and feel of a theme
 # further.  For a list of options available for each theme, see the
 # documentation.
 #
 html_theme_options = {
-    'description': 'Description goes here.',
-    'github_user': 'ccpcode',
-    'github_repo': 'chemics',
-    'github_type': 'star',
+    'logo_only': True,
 }
+
+# The name of an image file (relative to this directory) to place at the top
+# of the sidebar.
+html_logo = '_static/logo.png'
 
 # Add any paths that contain custom static files (such as style sheets) here,
 # relative to this directory. They are copied after the builtin static files,
@@ -117,15 +124,7 @@ html_static_path = ['_static']
 # default: ``['localtoc.html', 'relations.html', 'sourcelink.html',
 # 'searchbox.html']``.
 #
-html_sidebars = {
-    '**': [
-        'about.html',
-        'navigation.html',
-        'relations.html',
-        'searchbox.html',
-        'donate.html',
-    ]
-}
+# html_sidebars = {}
 
 
 # -- Options for HTMLHelp output ---------------------------------------------
@@ -159,7 +158,7 @@ latex_elements = {
 #  author, documentclass [howto, manual, or own class]).
 latex_documents = [
     (master_doc, 'Chemics.tex', 'Chemics Documentation',
-     'Gavin Wiggins, Jonathan Sutton', 'manual'),
+     'Gavin Wiggins', 'manual'),
 ]
 
 
