@@ -1,12 +1,10 @@
 # flake8: noqa
 
-from .kinetics.catalyst import *
-from .kinetics.pyrolysis import *
+from .conversions import slm_to_lpm
 
-from .properties.density import *
-from .properties.pressure import *
-from .properties.thermal_conductivity import *
-from .properties.viscosity import *
-
-from .utilities.constants import *
-from .utilities.conversions import *
+from .gas_density import rhog
+from .gas_pressure import patm
+from .gas_thermal_conductivity import k_n2
+from .gas_thermal_conductivity import k_o2
+from .gas_viscosity import mu_h2
+from .gas_viscosity import mu_n2
