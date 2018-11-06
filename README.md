@@ -16,16 +16,15 @@ pip install chemics
 
 ## Documentation
 
-Here.
+Documentation for the Chemics package is available at [chemics.github.io](https://chemics.github.io).
 
 ## Contributing
 
-Here.
+Guidelines for contributing to the Chemics package will be available soon.
 
 ## License
 
-This Python package is licensed under the MIT License - see the
-[LICENSE](LICENSE) file for details.
+This Python package is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
 
 
 [Anaconda]: https://www.anaconda.com

@@ -1,71 +1,82 @@
+import pandas as pd
+import os
 
-def k_n2(T):
+
+def k_gas_inorganic(formula, temp, full=False):
     """
-    Equation for thermal conductivity of nitrogen gas, N2, as a function of
-    temperature based on formula from Yaw's online reference [#yaw1]_. Valid at
-    temperatures from 63-1500 K.
-
-    .. math::
-       k_{N_2} = A + B*T + C*T^2 + D*T^3
+    Thermal conductivity of gas as a function of temperature. Applicable to gas
+    comprised of inorganic compounds. Results based on coefficients from Yaws'
+    Critical Property Data for Chemical Engineers and Chemists [1]_.
 
     Parameters
     ----------
-    T : float
-        Temperature of N2 gas [K]
+    formula : string
+        Molecular formula of the gas.
+    temp : float
+        Temperature of the gas [K]
+    full : bool, optional
+        When set to False (default) just thermal conductivity is returned. When
+        set to True then return thermal conductivity and other information.
 
     Returns
     -------
-    k : float
-        Thermal conductivity of N2 gas [W/mK]
+    k_gas : float
+        Thermal conductivity of gas [W/(m K)]
+
+    k_gas, cas, tmin, tmax, a, b, c, d : tuple
+        These values are only returned when full=True.
+        k_gas - Thermal conductivity of gas [W/(m K)]
+        cas - CAS number [-]
+        tmin, tmax - Temperature range at which results are applicable [K]
+        a, b, c, d - Values for regression coefficients [-]
+
+    Raises
+    ------
+    ValueError
+        If gas formula is not found in csv data file.
+    ValueError
+        If gas temperature is not in range between tmin and tmax.
 
     Examples
     --------
-    >>> k_n2(773)
+    >>> k_gas_inorganic('N2', 773)
     0.0535
 
-    References
-    ----------
-    .. [#yaw1] Yaws' Transport Properties of Chemicals and Hydrocarbons.
-    """
-    A = -0.000226779
-    B = 0.000102746
-    C = -6.01514e-8
-    D = 2.23319E-11
-    k = A + B*T + C*(T**2) + D*(T**3)
-    return k
-
-
-def k_o2(T):
-    """
-    Equation for thermal conductivity of oxygen gas, O2, as a function of
-    temperature based on formula from Yaw's online reference [#yaw2]_. Valid at
-    temperatures from 80 K to 2000 K.
-
-    .. math::
-       k_{O_2} = A + B*T + C*T^2 + D*T^3
-
-    Parameters
-    ----------
-    T : float
-        Temperature of O2 gas [K]
-
-    Returns
-    -------
-    k : float
-        Thermal conductivity of O2 gas [W/mK]
-
-    Examples
-    --------
-    >>> k_o2(773)
-    0.0588
+    >>> k_gas_inorganic('N2', 773, full=True)
+    (0.0535, '7727-37-9', 63.15, 1500.0, -0.0002267, 0.0001027, -6.0151e-08,
+    2.2331e-11)
 
     References
     ----------
-    .. [#yaw2] Yaws' Transport Properties of Chemicals and Hydrocarbons.
+    .. [1] Carl L. Yaws. Table 84. Thermal Conductivity of Gas – Inorganic
+       Compounds in Yaws' Critical Property Data for Chemical Engineers and
+       Chemists. Published by Knovel, 2014.
     """
-    A = 0.000154746
-    B = 9.41534E-05
-    C = -2.75292E-08
-    D = 5.20693E-12
-    k = A + B*T + C*(T**2) + D*(T**3)
-    return k
+    abs_path = os.path.dirname(os.path.abspath(__file__))
+    data_file = abs_path + '/data/k-gas-inorganic.csv'
+
+    df = pd.read_csv(data_file, index_col=0)
+
+    if formula not in df.index:
+        raise ValueError(f'Gas species {formula} is not available.')
+
+    cas = df.loc[formula]['CAS No.']
+
+    a = df.loc[formula]['A']
+    b = df.loc[formula]['B']
+    c = df.loc[formula]['C']
+    d = df.loc[formula]['D']
+
+    tmin = df.loc[formula]['temperature, Tmin (K)']
+    tmax = df.loc[formula]['temperature, Tmax (K)']
+
+    if temp < tmin or temp > tmax:
+        raise ValueError('Temperature out of range. Applicable values are '
+                         + f'{tmin} - {tmax} K for {formula} gas.')
+
+    k_gas = a + b * temp + c * (temp**2) + d * (temp**3)
+
+    if full:
+        return k_gas, cas, tmin, tmax, a, b, c, d
+    else:
+        return k_gas
