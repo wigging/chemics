@@ -39,6 +39,7 @@ The following modules are available in the chemics package:
    :maxdepth: 1
 
    conversions
+   gas-thermal-conductivity
 
 Package index and modules
 -------------------------

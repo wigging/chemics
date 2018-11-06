@@ -15,8 +15,9 @@ def k_gas_inorganic(formula, temp, full=False):
     temp : float
         Temperature of the gas [K]
     full : bool, optional
-        When set to False (default) just thermal conductivity is returned. When
-        set to True then return thermal conductivity and other information.
+        When set to :code:`False` (default) just thermal conductivity is
+        returned. When set to :code:`True` then return thermal conductivity and
+        other information.
 
     Returns
     -------
@@ -24,11 +25,12 @@ def k_gas_inorganic(formula, temp, full=False):
         Thermal conductivity of gas [W/(m K)]
 
     k_gas, cas, tmin, tmax, a, b, c, d : tuple
-        These values are only returned when full=True.
-        k_gas - Thermal conductivity of gas [W/(m K)]
-        cas - CAS number [-]
-        tmin, tmax - Temperature range at which results are applicable [K]
-        a, b, c, d - Values for regression coefficients [-]
+        Additional values are only returned when keyword :code:`full=True`.
+
+        | k_gas - Thermal conductivity of gas [W/(m K)]
+        | cas - CAS number [-]
+        | tmin, tmax - Temperature range at which results are applicable [K]
+        | a, b, c, d - Values for regression coefficients [-]
 
     Raises
     ------
