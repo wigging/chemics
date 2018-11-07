@@ -87,7 +87,7 @@ def k_gas_organic(formula, temp, cas=None, full=False):
     """
     Thermal conductivity of gas as a function of temperature. Applicable to gas
     comprised of organic compounds. Results based on coefficients from Yaws'
-    Critical Property Data for Chemical Engineers and Chemists [1]_.
+    Critical Property Data for Chemical Engineers and Chemists [2]_.
 
     Parameters
     ----------
@@ -126,16 +126,15 @@ def k_gas_organic(formula, temp, cas=None, full=False):
 
     Examples
     --------
-    >>> k_gas_inorganic('N2', 773)
-    0.0535
+    >>> k_gas_organic('CO', 801)
+    0.05722
 
-    >>> k_gas_inorganic('N2', 773, full=True)
-    (0.0535, '7727-37-9', 63.15, 1500.0, -0.0002267, 0.0001027, -6.0151e-08,
-    2.2331e-11)
+    >>> k_gas_organic('C18H38O', 920, cas='593-32-8')
+    0.04174
 
     References
     ----------
-    .. [1] Carl L. Yaws. Table 84. Thermal Conductivity of Gas – Inorganic
+    .. [2] Carl L. Yaws. Table 85. Thermal Conductivity of Gas – Organic
        Compounds in Yaws' Critical Property Data for Chemical Engineers and
        Chemists. Published by Knovel, 2014.
     """
