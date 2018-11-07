@@ -1,25 +1,27 @@
 """
-Tests for the gas_thermal_conductivity module. Updated by G.W. on 11/06/2018.
+Tests for the gas_thermal_conductivity module grouped by functions for
+inorganic and organic compounds. Updated by G.W. on 11/07/2018.
+
+k = Gas thermal conductivity [W/(m K)]
+cas = CAS number [-]
+tmin = Minimum temperature applicable to equation [K]
+tmax = Maximum temperature applicable to equation [K]
+a, b, c, d = Regression coefficients [-]
 """
 
 import chemics as cm
 from pytest import approx
 
-# Functions to test
+
+# Functions to test inorganic compounds
 # ----------------------------------------------------------------------------
 
-
 def test_k_n2():
-    # thermal conductivity of nitrogen gas [W/(m K)]
     k_n2 = cm.k_gas_inorganic('N2', 773)
     assert k_n2 == approx(0.0535, rel=1e-2)
 
 
 def test_k_n2_full():
-    # thermal conductivity of nitrogen gas [W/(m K)]
-    # CAS number [-]
-    # Temperature range at which results are applicable [K]
-    # Values for regression coefficients [-]
     k_n2, *stats = cm.k_gas_inorganic('N2', 773, full=True)
     cas, tmin, tmax, a, b, c, d = stats
     assert k_n2 == approx(0.0535, rel=1e-2)
@@ -33,6 +35,18 @@ def test_k_n2_full():
 
 
 def test_k_o2():
-    # thermal conductivity of oxygen gas [W/(m K)]
     k_o2 = cm.k_gas_inorganic('O2', 773)
     assert k_o2 == approx(0.0588, rel=1e-2)
+
+
+# Functions to test inorganic compounds
+# ----------------------------------------------------------------------------
+
+def test_k_co():
+    k_co = cm.k_gas_organic('CO', 801)
+    assert k_co == approx(0.05722, rel=1e-2)
+
+
+def test_k_c18h38o():
+    k_c18h38o = cm.k_gas_organic('C18H38O', 920, cas='593-32-8')
+    assert k_c18h38o == approx(0.04174, rel=1e-2)
