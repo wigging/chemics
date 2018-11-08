@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="200px" height="200px" viewBox="0 0 200 200" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: Sketch 52.3 (67297) - http://www.bohemiancoding.com/sketch -->
+    <title>sphinx</title>
+    <desc>Created with Sketch.</desc>
+    <defs>
+        <circle id="path-1" cx="100" cy="100" r="90"></circle>
+        <filter x="-9.4%" y="-9.4%" width="121.1%" height="121.1%" filterUnits="objectBoundingBox" id="filter-2">
+            <feOffset dx="2" dy="2" in="SourceAlpha" result="shadowOffsetOuter1"></feOffset>
+            <feGaussianBlur stdDeviation="6" in="shadowOffsetOuter1" result="shadowBlurOuter1"></feGaussianBlur>
+            <feColorMatrix values="0 0 0 0 0   0 0 0 0 0   0 0 0 0 0  0 0 0 0.5 0" type="matrix" in="shadowBlurOuter1"></feColorMatrix>
+        </filter>
+        <circle id="path-3" cx="94" cy="94" r="80"></circle>
+        <filter x="-10.6%" y="-10.6%" width="123.8%" height="123.8%" filterUnits="objectBoundingBox" id="filter-4">
+            <feOffset dx="2" dy="2" in="SourceAlpha" result="shadowOffsetOuter1"></feOffset>
+            <feGaussianBlur stdDeviation="6" in="shadowOffsetOuter1" result="shadowBlurOuter1"></feGaussianBlur>
+            <feColorMatrix values="0 0 0 0 0   0 0 0 0 0   0 0 0 0 0  0 0 0 0.5 0" type="matrix" in="shadowBlurOuter1"></feColorMatrix>
+        </filter>
+        <circle id="path-5" cx="88" cy="88" r="70"></circle>
+        <filter x="-12.1%" y="-12.1%" width="127.1%" height="127.1%" filterUnits="objectBoundingBox" id="filter-6">
+            <feOffset dx="2" dy="2" in="SourceAlpha" result="shadowOffsetOuter1"></feOffset>
+            <feGaussianBlur stdDeviation="6" in="shadowOffsetOuter1" result="shadowBlurOuter1"></feGaussianBlur>
+            <feColorMatrix values="0 0 0 0 0   0 0 0 0 0   0 0 0 0 0  0 0 0 0.5 0" type="matrix" in="shadowBlurOuter1"></feColorMatrix>
+        </filter>
+        <circle id="path-7" cx="82" cy="82" r="60"></circle>
+        <filter x="-14.2%" y="-14.2%" width="131.7%" height="131.7%" filterUnits="objectBoundingBox" id="filter-8">
+            <feOffset dx="2" dy="2" in="SourceAlpha" result="shadowOffsetOuter1"></feOffset>
+            <feGaussianBlur stdDeviation="6" in="shadowOffsetOuter1" result="shadowBlurOuter1"></feGaussianBlur>
+            <feColorMatrix values="0 0 0 0 0   0 0 0 0 0   0 0 0 0 0  0 0 0 0.5 0" type="matrix" in="shadowBlurOuter1"></feColorMatrix>
+        </filter>
+    </defs>
+    <g id="sphinx" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="Oval">
+            <use fill="black" fill-opacity="1" filter="url(#filter-2)" xlink:href="#path-1"></use>
+            <use fill="#BF6FCF" fill-rule="evenodd" xlink:href="#path-1"></use>
+        </g>
+        <g id="Oval-Copy">
+            <use fill="black" fill-opacity="1" filter="url(#filter-4)" xlink:href="#path-3"></use>
+            <use fill="#D287E1" fill-rule="evenodd" xlink:href="#path-3"></use>
+        </g>
+        <g id="Oval-Copy-2">
+            <use fill="black" fill-opacity="1" filter="url(#filter-6)" xlink:href="#path-5"></use>
+            <use fill="#E3A5F0" fill-rule="evenodd" xlink:href="#path-5"></use>
+        </g>
+        <g id="Oval-Copy-3">
+            <use fill="black" fill-opacity="1" filter="url(#filter-8)" xlink:href="#path-7"></use>
+            <use fill="#EEC5F7" fill-rule="evenodd" xlink:href="#path-7"></use>
+        </g>
+        <text id="chemics" font-family="AndaleMono, Andale Mono" font-size="24" font-weight="normal">
+            <tspan x="32" y="88" fill="#68606B">ch</tspan>
+            <tspan x="60.8046875" y="88" fill="#CC67D5">emics</tspan>
+        </text>
+    </g>
+</svg>
