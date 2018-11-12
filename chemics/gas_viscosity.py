@@ -1,83 +1,175 @@
+import pandas as pd
+import os
 
-def mu_h2(T):
+
+def mu_gas_inorganic(formula, temp, full=False):
     """
-    Calculate viscosity of hydrogen gas, H2, as a function of temperture. Valid
-    at temperatures from 15 K to 1500 K. Equation and coefficients from Yaws'
-    Handbook [#yaw3]_.
-
-    .. math::
-       \\mu_{H_2} = A + B \\cdot T + C \\cdot T^2 + D \\cdot T^3
+    Viscosity of gas as a function of temperature. Applicable to gas comprised
+    of inorganic compounds. Results based on coefficients from Yaws' Critical
+    Property Data for Chemical Engineers and Chemists [1]_.
 
     Parameters
     ----------
-    T : float
-       Temperature of hydrogen gas [K]
+    formula : string
+        Molecular formula of the gas.
+    temp : float
+        Temperature of the gas [K]
+    full : bool, optional
+        When set to :code:`False` (default) just thermal conductivity is
+        returned. When set to :code:`True` then return thermal conductivity and
+        other information.
 
     Returns
     -------
-    mu : float
-        Viscosity of hydrogen gas in micropoise [uP]
+    mu_gas : float
+        Viscosity of gas [micropoise]
+
+    mu_gas, cas, tmin, tmax, a, b, c, d : tuple
+        Additional values are only returned when keyword :code:`full=True`.
+
+        | mu_gas - Viscosity of gas [micropoise]
+        | cas - CAS number [-]
+        | tmin, tmax - Temperature range at which results are applicable [K]
+        | a, b, c, d - Values for regression coefficients [-]
+
+    Raises
+    ------
+    ValueError
+        If gas formula is not found in csv data file.
+    ValueError
+        If gas temperature is not in range between tmin and tmax.
 
     Examples
     --------
-    .. code-block:: python
+    >>> mu_gas_inorganic('H2', 404)
+    113.18
 
-        # in units of micropoise, uP
-        >>> mu_h2(773)
-        179.73
-        # in units of kilogram per meter per second, kg/(m s)
-        >>> mu_h2(773) / 1e7
-        1.79e-05
+    >>> mu_gas_inorganic('N2', 773)
+    363.82
+
+    >>> mu_gas_inorganic('N2', 773, full=True)
+    (363.823584708048, '7727-37-9', 63.15, 1970.0, 4.46555763078484,
+    0.6381377897531589, -0.000265956278540745, 5.41126875437814e-08)
 
     References
     ----------
-    .. [#yaw3] Yaws' Handbook of Properties of the Chemical Elements.
+    .. [1] Carl L. Yaws. Table 80. Viscosity of Gas - Inorganic Compounds in
+       Yaws' Critical Property Data for Chemical Engineers and Chemists.
+       Published by Knovel, 2014.
     """
-    a = 1.761132
-    b = 0.341654
-    c = -0.000183676
-    d = 5.114748e-8
-    mu = a + (b * T) + (c * T**2) + (d * T**3)
-    return mu
+    abs_path = os.path.dirname(os.path.abspath(__file__))
+    data_file = abs_path + '/data/mu-gas-inorganic.csv'
+
+    df = pd.read_csv(data_file, index_col=0)
+
+    if formula not in df.index:
+        raise ValueError(f'Gas species {formula} is not available.')
+
+    cas = df.loc[formula]['CAS No.']
+    a = df.loc[formula]['A']
+    b = df.loc[formula]['B']
+    c = df.loc[formula]['C']
+    d = df.loc[formula]['D']
+
+    tmin = df.loc[formula]['temperature, Tmin (K)']
+    tmax = df.loc[formula]['temperature, Tmax (K)']
+
+    if temp < tmin or temp > tmax:
+        raise ValueError('Temperature out of range. Applicable values are '
+                         + f'{tmin} - {tmax} K for {formula} gas.')
+
+    mu_gas = a + b * temp + c * (temp**2) + d * (temp**3)
+
+    if full:
+        return mu_gas, cas, tmin, tmax, a, b, c, d
+    else:
+        return mu_gas
 
 
-def mu_n2(T):
+def mu_gas_organic(formula, temp, cas=None, full=False):
     """
-    Calculate viscosity of nitrogen gas, N2, as a function of temperature.
-    Valid at temperatures from 63.15 K to 1970 K. Equation and coefficients
-    from Yaws' Handbook [#yaw4]_.
-
-    .. math::
-       \\mu_{N_2} = A + B \\cdot T + C \\cdot T^2 + D \\cdot T^3
+    Viscosity of gas as a function of temperature. Applicable to gas comprised
+    of organic compounds. Results based on coefficients from Yaws' Critical
+    Property Data for Chemical Engineers and Chemists [2]_.
 
     Parameters
     ----------
-    T : float
-        Tempreature of nitrogen gas [K]
+    formula : string
+        Molecular formula of the gas.
+    temp : float
+        Temperature of the gas [K]
+    full : bool, optional
+        When set to :code:`False` (default) just thermal conductivity is
+        returned. When set to :code:`True` then return thermal conductivity and
+        other information.
 
     Returns
     -------
-    mug : float
-        Viscosity of nitrogen gas in micropoise [uP]
+    mu_gas : float
+        Viscosity of gas [micropoise]
+
+    mu_gas, cas, tmin, tmax, a, b, c, d : tuple
+        Additional values are only returned when keyword :code:`full=True`.
+
+        | mu_gas - Viscosity of gas [micropoise]
+        | cas - CAS number [-]
+        | tmin, tmax - Temperature range at which results are applicable [K]
+        | a, b, c, d - Values for regression coefficients [-]
+
+    Raises
+    ------
+    ValueError
+        If gas formula is not found in csv data file.
+    ValueError
+        If gas temperature is not in range between tmin and tmax.
 
     Examples
     --------
-    .. code-block:: python
+    >>> mu_gas_organic('CH4', 810)
+    234.21
 
-        # in units of micropoise, uP
-        >>> mu_n2(773)
-        363.82
-        # in units of kilogram per meter per second, kg/(ms)
-        >>> mu_n2(773) / 1e7
-        3.63e-05
+    >>> mu_gas_organic('C2Cl2F4', 900, cas='374-07-2')
+    314.90
 
     References
     ----------
-    .. [#yaw4] Yaws' Handbook of Properties of the Chemical Elements.
+    .. [2] Carl L. Yaws. Table 81. Viscosity of Gas - Organic Compounds in
+       Yaws' Critical Property Data for Chemical Engineers and Chemists.
+       Published by Knovel, 2014.
     """
-    a = 4.465557
-    b = 0.638137
-    c = -0.000265956
-    d = 5.411268e-8
-    mu = a + (b * T) + (c * T**2) + (d * T**3)
-    return mu
+    abs_path = os.path.dirname(os.path.abspath(__file__))
+    data_file = abs_path + '/data/mu-gas-organic.csv'
+
+    df = pd.read_csv(data_file, index_col=0)
+
+    if formula not in df.index:
+        raise ValueError(f'Gas species {formula} is not available.')
+
+    if isinstance(df.loc[formula], pd.DataFrame) and cas is None:
+        raise ValueError(f'Multiple substances available for {formula}.'
+                         + ' Include CAS number as a function parameter.')
+
+    if cas:
+        df = df[df['CAS No.'] == str(cas)]
+
+    cas = df.loc[formula]['CAS No.']
+    tmin = df.loc[formula]['temperature, Tmin (K)']
+    tmax = df.loc[formula]['temperature, Tmax (K)']
+    a = df.loc[formula]['A']
+    b = df.loc[formula]['B']
+    c = df.loc[formula]['C']
+    d = df.loc[formula]['D']
+
+    tmin = df.loc[formula]['temperature, Tmin (K)']
+    tmax = df.loc[formula]['temperature, Tmax (K)']
+
+    if temp < tmin or temp > tmax:
+        raise ValueError('Temperature out of range. Applicable values are '
+                         + f'{tmin} - {tmax} K for {formula} gas.')
+
+    mu_gas = a + b * temp + c * (temp**2) + d * (temp**3)
+
+    if full:
+        return mu_gas, cas, tmin, tmax, a, b, c, d
+    else:
+        return mu_gas
