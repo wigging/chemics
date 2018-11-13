@@ -40,6 +40,7 @@ The following modules are available in the chemics package:
 
    conversions
    gas-thermal-conductivity
+   gas-viscosity
 
 Package index and modules
 -------------------------
