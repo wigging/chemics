@@ -35,13 +35,13 @@ Documentation for the Chemics package is available at
 
 ## Contributing
 
-See the [CONTRIBUTING.md](Contributing.md) document for guidelines on
+See the [CONTRIBUTING.md](CONTRIBUTING.md) document for guidelines on
 contributing to the Chemics package.
 
 ## License
 
-The Chemics package is available under the MIT License - see the
-[LICENSE](LICENSE) file for more information.
+Chemics is available under the MIT License - see the [LICENSE](LICENSE) file for
+more information.
 
 
 [anaconda]: https://www.anaconda.com
