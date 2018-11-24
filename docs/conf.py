@@ -105,6 +105,7 @@ html_theme = 'sphinx_rtd_theme'
 #
 html_theme_options = {
     'logo_only': True,
+    'navigation_depth': 1,
 }
 
 # The name of an image file (relative to this directory) to place at the top

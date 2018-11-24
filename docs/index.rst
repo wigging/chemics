@@ -41,9 +41,11 @@ functions are also given.
    :maxdepth: 1
 
    conversions
+   elements
    gas-density
    gas-thermal-conductivity
    gas-viscosity
+   molecular-weight
 
 Contributing
 ------------
