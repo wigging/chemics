@@ -6,7 +6,8 @@ __all__ = ['molecular_weight']
 
 def _find_end(tokens):
     """
-    Find index of closing parenthesis.
+    Find index of closing parenthesis. Based on function from Rhomboid at
+    https://gist.github.com/Rhomboid/5994999.
 
     Parameters
     ----------
@@ -34,7 +35,8 @@ def _find_end(tokens):
 def _parse(tokens, stack):
     """
     Parse items in formula list. Get atomic weight of each item or multiply by
-    number of elements. Final value is molecular weight of the formula.
+    number of elements. Final value is molecular weight of the formula. Based
+    on function from Rhomboid at https://gist.github.com/Rhomboid/5994999.
 
     Parameters
     ----------
