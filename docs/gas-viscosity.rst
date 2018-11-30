@@ -12,6 +12,9 @@ gas species and 7,031 organic gas species. At a minimum, the function requires
 the formula name and temperature as input parameters; however, the CAS number
 may be needed as an input if more than one form of a species exists.
 
+Viscosity of a gas mixture can be estimated as a weighted mean using the mixture
+function. Note that for a gas mixture, the sum of the components must equal 1.
+
 Nomenclature
 ------------
 

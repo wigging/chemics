@@ -46,3 +46,13 @@ def test_mu_ch4():
 def test_mu_c2cl2f4():
     mu_c2cl2f4 = cm.mu_gas('C2Cl2F4', 900, cas='374-07-2')
     assert mu_c2cl2f4 == approx(314.90, rel=1e-2)
+
+
+def test_mix_a():
+    mu = cm.mu_gas_mix(['H2', 'N2'], 773.15, [0.8, 0.2])
+    assert mu == approx(216.5786, rel=1e-2)
+
+
+def test_mix_b():
+    mu = cm.mu_gas_mix(['H2', 'N2', 'CH4'], 773.15, [0.4, 0.1, 0.5])
+    assert mu == approx(221.9620, rel=1e-2)
