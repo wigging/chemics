@@ -1,7 +1,9 @@
+import math
+import numpy as np
 import re
 from .elements import elements
 
-__all__ = ['molecular_weight']
+__all__ = ['molecular_weight', 'mw_mix']
 
 
 def _find_end(tokens):
@@ -103,3 +105,41 @@ def molecular_weight(formula):
     tokens = re.findall(r'[A-Z][a-z]*|\d+|\(|\)', formula)
     mw = _parse(tokens, [])
     return mw
+
+
+def mw_mix(mix, wts):
+    """
+    Molecular weight of a gas mixture calculated as a weighted mean.
+
+    Parameters
+    ----------
+    mix : list of str
+        Components of the gas mixture such as ['H2', 'CO']
+    wts : list of float
+        Weight fraction of each gas component, sums to 1.0 such as [0.8, 0.2]
+
+    Returns
+    -------
+    mw_mix : float
+        Molecular weight of a gas mixture [g/mol]
+
+    Examples
+    --------
+    >>> mw_mix(['H2', 'N2'], [0.8, 0.2])
+    7.2156
+
+    >>> mw_mix(['H2', 'N2', 'CH4'], [0.4, 0.1, 0.5])
+    11.6293
+    """
+    if len(mix) != len(wts):
+        raise ValueError('Number of components in mixture must be same as weights')
+    if not math.isclose(sum(wts), 1):
+        raise ValueError('Weights must sum to 1.0')
+
+    mw_gases = []
+    for gas in mix:
+        mw = molecular_weight(gas)
+        mw_gases.append(mw)
+
+    mw_mix = np.average(mw_gases, weights=wts)
+    return mw_mix
