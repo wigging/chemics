@@ -1,5 +1,5 @@
 """
-Tests for the molecular weight function. Updated by G.W. on 11/21/2018.
+Tests for the molecular_weight module. Updated by G.W. on 11/30/2018.
 """
 
 import chemics as cm
@@ -22,3 +22,13 @@ def test_methane():
 def test_ammonium_sulfate():
     mw = cm.molecular_weight('(NH4)2SO4')
     assert mw == approx(132.13, rel=1e-2)
+
+
+def test_mix_a():
+    mw = cm.mw_mix(['H2', 'N2'], [0.8, 0.2])
+    assert mw == approx(7.2156, rel=1e-2)
+
+
+def test_mix_b():
+    mw = cm.mw_mix(['H2', 'N2', 'CH4'], [0.4, 0.1, 0.5])
+    assert mw == approx(11.6293, rel=1e-2)
