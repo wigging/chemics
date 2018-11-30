@@ -135,9 +135,6 @@ def _mu(df, formula, temp, cas, full):
     c = df.loc[formula]['C']
     d = df.loc[formula]['D']
 
-    tmin = df.loc[formula]['temperature, Tmin (K)']
-    tmax = df.loc[formula]['temperature, Tmax (K)']
-
     if temp < tmin or temp > tmax:
         raise ValueError('Temperature out of range. Applicable values are '
                          f'{tmin} - {tmax} K for {formula} gas.')
