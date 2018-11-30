@@ -12,6 +12,7 @@ from .gas_thermal_conductivity import k_gas_inorganic
 from .gas_thermal_conductivity import k_gas_organic
 
 from .gas_viscosity import mu_gas
+from .gas_viscosity import mu_gas_mix
 
 from .molecular_weight import molecular_weight
 from .molecular_weight import mw_mix

@@ -1,7 +1,9 @@
-import pandas as pd
+import math
+import numpy as np
 import os
+import pandas as pd
 
-__all__ = ['mu_gas']
+__all__ = ['mu_gas', 'mu_gas_mix']
 
 
 def mu_gas(formula, temp, cas=None, full=False):
@@ -96,6 +98,46 @@ def mu_gas(formula, temp, cas=None, full=False):
 
     else:
         raise ValueError(f'Gas viscosity for {formula} is not available.')
+
+
+def mu_gas_mix(mix, tk, wts):
+    """
+    Viscosity of a gas mixture calculated as a weighted mean.
+
+    Parameters
+    ----------
+    mix : list of str
+        Components of the gas mixture
+    tk : float
+        Temperature of the gas mixture [K]
+    wts : list of float
+        Weight fraction of each gas component, sums to 1.0
+
+    Returns
+    -------
+    mu_mix : float
+        Viscosity of a gas mixture [micropoise]
+
+    Examples
+    --------
+    >>> mu_mix(['H2', 'N2'], 773.15, [0.8, 0.2])
+    216.5786
+
+    >>> mu_mix(['H2', 'N2', 'CH4'], 773.15, [0.4, 0.1, 0.5])
+    221.9620
+    """
+    if len(mix) != len(wts):
+        raise ValueError('Number of components in mixture must be same as weights')
+    if not math.isclose(sum(wts), 1):
+        raise ValueError('Weights must sum to 1.0')
+
+    mu_gases = []
+    for gas in mix:
+        mu = mu_gas(gas, tk)
+        mu_gases.append(mu)
+
+    mu_mix = np.average(mu_gases, weights=wts)
+    return mu_mix
 
 
 def _mu(df, formula, temp, cas, full):
