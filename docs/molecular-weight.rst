@@ -1,8 +1,9 @@
 Molecular weight
 ================
 
-The :code:`molecular_weight` function provides a convenient method to determine
-the grams per mole of an atomic element or molecular forumula.
+Functions to calculate molecular weight of an element, compound, or gas mixture
+are available in the Chemics package. Note that for a gas mixture, the sum of
+the components must equal 1.
 
 Source code
 -----------

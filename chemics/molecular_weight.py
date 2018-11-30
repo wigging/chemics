@@ -114,9 +114,9 @@ def mw_mix(mix, wts):
     Parameters
     ----------
     mix : list of str
-        Components of the gas mixture such as ['H2', 'CO']
+        Components of the gas mixture
     wts : list of float
-        Weight fraction of each gas component, sums to 1.0 such as [0.8, 0.2]
+        Weight fraction of each gas component, sums to 1.0
 
     Returns
     -------
