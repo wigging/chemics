@@ -24,9 +24,9 @@ copyright = '2019, Gavin Wiggins'
 author = 'Gavin Wiggins'
 
 # The short X.Y version
-version = '0.0.1'
+version = '19.01'
 # The full version, including alpha/beta/rc tags
-release = '0.0.1'
+release = '19.01'
 
 
 # -- General configuration ---------------------------------------------------
@@ -116,6 +116,9 @@ html_logo = '_static/logo.svg'
 # relative to this directory. They are copied after the builtin static files,
 # so a file named "default.css" will overwrite the builtin "default.css".
 html_static_path = ['_static']
+
+# Remove the View Source link at the top of the page
+html_show_sourcelink = False
 
 # Custom sidebar templates, must be a dictionary that maps document names
 # to template names.

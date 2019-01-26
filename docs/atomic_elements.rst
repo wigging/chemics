@@ -1,4 +1,4 @@
-Atomic Elements
+Atomic elements
 ===============
 
 The :code:`atomic_elements` dictionary contains atomic number, name, and atomic
