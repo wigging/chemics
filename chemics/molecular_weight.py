@@ -1,7 +1,7 @@
 import math
 import numpy as np
 import re
-from .elements import elements
+from .atomic_elements import atomic_elements
 
 __all__ = ['molecular_weight', 'mw_mix']
 
@@ -62,8 +62,8 @@ def _parse(tokens, stack):
         end = _find_end(tokens)
         stack.append(_parse(tokens[1:end], []))
         return _parse(tokens[end + 1:], stack)
-    elif t in elements:
-        stack.append(elements[t]['atomic_weight'])
+    elif t in atomic_elements:
+        stack.append(atomic_elements[t]['atomic_weight'])
     elif t.isdigit():
         stack[-1] *= int(t)
 

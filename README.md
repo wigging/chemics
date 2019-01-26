@@ -1,8 +1,9 @@
 # Chemics
 
-The [Chemics][] Python package is a collection of functions for conducting
-calculations in the field of chemical engineering. Source code for the package
-is available on [GitHub][] and contributions from the community are encouraged.
+The [Chemics][] package is a collection of Python functions for conducting
+calculations in the field of chemical and fluidization engineering. Source code
+for the package is available on [GitHub][] and contributions from the community
+are encouraged.
 
 ## Installation
 
@@ -16,14 +17,30 @@ pip install chemics
 
 ## Usage
 
-Functions in the Chemics package are called with the usual dot syntax for
-accessing module features. The example below imports the Chemics package as `cm`
-then uses the `rhog()` function to calculate the density of a gas based on its
-molecular weight, pressure, and temperature.
+The example below imports the Chemics package then uses the `rhog()`
+function to calculate the density of a gas based on its molecular weight,
+pressure, and temperature.
 
 ```python
 import chemics as cm
 cm.rhog(28, 170100, 773)
+```
+
+An example of calculating the terminal velocity of a particle according to the
+Haider and Levenspiel 1989 paper is shown below.
+
+```python
+import chemics as cm
+
+# Parameters
+dp = 0.00016    # particle diameter [m]
+mu = 1.8e-5     # gas viscosity [kg/(m s)]
+phi = 0.67      # particle sphericity [-]
+rhog = 1.2      # gas density [kg/m^3]
+rhos = 2600     # particle density [kg/m^3]
+
+# Haider and Levenspiel terminal velocity [m/s]
+ut_haider = cm.ut_haider(dp, mu, phi, rhog, rhos)
 ```
 
 More examples are available in the [chemics-examples][] repository.

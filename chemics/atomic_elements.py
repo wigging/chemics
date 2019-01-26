@@ -9,7 +9,7 @@ IUPAC Periodic Table of the Elements. International Union of Pure and Applied
 Chemistry, 2016. https://iupac.org/what-we-do/periodic-table-of-elements/.
 """
 
-elements = {
+atomic_elements = {
     'H': {'atomic_number': 1, 'name': 'hydrogen', 'atomic_weight': 1.008},
     'He': {'atomic_number': 2, 'name': 'helium', 'atomic_weight': 4.0026},
     'Li': {'atomic_number': 3, 'name': 'lithium', 'atomic_weight': 6.94},
