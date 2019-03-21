@@ -30,7 +30,7 @@ def utr(dp, mu, rhog, rhos):
         of Circulating Fluidized Beds (CFBs). Procedia Engineering, 102,
         pp. 1092-1103, 2015.
     """
-    g = 9.81                                    # gravity acceleraton [m/s^2]
-    ar = ((dp**3)*rhog*(rhos-rhog)*g)/(mu**2)   # Archimedes number [-]
-    utr = (mu/(dp*rhog))*(3.23 + 0.23*ar)       # transport velocity [m/s]
+    g = 9.81                                                # gravity acceleraton [m/s^2]
+    ar = ((dp**3) * rhog * (rhos - rhog) * g) / (mu**2)     # Archimedes number [-]
+    utr = (mu / (dp * rhog)) * (3.23 + 0.23 * ar)           # transport velocity [m/s]
     return utr

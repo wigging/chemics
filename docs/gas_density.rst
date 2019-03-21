@@ -6,7 +6,6 @@ temperature as shown below:
 
 .. math:: \rho_{gas} = \frac{P \cdot MW}{R \cdot T}
 
-
 Nomenclature
 ------------
 

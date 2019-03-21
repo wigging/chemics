@@ -1,7 +1,7 @@
 Chemics
 =======
 
-The Chemics_ package is collection of Python functions for conducting
+The Chemics_ package is a collection of Python functions for conducting
 calculations in the field of chemical and fluidization engineering. Source code
 for the package is available on GitHub_ and contributions from the community are
 encouraged.
@@ -63,6 +63,7 @@ given.
    bubble_velocity
    choking_velocity
    conversions
+   devol_time
    gas_density
    gas_thermal_conductivity
    gas_viscosity

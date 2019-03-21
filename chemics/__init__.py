@@ -1,5 +1,7 @@
 # flake8: noqa
 
+from .atomic_elements import atomic_elements
+
 from .bed_expansion_factor import fbexp
 
 from .bubble_velocity import ubr
@@ -9,7 +11,7 @@ from .choking_velocity import uch_leung
 
 from .conversions import slm_to_lpm
 
-from .atomic_elements import atomic_elements
+from .devol_time import devol_time
 
 from .gas_density import rhog
 
