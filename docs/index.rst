@@ -67,6 +67,7 @@ given.
    gas_density
    gas_thermal_conductivity
    gas_viscosity
+   geldart
    minimum_fluidization_velocity
    molecular_weight
    terminal_velocity
