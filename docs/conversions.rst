@@ -1,14 +1,7 @@
 Conversions
 ===========
 
-Here.
+Helper functions for unit conversion.
 
-Nomenclature
-------------
-
-Here.
-
-Source code
------------
-
-Here.
+.. automodule:: chemics.conversions
+   :members:

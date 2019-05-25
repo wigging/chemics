@@ -10,16 +10,15 @@ from .choking_velocity import uch_bifan
 from .choking_velocity import uch_leung
 
 from .conversions import slm_to_lpm
+from .conversions import massfrac_to_molefrac
+from .conversions import molefrac_to_massfrac
 
 from .devol_time import devol_time
 
 from .gas_density import rhog
-
 from .gas_pressure import patm
-
 from .gas_thermal_conductivity import k_gas_inorganic
 from .gas_thermal_conductivity import k_gas_organic
-
 from .gas_viscosity import mu_gas
 from .gas_viscosity import mu_gas_mix
 

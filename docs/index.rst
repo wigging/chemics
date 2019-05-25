@@ -46,7 +46,7 @@ Haider and Levenspiel 1989 paper is shown below.
     # Haider and Levenspiel terminal velocity [m/s]
     ut_haider = cm.ut_haider(dp, mu, phi, rhog, rhos)
 
-More examples are available in the chemics-examples_ repository.
+More examples are available in the `chemics-examples`_ repository.
 
 Documentation
 -------------
@@ -87,7 +87,7 @@ Package index and modules
 * :ref:`search`
 
 .. _anaconda: https://www.anaconda.com
-.. _chemics: https://github.com/chemics/chemics
+.. _chemics: https://pypi.org/project/chemics/
 .. _contributing: https://github.com/chemics/chemics/blob/master/CONTRIBUTING.md
 .. _chemics-examples: https://github.com/chemics/chemics-examples
 .. _github: https://github.com/chemics/chemics
