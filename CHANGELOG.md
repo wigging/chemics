@@ -1,5 +1,18 @@
 # Changelog
 
+Version numbers use calendar versioning based on `YY.MM.MICRO`. See the [CalVer](https://calver.org) website for more information about this versioning convention.
+
+## v19.5.2
+
+#### Added
+
+- Added option to plot min and max particle size on Geldart chart
+
+#### Changed
+
+- Renamed `plot_geldart` function to `geldart_chart`
+- This function now returns a Matplotlib figure
+
 ## v19.5.1
 
 #### Added

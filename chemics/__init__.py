@@ -22,7 +22,7 @@ from .gas_thermal_conductivity import k_gas_organic
 from .gas_viscosity import mu_gas
 from .gas_viscosity import mu_gas_mix
 
-from .geldart import plot_geldart
+from .geldart import geldart_chart
 
 from .minimum_fluidization_velocity import umf_coeff
 from .minimum_fluidization_velocity import umf_ergun
