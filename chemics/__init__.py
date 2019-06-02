@@ -20,7 +20,8 @@ from .gas_pressure import patm
 from .gas_thermal_conductivity import k_gas_inorganic
 from .gas_thermal_conductivity import k_gas_organic
 from .gas_viscosity import mu_gas
-from .gas_viscosity import mu_gas_mix
+from .gas_viscosity import mu_graham
+from .gas_viscosity import mu_herning
 
 from .geldart import geldart_chart
 
@@ -28,7 +29,7 @@ from .minimum_fluidization_velocity import umf_coeff
 from .minimum_fluidization_velocity import umf_ergun
 from .minimum_fluidization_velocity import umf_reynolds
 
-from .molecular_weight import molecular_weight
+from .molecular_weight import mw
 from .molecular_weight import mw_mix
 
 from .terminal_velocity import ut

@@ -1,9 +1,8 @@
-import math
 import numpy as np
 import re
 from .atomic_elements import atomic_elements
 
-__all__ = ['molecular_weight', 'mw_mix']
+__all__ = ['mw', 'mw_mix']
 
 
 def _find_end(tokens):
@@ -49,12 +48,12 @@ def _parse(tokens, stack):
 
     Returns
     -------
-    mw : float
+    mole_weight : float
         Sum of molecular weights from molecular formula.
     """
     if len(tokens) == 0:
-        mw = sum(stack)
-        return mw
+        mole_weight = sum(stack)
+        return mole_weight
 
     t = tokens[0]
 
@@ -70,7 +69,7 @@ def _parse(tokens, stack):
     return _parse(tokens[1:], stack)
 
 
-def molecular_weight(formula):
+def mw(formula):
     """
     Tokenize a molecular formula to determine total molecular weight.
     Calculation is based on atomic weight values from IUPAC [1]_.
@@ -87,13 +86,13 @@ def molecular_weight(formula):
 
     Examples
     --------
-    >>> molecular_weight('C')
+    >>> mw('C')
     12.011
 
-    >>> molecular_weight('CH4')
+    >>> mw('CH4')
     16.04
 
-    >>> molecular_weight('(NH4)2SO4')
+    >>> mw('(NH4)2SO4')
     132.13
 
     References
@@ -103,43 +102,47 @@ def molecular_weight(formula):
        https://iupac.org/what-we-do/periodic-table-of-elements/.
     """
     tokens = re.findall(r'[A-Z][a-z]*|\d+|\(|\)', formula)
-    mw = _parse(tokens, [])
-    return mw
+    molecular_weight = _parse(tokens, [])
+    return molecular_weight
 
 
-def mw_mix(mix, wts):
+def mw_mix(mws, xs):
     """
     Molecular weight of a gas mixture calculated as a weighted mean.
 
     Parameters
     ----------
-    mix : list of str
-        Components of the gas mixture
-    wts : list of float
-        Weight fraction of each gas component, sums to 1.0
+    mws : list, tuple, or array
+        Molecular weight of each gas component [g/mol]
+    xs : list, tuple, or array
+        Mole fraction of each gas component [-]
 
     Returns
     -------
     mw_mix : float
         Molecular weight of a gas mixture [g/mol]
 
+    Raises
+    ------
+    ValueError
+        If sum of mole fractions does not equal 1.0
+
     Examples
     --------
-    >>> mw_mix(['H2', 'N2'], [0.8, 0.2])
+    >>> mw_h2 = cm.mw('H2')
+    ... mw_n2 = cm.mw('N2')
+    ... mw_mix([mw_h2, mw_n2], [0.8, 0.2])
     7.2156
 
-    >>> mw_mix(['H2', 'N2', 'CH4'], [0.4, 0.1, 0.5])
+    >>> mw_h2 = cm.mw('H2')
+    ... mw_n2 = cm.mw('N2')
+    ... mw_ch4 = cm.mw('CH4')
+    ... mw_mix([mw_h2, mw_n2, mw_ch4], [0.4, 0.1, 0.5])
     11.6293
     """
-    if len(mix) != len(wts):
-        raise ValueError('Number of components in mixture must be same as weights')
-    if not math.isclose(sum(wts), 1):
-        raise ValueError('Weights must sum to 1.0')
-
-    mw_gases = []
-    for gas in mix:
-        mw = molecular_weight(gas)
-        mw_gases.append(mw)
-
-    mw_mix = np.average(mw_gases, weights=wts)
-    return mw_mix
+    mws = np.asarray(mws)
+    xs = np.asarray(xs)
+    if not np.isclose(xs.sum(), 1.0):
+        raise ValueError('Sum of mole fractions must be 1.0')
+    molwt_mix = np.average(mws, weights=xs)
+    return molwt_mix

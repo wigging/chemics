@@ -1,12 +1,8 @@
 Molecular weight
 ================
 
-Functions to calculate molecular weight of an element, compound, or gas mixture
-are available in the Chemics package. Note that for a gas mixture, the sum of
-the components must equal 1.
-
-Source code
------------
+Functions to calculate molecular weight of an element, compound, or gas mixture.
+Note that mole fractions must sum to one otherwise an error is raised.
 
 .. automodule:: chemics.molecular_weight
    :members:

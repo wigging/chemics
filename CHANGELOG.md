@@ -2,6 +2,22 @@
 
 Version numbers use calendar versioning based on `YY.MM.MICRO`. See the [CalVer](https://calver.org) website for more information about this versioning convention.
 
+## v19.6
+
+#### Added
+
+- `mu_graham()` to calculate viscosity of a gas mixture using mole fraction and viscosity of each component
+- `mu_herning()` to calculate viscosity of a gas mixture using molecular weight, mole fraction, and viscosity of each component
+
+#### Changed
+
+- Renamed `molecular_weight()` function to `mw()`
+- Input parameters for `mw_mix()` are now molecular weight and mole fraction of each gas component
+
+#### Removed
+
+- Deleted the `mu_gas_mix()` function. Use the `mu_graham()` function instead.
+
 ## v19.5.2
 
 #### Added

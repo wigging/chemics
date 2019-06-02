@@ -48,11 +48,17 @@ def test_mu_c2cl2f4():
     assert mu_c2cl2f4 == approx(314.90, rel=1e-2)
 
 
-def test_mix_a():
-    mu = cm.mu_gas_mix(['H2', 'N2'], 773.15, [0.8, 0.2])
-    assert mu == approx(216.5786, rel=1e-2)
+def test_mu_graham():
+    mu_h2 = cm.mu_gas('H2', 773.15)
+    mu_n2 = cm.mu_gas('N2', 773.15)
+    mu_mix = cm.mu_graham([mu_h2, mu_n2], [0.85, 0.15])
+    assert mu_mix == approx(207.37, rel=1e-2)
 
 
 def test_mix_b():
-    mu = cm.mu_gas_mix(['H2', 'N2', 'CH4'], 773.15, [0.4, 0.1, 0.5])
-    assert mu == approx(221.9620, rel=1e-2)
+    mu_h2 = cm.mu_gas('H2', 773.15)
+    mu_n2 = cm.mu_gas('N2', 773.15)
+    mw_h2 = cm.mw('H2')
+    mw_n2 = cm.mw('N2')
+    mu_mix = cm.mu_herning([mu_h2, mu_n2], [mw_h2, mw_n2], [0.85, 0.15])
+    assert mu_mix == approx(252.81, rel=1e-2)

@@ -24,9 +24,9 @@ copyright = '2019, Gavin Wiggins'
 author = 'Gavin Wiggins'
 
 # The short X.Y version
-version = '19.5.2'
+version = '19.6'
 # The full version, including alpha/beta/rc tags
-release = '19.5.2'
+release = '19.6'
 
 
 # -- General configuration ---------------------------------------------------
