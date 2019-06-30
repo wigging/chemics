@@ -4,6 +4,11 @@ Version numbers use calendar versioning based on `YY.MM.MICRO`. See the [CalVer]
 
 ## v19.6.1
 
+#### Added
+
+- `k_wood()` for wood thermal conductivity.
+- Test and documentation for `k_wood()` function.
+
 #### Fixed
 
 - Fix display of the `atomic_elements` dictionary in documentation.

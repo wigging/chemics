@@ -37,3 +37,5 @@ from .terminal_velocity import ut_haider
 from .terminal_velocity import ut_ganser
 
 from .transport_velocity import utr
+
+from .wood_thermal_conductivity import k_wood
