@@ -38,4 +38,5 @@ from .terminal_velocity import ut_ganser
 
 from .transport_velocity import utr
 
+from .wood_heat_capacity import cp_wood
 from .wood_thermal_conductivity import k_wood

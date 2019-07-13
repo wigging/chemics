@@ -1,8 +1,8 @@
 
 def k_wood(gb, so, x):
     """
-    Thermal conductivity of wood based on of moisture content, volumetric
-    shrinkage, and basic specific gravity.
+    Thermal conductivity of wood based on moisture content, volumetric
+    shrinkage, and basic specific gravity
 
     .. math:: k = G_x (B + C x) + A
 

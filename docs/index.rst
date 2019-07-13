@@ -72,6 +72,7 @@ given.
    molecular_weight
    terminal_velocity
    transport_velocity
+   wood_heat_capacity
    wood_thermal_conductivity
 
 Contributing

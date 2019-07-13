@@ -2,6 +2,12 @@
 
 Version numbers use calendar versioning based on `YY.MM.MICRO`. See the [CalVer](https://calver.org) website for more information about this versioning convention. The format of this changelog follows the approach outlined on the [Keep a Changelog](https://keepachangelog.com) website.
 
+## v19.7
+
+#### Added
+
+- `cp_wood()` for wood heat capacity.
+
 ## v19.6.1
 
 #### Added
