@@ -37,6 +37,7 @@ from .terminal_velocity import ut_haider
 from .terminal_velocity import ut_ganser
 
 from .transport_disengaging_height import tdh_chan
+from .transport_disengaging_height import tdh_horio
 from .transport_velocity import utr
 
 from .wood_heat_capacity import cp_wood

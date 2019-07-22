@@ -1,46 +1,6 @@
 import numpy as np
 
 
-def tdhDecayConstant(dp):
-    """
-    Calculates the transport disengagement decay constant given the particle
-    diameter and superficial velocity. The correlation is a curve fit to data
-    in K/L Fig. 7.12. Maximum particle diameter on plot is 800 um, and maximum
-    superficial velocity is 1.25 m/s.
-
-    Parameters
-    ----------
-    dp : float
-        Particle diameter [m]
-
-    Returns
-    -------
-    a_us : float
-        Transport disengagement decay constant (1/m) multiplied by the
-        superficial velocity (m/s) for a product with units [1/s]
-    """
-
-    # This is the raw data that we use to fit the trend line to. It has been
-    # read off the graph in a rather sophisticated manner. The graph was
-    # scanned from the K/L book, and then the coordinates (in pixels) at select
-    # locations along the curve were noted and transformed into particle
-    # diameters and a*u values according to the linear transform relating the
-    # pixel coordinates and the graph scales.
-    # dp_data = [34.0, 162.0, 302.0, 487.0, 616.0, 800.0] # um
-    # au_data = [0.39, 1.17, 1.70, 2.29, 2.67, 3.16] # 1/s
-
-    # Power law fit to the data. Current R^2 value is larger than 0.99.
-    # Make sure to update this if the dataset changes!
-    coeff = 0.03918
-    power = 0.65883
-
-    # Calculate a*us. Note that the particle diameter for the fit is in um, not
-    # m.
-    a_us = coeff * (dp / 1e-6)**power
-
-    return a_us
-
-
 def tdh_chan(ug):
     """
     Calculate transport disengaging height (TDH) based on the Chan and Knowlton
@@ -62,7 +22,7 @@ def tdh_chan(ug):
     Returns
     -------
     tdh : float
-        Transport disengagement height [m]
+        Transport disengaging height [m]
 
     Example
     -------
@@ -83,23 +43,45 @@ def tdh_chan(ug):
     return tdh
 
 
-def tdhHeight(a, x):
+def tdh_horio(dc, ug):
     """
-    Calculates the transport disengagement height for the specified decay
-    constant and fraction of upward solids flux at that height. It assumes
-    total reflux (no solids elutriation).
+    Calculate transport disengaging height (TDH) based on the Horio et al.
+    correlation [3]_. This function is based on the equation presented in the
+    Cahyadi [4]_ review article
+
+    .. math:: TDH = (2.7\\, {D_c}^{-0.36} - 0.7) D_c\\, \\textrm{exp}(0.74\\, U_g\\, D_c^{-0.23})
+
+    where :math:`D_c` is inner diameter of the fluidizing column and
+    :math:`U_g` is superifical gas velocity. According to Table 1 in the
+    Cahyadi review paper, this corrleation is relevant for Geldart group A
+    particles.
 
     Parameters
     ----------
-    a : float
-        Decay constant [1/m]
-    x : float
-        Fraction of entrained solids at the TDH [-]
+    dc : float
+        Inner diameter of fluidizing column [m]
+    ug : float
+        Superficial gas velocity [m/s]
 
     Returns
     -------
     tdh : float
-        Transport disengagement height [m]
+        Transport disengaging height [m]
+
+    Example
+    -------
+    >>> tdh_horio(0.05, 0.3)
+    0.563
+
+    References
+    ----------
+    .. [3] M. Horio, T. Shibata, and I. Muchi. Design criteria for the fluidized
+       bed freeboard. 4th International Conference on Fluidization in Kashikojima,
+       Japan, 1983.
+    .. [4] Andy Cahyadi, Anthony H. Neumayer, Christine M. Hrenya, Ray A. Cocco,
+       and Jia Wei Chew. Comparative study of Transport Disengaging Height (TDH)
+       correlations in gas–solid fluidization. Powder Technology, vol. 275,
+       pp. 220-238, 2015.
     """
-    tdh = -np.log(x) / a
+    tdh = ((2.7 * dc**-0.36) - 0.7) * dc * np.exp(0.74 * ug * dc**-0.23)
     return tdh
