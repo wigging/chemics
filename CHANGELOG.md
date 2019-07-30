@@ -2,6 +2,17 @@
 
 Version numbers use calendar versioning based on `YY.MM.MICRO`. See the [CalVer](https://calver.org) website for more information about this versioning convention. The format of this changelog follows the approach outlined on the [Keep a Changelog](https://keepachangelog.com) website.
 
+## v19.8
+
+#### Added
+
+- `tdh_chan()` and `tdh_horio()` functions for transport disengaging height
+- Tests for the TDH functions
+
+#### Changed
+
+- Use terminal velocity from Newton's law to determine max value for guess in `ut_ganser()` function.
+
 ## v19.7
 
 #### Added

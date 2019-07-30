@@ -33,9 +33,9 @@ def ut(cd, dp, rhog, rhos):
            Butterworth-Heinemann, 2nd edition, 1991.
     """
     g = 9.81  # gravity acceleration, m/s^2
-    tm1 = 4*dp*(rhos - rhog)*g
-    tm2 = 3*rhog*cd
-    ut = (tm1/tm2)**(1/2)
+    tm1 = 4 * dp * (rhos - rhog) * g
+    tm2 = 3 * rhog * cd
+    ut = (tm1 / tm2)**(1 / 2)
     return ut
 
 
@@ -88,29 +88,32 @@ def ut_ganser(dp, mu, phi, rhog, rhos):
            review of experimental multiphase flow aspects. Chemical Engineering
            Science, 62, 45-55, 2007.
     """
-    g = 9.81    # acceleration from gravity, m/s^2
+    g = 9.81    # acceleration from gravity [m/s²]
 
-    # shape factors
+    # Shape factors
     # papers Cui 2007 and Chhabra 1999 leave out the -2.25*dv/D term
-    k1 = (1/3 + 2/3*(phi**-0.5))**(-1)           # Stokes' shape factor
-    k2 = 10**(1.8148*((-np.log(phi))**0.5743))   # Newton's shape factor
+    k1 = (1 / 3 + 2 / 3 * (phi**-0.5))**(-1)           # Stokes' shape factor
+    k2 = 10**(1.8148 * ((-np.log(phi))**0.5743))       # Newton's shape factor
 
-    # guess a range for terminal velocity, m/s
-    ut = np.arange(0.001, 20, 0.001)
+    # Guess a range for Ut [m/s] to perform calculations
+    # max terminal velocity in range determined from Newton's law
+    ut_newton = 1.74 * np.sqrt(9.81 * dp * (rhos - rhog) / rhog)
+    ut = np.arange(0.0001, ut_newton, 0.004)
 
-    # evaluate drag coefficients for range of ut
-    # Re is Reynolds number, (-)
-    # Cd is Ganser 1993 drag coefficient as function of Re, K1, K2 (-)
-    # Cdd is drag coefficient as function of ut, etc. (-)
-    re = (dp*rhog*ut)/mu
-    cd = (24/(re*k1))*(1 + 0.1118*((re*k1*k2)**0.6567)) \
-        + (0.4305*k2)/(1+(3305/(re*k1*k2)))
-    cdd = (4*g*dp*(rhos-rhog))/(3*(ut**2)*rhog)
+    # Evaluate terms for a range of Ut
+    # re is Reynolds number [-]
+    # cd is Ganser 1993 drag coefficient [-]
+    # cdd is Levenspiel expression [-]
+    # re, cd, and cdd are vectors
+    re = (dp * rhog * ut) / mu
+    cd = (24 / (re * k1)) * (1 + 0.1118 * ((re * k1 * k2)**0.6567)) \
+        + (0.4305 * k2) / (1 + (3305 / (re * k1 * k2)))
+    cdd = (4 * g * dp * (rhos - rhog)) / (3 * (ut**2) * rhog)
 
-    delta = np.abs(cd-cdd)  # compare difference between Cd and Cdd
-    idx = np.argmin(delta)  # find index of minimum value in delta
+    delta = np.abs(cd - cdd)    # compare difference between cd and cdd
+    idx = np.argmin(delta)      # find index of minimum value in delta
 
-    # select values to return based on above index
+    # Return values based on above index
     return cd[idx], re[idx], ut[idx]
 
 
@@ -153,7 +156,7 @@ def ut_haider(dp, mu, phi, rhog, rhos):
     if phi > 1.0 or phi < 0.5:
         raise ValueError('Sphericity must be 0.5 <= phi <= 1.0')
 
-    d_star = dp * ((9.81*rhog*(rhos-rhog))/(mu**2))**(1/3)
-    u_star = (18/(d_star**2) + ((2.3348 - 1.7439*phi) / (d_star**0.5)))**-1
-    ut = u_star * ((9.81*(rhos-rhog)*mu) / rhog**2)**(1/3)
+    d_star = dp * ((9.81 * rhog * (rhos - rhog)) / (mu**2))**(1 / 3)
+    u_star = (18 / (d_star**2) + ((2.3348 - 1.7439 * phi) / (d_star**0.5)))**-1
+    ut = u_star * ((9.81 * (rhos - rhog) * mu) / rhog**2)**(1 / 3)
     return ut
