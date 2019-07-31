@@ -8,10 +8,12 @@ Version numbers use calendar versioning based on `YY.MM.MICRO`. See the [CalVer]
 
 - `tdh_chan()` and `tdh_horio()` functions for transport disengaging height
 - Tests for the TDH functions
+- Added math equations to terminal velocity doc strings
 
 #### Changed
 
 - Use terminal velocity from Newton's law to determine max value for guess in `ut_ganser()` function.
+- `ut_ganser()` now returns a scalar, not a tuple as in previous versions
 
 ## v19.7
 

@@ -4,7 +4,10 @@ import numpy as np
 def ut(cd, dp, rhog, rhos):
     """
     Calculate terminal velocity of a single particle based on Equation 28 on
-    page 80 in the Kunii and Levenspiel book [1]_.
+    page 80 in the Kunii and Levenspiel book [1]_ where :math:`C_D` is an
+    experimentally determined drag coefficient.
+
+    .. math:: u_t = \\left( \\frac{4 d_p\\, (\\rho_s - \\rho_g) g}{3 \\rho_g\\, C_D} \\right)^{1/2}
 
     Parameters
     ----------
@@ -41,9 +44,21 @@ def ut(cd, dp, rhog, rhos):
 
 def ut_ganser(dp, mu, phi, rhog, rhos):
     """
-    Estimate terminal velocity of a particle based on the Ganser drag
-    correlation [2]_. According to the Chhabra paper [3]_, the Ganser drag
+    Estimate terminal velocity of a non-spherical particle based on the Ganser
+    drag coefficient [2]_. According to the Chhabra paper [3]_, the Ganser drag
     correlation is applicable for sphericity values from 0.09 to 1.
+
+    .. math::
+
+       C_d &= \\frac{24}{Re\\, K_1} \\left( 1 + 0.1118 (Re\\, K_1 K_2)^{0.6567} \\right) + \\frac{0.4305 K_2}{1 + \\frac{3305}{Re\\, K_1 K_2}}
+
+       K_1 &= \\left( \\frac{1}{3} + \\frac{2}{3}\\phi \\right)
+
+       K_2 &= 10^{1.8148 (-log\\, \\phi)^{0.5743}}
+
+    where K₁ is Stokes' shape factor and K₂ is Newton's shape factor. The Cui 2007
+    and Chhabra 1999 papers leave out the :math:`-2.25*d_v/D` term in the shape
+    factor equations.
 
     Parameters
     ----------
@@ -54,23 +69,19 @@ def ut_ganser(dp, mu, phi, rhog, rhos):
     phi : float
         Sphericity of the particle [-]
     rhog : float
-        Density of the gas [kg/m^3]
+        Density of the gas [kg/m³]
     rhos : float
-        Density of the particle [kg/m^3]
+        Density of the particle [kg/m³]
 
     Returns
     -------
-    cd : float
-        Drag coefficient of the particle [-]
-    re : float
-        Reynolds number of the particle [-]
     ut : float
-        Terminal velocity of particle [m/s]
+        Terminal velocity of non-spherical particle [m/s]
 
     Example
     -------
-    >>> cd, re, ut_ganser = ut_ganser(0.00016, 1.8e-5, 0.67, 1.2, 2600)
-    11.6867, 6.6453, 0.6230
+    >>> ut_ganser(0.00016, 1.8e-5, 0.67, 1.2, 2600)
+    0.6230
 
     Note
     ----
@@ -90,31 +101,31 @@ def ut_ganser(dp, mu, phi, rhog, rhos):
     """
     g = 9.81    # acceleration from gravity [m/s²]
 
-    # Shape factors
-    # papers Cui 2007 and Chhabra 1999 leave out the -2.25*dv/D term
-    k1 = (1 / 3 + 2 / 3 * (phi**-0.5))**(-1)           # Stokes' shape factor
-    k2 = 10**(1.8148 * ((-np.log(phi))**0.5743))       # Newton's shape factor
-
     # Guess a range for Ut [m/s] to perform calculations
     # max terminal velocity in range determined from Newton's law
     ut_newton = 1.74 * np.sqrt(9.81 * dp * (rhos - rhog) / rhog)
     ut = np.arange(0.0001, ut_newton, 0.004)
 
-    # Evaluate terms for a range of Ut
-    # re is Reynolds number [-]
-    # cd is Ganser 1993 drag coefficient [-]
-    # cdd is Levenspiel expression [-]
-    # re, cd, and cdd are vectors
+    # Shape factors
+    # papers Cui 2007 and Chhabra 1999 leave out the -2.25*dv/D term
+    k1 = (1 / 3 + 2 / 3 * (phi**-0.5))**(-1)           # Stokes' shape factor
+    k2 = 10**(1.8148 * ((-np.log(phi))**0.5743))       # Newton's shape factor
+
+    # Evaluate Ganser drag coefficient [-] for a range of Ut
+    # re and cd are vectors
     re = (dp * rhog * ut) / mu
     cd = (24 / (re * k1)) * (1 + 0.1118 * ((re * k1 * k2)**0.6567)) \
         + (0.4305 * k2) / (1 + (3305 / (re * k1 * k2)))
+
+    # Evaluate sphere drag coefficient [-] for a range of Ut
+    # this expression is from the Levenspiel book
+    # cdd is a vector
     cdd = (4 * g * dp * (rhos - rhog)) / (3 * (ut**2) * rhog)
 
-    delta = np.abs(cd - cdd)    # compare difference between cd and cdd
-    idx = np.argmin(delta)      # find index of minimum value in delta
+    # Interpolate value for Ut where Cd-Cdd = 0
+    ut_interp = np.interp(0, cd - cdd, ut)
 
-    # Return values based on above index
-    return cd[idx], re[idx], ut[idx]
+    return ut_interp
 
 
 def ut_haider(dp, mu, phi, rhog, rhos):
@@ -123,6 +134,26 @@ def ut_haider(dp, mu, phi, rhog, rhos):
     Levenspiel [5]_. Valid for particle sphericities of 0.5 to 1. Particle
     diameter should be an equivalent spherical diameter, such as the diameter
     of a sphere having same volume as the particle.
+
+    To determine the terminal velocity for a range of particle sphericities, Haider
+    and Levenspiel first define two dimensionless quantities
+
+    .. math::
+
+       d_{*} = d_p \\left[ \\frac{g\\, \\rho_g (\\rho_s - \\rho_g)}{\\mu^2} \\right]^{1/3} \\
+       u_* = \\left[ \\frac{18}{d{_*}^2} + \\frac{2.3348 - 1.7439\\, \\phi}{d{_*}^{0.5}} \\right]^{-1}
+
+    where :math:`0.5 \\leq \\phi \\leq 1` and particle diameter :math:`d_p` is an
+    equivalent spherical diameter, the diameter of a sphere having the same volume
+    as the particle. The relationship between :math:`u_*` and :math:`u_t` is given
+    by
+
+    .. math:: u_* = u_t \\left[ \\frac{\\rho{_g}^2}{g\\, \\mu\\, (\\rho_s - \\rho_g)} \\right]^{1/3}
+
+    The terminal velocity of the particle can finally be determined by rearranging
+    the above equation such that
+
+    .. math:: u_t = u_* \\left[ \\frac{g\\, \\mu\\, (\\rho_s - \\rho_g)}{\\rho{_g}^2} \\right]^{1/3}
 
     Parameters
     ----------
@@ -140,7 +171,7 @@ def ut_haider(dp, mu, phi, rhog, rhos):
     Returns
     -------
     ut : float
-        Terminal velocity of particle [m/s]
+        Terminal velocity of a particle [m/s]
 
     Example
     -------

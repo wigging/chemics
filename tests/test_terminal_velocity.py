@@ -33,6 +33,6 @@ def test_ut_haider():
 
 
 def test_ut_ganser():
-    # drag coefficient [-], reynolds number [-], terminal velocity [m/s]
-    cd, re, ut_ganser = cm.ut_ganser(dp, mu, phi, rhog, rhos)
-    assert (cd, re, ut_ganser) == approx((11.6867, 6.6453, 0.6230), rel=1e-2)
+    # terminal velocity [m/s]
+    ut_ganser = cm.ut_ganser(dp, mu, phi, rhog, rhos)
+    assert ut_ganser == approx(0.6230, rel=1e-2)
