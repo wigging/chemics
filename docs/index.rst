@@ -71,6 +71,7 @@ given.
    minimum_fluidization_velocity
    molecular_weight
    terminal_velocity
+   transport_disengaging_height
    transport_velocity
    wood_heat_capacity
    wood_thermal_conductivity
