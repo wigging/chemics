@@ -14,6 +14,7 @@
 
 import os
 import sys
+import sphinx_rtd_theme
 sys.path.insert(0, os.path.abspath('..'))
 
 
@@ -44,6 +45,7 @@ extensions = [
     'sphinx.ext.viewcode',
     'sphinx.ext.githubpages',
     'sphinx.ext.napoleon',
+    'sphinx_rtd_theme',
 ]
 
 # Settings for napoleon extension to support NumPy docstrings

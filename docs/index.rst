@@ -9,7 +9,7 @@ encouraged.
 Installation
 ------------
 
-The Anaconda_ distribution of Python is recommended for scientific computing.
+The Anaconda_ or Miniconda_ distribution of Python is recommended for scientific computing.
 After installing Anaconda, the Chemics package can be downloaded and installed
 with the pip package manager:
 
@@ -93,3 +93,4 @@ Package index and modules
 .. _contributing: https://github.com/chemics/chemics/blob/master/CONTRIBUTING.md
 .. _chemics-examples: https://github.com/chemics/chemics-examples
 .. _github: https://github.com/chemics/chemics
+.. _miniconda: https://conda.io/miniconda.html
