@@ -6,6 +6,8 @@ from .bed_expansion_factor import fbexp
 
 from .bubble_velocity import ubr
 
+from .chemical_equation import ChemicalEquation
+
 from .choking_velocity import uch_bifan
 from .choking_velocity import uch_leung
 
