@@ -2,6 +2,14 @@
 
 Version numbers use calendar versioning based on `YY.MM.MICRO`. See the [CalVer](https://calver.org) website for more information about this versioning convention. The format of this changelog follows the approach outlined on the [Keep a Changelog](https://keepachangelog.com) website.
 
+## v19.10
+
+#### Added
+
+- `ChemicalEquation()` class to determine properties of the reactants and products in a given chemical equation
+- Tests for chemical equation class
+- Documentation for the chemical equation class
+
 ## v19.8
 
 #### Added
