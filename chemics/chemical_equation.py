@@ -167,7 +167,7 @@ class ChemicalEquation:
 
             # --- count elements from each chemical species ---
 
-            rex = re.findall('([A-Z][a-z]?)([0-9]+)?', sp)
+            rex = re.findall('([A-Z][a-z]?)([0-9]*)', sp)
 
             for r in rex:
                 element = r[0]
