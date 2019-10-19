@@ -253,7 +253,7 @@ class ChemicalEquation:
         Returns
         -------
         rct_props : dict
-            Reactant properties defined as `moles`, `mol_wt`, `mass`,
+            Reactant properties defined as `moles`, `mw`, `mass`,
             `mol_frac`, and `mass_frac` keys.
 
         Example
@@ -261,18 +261,18 @@ class ChemicalEquation:
         >>> ce = ChemicalEquation('2 HCl + 2 Na -> 2 NaCl + H2')
         >>> ce.reactant_props('Na')
         {'moles': 2.0,
-         'mol_wt': 22.99,
+         'mw': 22.99,
          'mass': 45.98,
          'mol_frac': 0.5,
          'mass_frac': 0.3867}
         """
         idx = self.rct_species.index(species)
         moles = self.rct_moles[idx]
-        mol_wt = self.rct_mw[idx]
+        mw = self.rct_mw[idx]
         mass = self.rct_mass[idx]
         mol_frac = self.rct_mol_fracs[idx]
         mass_frac = self.rct_mass_fracs[idx]
-        rct_props = dict(moles=moles, mol_wt=mol_wt, mass=mass, mol_frac=mol_frac, mass_frac=mass_frac)
+        rct_props = dict(moles=moles, mw=mw, mass=mass, mol_frac=mol_frac, mass_frac=mass_frac)
         return rct_props
 
     def product_props(self, species):
@@ -287,7 +287,7 @@ class ChemicalEquation:
         Returns
         -------
         prod_props : dict
-            Product properties defined as `moles`, `mol_wt`, `mass`,
+            Product properties defined as `moles`, `mw`, `mass`,
             `mol_frac`, and `mass_frac` keys.
 
         Example
@@ -295,16 +295,16 @@ class ChemicalEquation:
         >>> ce = ChemicalEquation('2 HCl + 2 Na -> 2 NaCl + H2')
         >>> ce.product_props('NaCl')
         {'moles': 2.0,
-         'mol_wt': 58.44,
+         'mw': 58.44,
          'mass': 116.88,
          'mol_frac': 0.66,
          'mass_frac': 0.983}
         """
         idx = self.prod_species.index(species)
         moles = self.prod_moles[idx]
-        mol_wt = self.prod_mw[idx]
+        mw = self.prod_mw[idx]
         mass = self.prod_mass[idx]
         mol_frac = self.prod_mol_fracs[idx]
         mass_frac = self.prod_mass_fracs[idx]
-        prod_props = dict(moles=moles, mol_wt=mol_wt, mass=mass, mol_frac=mol_frac, mass_frac=mass_frac)
+        prod_props = dict(moles=moles, mw=mw, mass=mass, mol_frac=mol_frac, mass_frac=mass_frac)
         return prod_props
