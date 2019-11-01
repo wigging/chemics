@@ -43,52 +43,18 @@ import chemics as cm
 
 ce = cm.ChemicalEquation('2 HCl + 2 Na -> 2 NaCl + H2')
 
-ce.balance          # returns True for balanced equation
-ce.rct_mol_fracs    # returns [0.5, 0.5] for mole fractions of reactants
+ce.balance
+# returns True for balanced equation
 
-print(ce)
-# prints properties of reactants and products to screen as
-# eq                 2 HCl + 2 Na -> 2 NaCl + H2
-# names              None
-# balance            True
-#
-# reactants          ['2 HCl', '2 Na']
-# rct_species        ['HCl', 'Na']
-# rct_moles          [2. 2.]
-# rct_mw             [36.458 22.99 ]
-# rct_mass           [72.916 45.98 ]
-# rct_elements       {'H': 2.0, 'Cl': 2.0, 'Na': 2.0}
-# rct_sum_moles      4.0
-# rct_sum_mass       118.8960
-# rct_mol_fracs      [0.5 0.5]
-# rct_mass_fracs     [0.61327547 0.38672453]
-#
-# products           ['2 NaCl', 'H2']
-# prod_species       ['NaCl', 'H2']
-# prod_moles         [2. 1.]
-# prod_mw            [58.44   2.016]
-# prod_mass          [116.88    2.016]
-# prod_elements      {'Na': 2.0, 'Cl': 2.0, 'H': 2.0}
-# prod_sum_moles     3.0
-# prod_sum_mass      118.896
-# prod_mol_fracs     [0.66666667 0.33333333]
-# prod_mass_fracs    [0.983044 0.016956]
-
-ce.reactant_props('Na')
-# returns properties for the reactant `Na`
-# {'moles': 2.0,
-#  'mw': 22.99,
-#  'mass': 45.98,
-#  'mol_frac': 0.5,
-#  'mass_frac': 0.3867}
-
-ce.product_props('NaCl')
-# returns properties for the product `NaCl`
-# {'moles': 2.0,
-#  'mw': 58.44,
-#  'mass': 116.88,
-#  'mol_frac': 0.66,
-#  'mass_frac': 0.983}
+ce.rct_properties
+# returns a dataframe of the reactant properties
+#                HCl        Na
+# moles            2         2
+# species        HCl        Na
+# molwt       36.458     22.99
+# mass        72.916     45.98
+# molfrac        0.5       0.5
+# massfrac  0.613275  0.386725
 ```
 
 More examples are available in the [chemics-examples][] repository.

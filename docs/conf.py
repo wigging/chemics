@@ -25,9 +25,10 @@ copyright = '2019, Gavin Wiggins'
 author = 'Gavin Wiggins'
 
 # The short X.Y version
-version = '19.8'
+version = '19.10'
+
 # The full version, including alpha/beta/rc tags
-release = '19.8'
+release = '19.10'
 
 
 # -- General configuration ---------------------------------------------------
@@ -57,7 +58,7 @@ napoleon_include_special_with_doc = True
 napoleon_use_admonition_for_examples = False
 napoleon_use_admonition_for_notes = False
 napoleon_use_admonition_for_references = False
-napoleon_use_ivar = False
+napoleon_use_ivar = True
 napoleon_use_param = True
 napoleon_use_rtype = False
 

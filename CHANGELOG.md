@@ -6,7 +6,7 @@ Version numbers use calendar versioning based on `YY.MM.MICRO`. See the [CalVer]
 
 #### Added
 
-- `ChemicalEquation()` class to determine properties of the reactants and products in a given chemical equation
+- `ChemicalEquation()` class to determine properties of the reactants and products in a given chemical reaction equation
 - Tests for chemical equation class
 - Documentation for the chemical equation class
 

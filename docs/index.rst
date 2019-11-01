@@ -27,10 +27,11 @@ pressure, and temperature.
 .. code-block:: python
 
     import chemics as cm
+
     cm.rhog(28, 170100, 773)
 
-An example of calculating the terminal velocity of a particle according to the
-Haider and Levenspiel 1989 paper is shown below.
+The :code:`ut()` function calculates the terminal velocity of a particle
+according to the Haider and Levenspiel 1989 paper as shown below.
 
 .. code-block:: python
 
@@ -45,6 +46,28 @@ Haider and Levenspiel 1989 paper is shown below.
 
     # Haider and Levenspiel terminal velocity [m/s]
     ut_haider = cm.ut_haider(dp, mu, phi, rhog, rhos)
+
+Use the :code:`ChemicalEquation` class to get properties of the reactants and
+products from a given chemical equation.
+
+.. code-block:: python
+
+    import chemics as cm
+
+    ce = cm.ChemicalEquation('2 HCl + 2 Na -> 2 NaCl + H2')
+
+    ce.balance
+    # returns True for balanced equation
+
+    ce.rct_properties
+    # returns a dataframe of the reactant properties
+    #                HCl        Na
+    # moles            2         2
+    # species        HCl        Na
+    # molwt       36.458     22.99
+    # mass        72.916     45.98
+    # molfrac        0.5       0.5
+    # massfrac  0.613275  0.386725
 
 More examples are available in the `chemics-examples`_ repository.
 
@@ -61,6 +84,7 @@ given.
    atomic_elements
    bed_expansion_factor
    bubble_velocity
+   chemical_equation
    choking_velocity
    conversions
    devol_time
