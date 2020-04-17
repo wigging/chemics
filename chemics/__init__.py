@@ -4,6 +4,9 @@ from .atomic_elements import atomic_elements
 
 from .bed_expansion_factor import fbexp
 
+from .biomass_composition import biocomp
+from .biomass_composition import plot_biocomp
+
 from .bubble_velocity import ubr
 
 from .chemical_equation import ChemicalEquation

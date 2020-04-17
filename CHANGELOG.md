@@ -2,6 +2,15 @@
 
 Version numbers use calendar versioning based on `YY.MM.MICRO`. See the [CalVer](https://calver.org) website for more information about this versioning convention. The format of this changelog follows the approach outlined on the [Keep a Changelog](https://keepachangelog.com) website.
 
+## v20.4
+
+#### Added
+
+- `biocomp()` function to calculate biomass composition from ultimate analysis
+- `plot_biocomp()` function to create a Matplotlib figure of the biomass composition results
+- Tests for the `biocomp()` function
+- Documentation for the `biocomp()` and `plot_biocomp()` functions
+
 ## v19.10
 
 #### Added

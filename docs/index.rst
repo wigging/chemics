@@ -83,6 +83,7 @@ given.
 
    atomic_elements
    bed_expansion_factor
+   biomass_composition
    bubble_velocity
    chemical_equation
    choking_velocity
