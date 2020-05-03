@@ -2,6 +2,14 @@
 
 Version numbers use calendar versioning based on `YY.MM.MICRO`. See the [CalVer](https://calver.org) website for more information about this versioning convention. The format of this changelog follows the approach outlined on the [Keep a Changelog](https://keepachangelog.com) website.
 
+## v20.5 - WIP
+
+#### Added
+
+ - `bubble_velocity_free()` function to calculate he rising velocity of a bubble through a fluid, allowing for slug flow
+ - Tests for the `bubble_velocity_free()` function
+ - Documentation for the `bubble_velocity_free()` function
+
 ## v20.4
 
 #### Added
