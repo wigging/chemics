@@ -82,14 +82,11 @@ Nomenclature
 
 References
 ----------
-[1] 	F. N. Peebles and H. J. Garber, "Studies on the Motion of Gas Bubbles in 
-	Liquids, " Chem. Eng. Progr., no. 2, pp. 88-97, 1953. 
+[1] 	F. N. Peebles and H. J. Garber, "Studies on the Motion of Gas Bubbles in Liquids, " Chem. Eng. Progr., no. 2, pp. 88-97, 1953. 
 
-[2]	G. B. Wallis, One-dimensional two phase flow, New York: Mc-Graw-Hill 
-	Book Company Inc., 1969. 
+[2]	G. B. Wallis, One-dimensional two phase flow, New York: Mc-Graw-Hill Book Company Inc., 1969. 
 
-[3]	F. A. Holland and R. Bragg, Fluid flow for chemical engineers, 2nd ed.,
-	London: Edward Arnold, 1995, p. 234.
+[3]	F. A. Holland and R. Bragg, Fluid flow for chemical engineers, 2nd ed., London: Edward Arnold, 1995, p. 234.
     
 
 Source code
