@@ -6,8 +6,9 @@ fluidised beds, it is first necessary to study the rate of rise of single
 bubbles.
 
 Peebles and Garber (1953) developed a number of models based on emperical data
-and theoretical equations (Stoke's Law). These models have been fitted for five
-regions as classified by the interpretation of two dimensionless numbers.
+and theoretical equations (Stoke's Law) to fit four flow regimes of bubbles. Later 
+Willis (1969) added a fifth region to describe terminal rise velocity from potential
+flow theory. A summary of the theory can be found in Holland and Bragg (1995) p234.
 
 
 Region 1:
@@ -78,6 +79,18 @@ Nomenclature
 | :math:`g` - Gravitational constant = 9.81 (m/s^2)
 | :math:`Re_b` - Reynolds Number of the bubble (dimensionless)
 | :math:`G_1` - Morton Number (dimensionless)
+
+References
+----------
+[1] 	F. N. Peebles and H. J. Garber, "Studies on the Motion of Gas Bubbles in 
+	Liquids, " Chem. Eng. Progr., no. 2, pp. 88-97, 1953. 
+
+[2]	G. B. Wallis, One-dimensional two phase flow, New York: Mc-Graw-Hill 
+	Book Company Inc., 1969. 
+
+[3]	F. A. Holland and R. Bragg, Fluid flow for chemical engineers, 2nd ed.,
+	London: Edward Arnold, 1995, p. 234.
+    
 
 Source code
 -----------
