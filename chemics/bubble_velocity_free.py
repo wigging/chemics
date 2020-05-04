@@ -34,7 +34,7 @@ def ubrf(db, rho_l, rho_g, sig, mu_l):
     Returns
     -------
     ub : float
-        Velocity of the bubble [m/s]
+        Terminal velocity of the bubble [m/s]
 
 
     References
