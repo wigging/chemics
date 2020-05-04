@@ -1,21 +1,21 @@
 """
-Function for calculating vertical velocity of
+Function for calculating terminal velocity of
 a bubble rising in liquid
 
-ubrf = rising velocity of a freely moving bubble in liquid
+ubrf = terminal velocity of a freely moving bubble in liquid
 """
 
 
 def ubrf(db, rho_l, rho_g, sig, mu_l):
     """
-    Rising velocity of a single free bubble through a fluid.
+    Terminal velocity of a single free bubble rising through a fluid.
 
     Five terminal velocity calculations have been provided
     with a range of applicability provided by the caluclation of
     dimensionless groups (Re and Morton Number).
 
-    Terminal velocity calculations have been taken from Peebles and
-    Garber 1953
+    Terminal velocity calculations have been taken from Holland and Bragg
+    (1995).
 
     Parameters
     ----------
@@ -39,9 +39,8 @@ def ubrf(db, rho_l, rho_g, sig, mu_l):
 
     References
     ----------
-    [1] Peebles, Fred N. ; and Garber, Harold J. : Studies on the Motion of
-    Gas Bubbles in Liquids. Chem. Eng. Progr., vol. 49, no. 2, Feb. 1953,
-    pp. 88-97.
+    [1] F. A. Holland and R. Bragg, Fluid flow for chemical engineers, 
+        2nd ed., London: Edward Arnold, 1995, p. 234.
     """
 
     # Constants
