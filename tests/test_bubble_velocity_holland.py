@@ -1,7 +1,7 @@
 """
-Tests for bubble_velocity, ubr_holland
+Tests for ubr_holland from the bubble_velocity.
 
-Running through tests for each bubble regime
+Running through tests for each bubble regime.
 """
 
 from pytest import approx
