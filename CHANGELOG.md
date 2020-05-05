@@ -6,9 +6,10 @@ Version numbers use calendar versioning based on `YY.MM.MICRO`. See the [CalVer]
 
 #### Added
 
- - `bubble_velocity_free()` function to calculate he rising velocity of a bubble through a fluid, allowing for slug flow
- - Tests for the `bubble_velocity_free()` function
- - Documentation for the `bubble_velocity_free()` function
+ - `ubr_holland()` function to the `bubble_velocity` module, for calculate he rising velocity of a bubble through a fluid, giving accurate calculation of terminal velocity over a wide range of bubble sizes.
+ - Tests for the `ubr_holland()` function, `tests_bubble_velocity_holland.py`.
+ - Documentation for the `ubr_holland()` function, `bubble_velocity_holland.rst`
+ - Updated name of `ubr()` function to `ubr_kunii()`. Tests and documentation updated accordingly.
 
 ## v20.4
 
