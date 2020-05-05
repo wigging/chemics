@@ -1,5 +1,5 @@
-Free Bubble Velocity
-====================
+Free Bubble Velocity (Holland)
+==============================
 
 In order to predict the performance of two-phase flow in vertical tubes and
 fluidised beds, it is first necessary to study the rate of rise of single 
