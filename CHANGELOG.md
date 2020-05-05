@@ -9,7 +9,10 @@ Version numbers use calendar versioning based on `YY.MM.MICRO`. See the [CalVer]
  - `ubr_holland()` function to the `bubble_velocity` module, for calculate he rising velocity of a bubble through a fluid, giving accurate calculation of terminal velocity over a wide range of bubble sizes.
  - Tests for the `ubr_holland()` function, `tests_bubble_velocity_holland.py`.
  - Documentation for the `ubr_holland()` function, `bubble_velocity_holland.rst`
- - Updated name of `ubr()` function to `ubr_kunii()`. Tests and documentation updated accordingly.
+ 
+ ## Updated 
+ 
+ - Name of function `ubr()`  to `ubr_kunii()`. Tests and documentation updated accordingly.
 
 ## v20.4
 
