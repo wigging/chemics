@@ -1,5 +1,5 @@
-Bubble velocity
-===============
+Bubble velocity (Kunii)
+=======================
 
 As stated in the Kunii and Levenspiel book, the bubble rise velocity in a dense
 bed can be calculated as
