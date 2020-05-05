@@ -10,7 +10,7 @@ Version numbers use calendar versioning based on `YY.MM.MICRO`. See the [CalVer]
  - Tests for the `ubr_holland()` function, `tests_bubble_velocity_holland.py`.
  - Documentation for the `ubr_holland()` function, `bubble_velocity_holland.rst`
  
- ## Updated 
+ #### Updated 
  
  - Name of function `ubr()`  to `ubr_kunii()`. Tests and documentation updated accordingly.
 
