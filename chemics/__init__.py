@@ -7,7 +7,8 @@ from .bed_expansion_factor import fbexp
 from .biomass_composition import biocomp
 from .biomass_composition import plot_biocomp
 
-from .bubble_velocity import ubr
+from .bubble_velocity import ubr_kunii
+from .bubble_velocity import ubr_holland
 
 from .chemical_equation import ChemicalEquation
 

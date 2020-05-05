@@ -1,5 +1,5 @@
 """
-Tests for bubble velocity module.
+Tests for ubr_kunii from the bubble velocity module.
 """
 
 import chemics as cm
@@ -16,7 +16,7 @@ dt = 0.6    # fluidized bed diameter [m]
 # Functions to test
 # ----------------------------------------------------------------------------
 
-def test_ubr():
+def test_ubr_kunii():
     # here
-    ubr = cm.ubr(db, dt)
+    ubr = cm.ubr_kunii(db, dt)
     assert ubr == approx(0.4979, rel=1e-2)
