@@ -1,7 +1,7 @@
 import numpy as np
 
 
-def ubr(db, dt):
+def ubr_kunii(db, dt):
     """
     Rise velocity of single bubbles in a fluidized bed from Equations 5.3 and
     5.4 in Kunii and Levenspiel book [1]_.
