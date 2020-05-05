@@ -18,5 +18,5 @@ dt = 0.6    # fluidized bed diameter [m]
 
 def test_ubr_kunii():
     # here
-    ubr = cm.ubr(db, dt)
+    ubr = cm.ubr_kunii(db, dt)
     assert ubr == approx(0.4979, rel=1e-2)
