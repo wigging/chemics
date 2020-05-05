@@ -10,8 +10,6 @@ from .biomass_composition import plot_biocomp
 from .bubble_velocity import ubr_kunii
 from .bubble_velocity import ubr_holland
 
-from .bubble_velocity_free import ubrf
-
 from .chemical_equation import ChemicalEquation
 
 from .choking_velocity import uch_bifan
