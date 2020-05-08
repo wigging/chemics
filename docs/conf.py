@@ -25,10 +25,10 @@ copyright = '2020, Gavin Wiggins'
 author = 'Gavin Wiggins'
 
 # The short X.Y version
-version = '20.4'
+version = '20.5'
 
 # The full version, including alpha/beta/rc tags
-release = '20.4'
+release = '20.5'
 
 
 # -- General configuration ---------------------------------------------------
