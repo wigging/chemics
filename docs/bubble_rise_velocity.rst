@@ -24,7 +24,7 @@ For conditions where :math:`d_b/d_t > 0.6`, the fluidized bed is considered to
 be slugging.
 
 Nomenclature
-------------
+^^^^^^^^^^^^
 
 | :math:`d_b` - Diameter of sphere having same volume as spherical cap bubble, effective bubble diameter (m)
 | :math:`d_t` - Bed or tube diameter (m)
@@ -43,8 +43,7 @@ and theoretical equations (Stoke's Law) to fit four flow regimes of bubbles. Lat
 Willis (1969) added a fifth region to describe terminal rise velocity from potential
 flow theory. A summary of the theory can be found in Holland and Bragg (1995) p234.
 
-Region 1
-^^^^^^^^
+**Region 1**
 
 Bubbles behave as buoyant solid spheres, rising vertically.
 
@@ -54,8 +53,7 @@ Bubbles behave as buoyant solid spheres, rising vertically.
 .. math::
    u_{b} = \frac{2 R_b^2 (\rho_l - \rho_g) g}{9 \mu_l}
 
-Region 2
-^^^^^^^^
+**Region 2**
 
 Bubbles raise as spheres, but the drag coefficient is slightly less than that
 of a solid of the same volume.
@@ -66,8 +64,7 @@ of a solid of the same volume.
 .. math::
    u_{b} = 0.33 g^{0.76} \Bigl(\frac{\rho_l}{\mu_l}\Bigr)^{0.52} R_{b}^{1.28}
 
-Region 3
-^^^^^^^^
+**Region 3**
 
 Bubbles are flattened and rise in zig-zag pattern.
 
@@ -77,8 +74,7 @@ Bubbles are flattened and rise in zig-zag pattern.
 .. math::
    u_{b} = 1.35 \Bigl(\frac{\sigma}{\rho_{l}R_b}\Bigr)^{0.5}
 
-Region 4
-^^^^^^^^
+**Region 4**
 
 Bubbles rise vertically adopting a mushroom-cap shape.
 
@@ -88,8 +84,7 @@ Bubbles rise vertically adopting a mushroom-cap shape.
 .. math::
    u_{b} = 1.18 \Bigl(\frac{\sigma g}{\rho_l}\Bigr)^{0.25}
 
-Region 5
-^^^^^^^^
+**Region 5**
 
 Large spherical-cap bubbles.
 
@@ -99,7 +94,7 @@ Large spherical-cap bubbles.
 .. math::
    u_{b} = \sqrt{g R_b}
 
-Dimensionless Groups:
+**Dimensionless Groups:**
 
 .. math::
    Re_b = \frac{2 \rho_{l} u_{b} R_{b} }{\mu_l}
@@ -108,8 +103,9 @@ Dimensionless Groups:
    G_{1} = \frac{g \mu_{l}^{4}}{\rho_{l} \sigma^{3}}
 
 Nomenclature
-------------
-| :math:`u_b` - The raise velocity (m/s)
+^^^^^^^^^^^^
+
+| :math:`u_b` - The rise velocity (m/s)
 | :math:`R_b` - The radius of a sphere having the same volume as the bubble (m)
 | :math:`D_e` - The equivalent diameter where :math:`D_e = 2 R_b` (m)
 | :math:`\sigma` - The surface tension (dynes/cm)
@@ -121,14 +117,14 @@ Nomenclature
 
 References
 ----------
-[1] F.N. Peebles and H.J. Garber, "Studies on the Motion of Gas Bubbles in Liquids, " Chem. Eng. Progr., no. 2, pp. 88-97, 1953.
 
-[2] G.B. Wallis, One-dimensional two phase flow, New York: Mc-Graw-Hill Book Company Inc., 1969.
-
-[3] F.A. Holland and R. Bragg, Fluid flow for chemical engineers, 2nd ed., London: Edward Arnold, 1995, p. 234.
+1. Daizo Kunii and Octave Levenspiel. Fluidization Engineering. Butterworth-Heinemann, 2nd edition, 1991.
+2. F.N. Peebles and H.J. Garber, "Studies on the Motion of Gas Bubbles in Liquids, " Chem. Eng. Progr., no. 2, pp. 88-97, 1953.
+3. G.B. Wallis, One-dimensional two phase flow, New York: Mc-Graw-Hill Book Company Inc., 1969.
+4. F.A. Holland and R. Bragg, Fluid flow for chemical engineers, 2nd ed., London: Edward Arnold, 1995, p. 234.
 
 Source code
 -----------
 
-.. automodule:: chemics.bubble_velocity
+.. automodule:: chemics.bubble_rise_velocity
    :members:
