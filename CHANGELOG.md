@@ -6,43 +6,43 @@ Version numbers use calendar versioning based on `YY.MM.MICRO`. See the [CalVer]
 
 #### Added
 
- - `ubr_holland()` function to the `bubble_velocity` module, for calculate he rising velocity of a bubble through a fluid, giving accurate calculation of terminal velocity over a wide range of bubble sizes.
- - Tests for the `ubr_holland()` function, `tests_bubble_velocity_holland.py`.
- - Documentation for the `ubr_holland()` function, `bubble_velocity_holland.rst`
- 
- #### Updated 
- 
- - Name of function `ubr()`  to `ubr_kunii()`. Tests and documentation updated accordingly.
+ - `ubr_holland()` function to calculate bubble rise velocity.
+ - Tests and documentation for the `ubr_holland()` function.
+
+#### Changed
+
+- Renamed `bubble_velocity` module to `bubble_rise_velocity`
+- Renamed `ubr()` function to `ubr_kunii()`.
 
 ## v20.4
 
 #### Added
 
-- `biocomp()` function to calculate biomass composition from ultimate analysis
-- `plot_biocomp()` function to create a Matplotlib figure of the biomass composition results
-- Tests for the `biocomp()` function
-- Documentation for the `biocomp()` and `plot_biocomp()` functions
+- `biocomp()` function to calculate biomass composition from ultimate analysis.
+- `plot_biocomp()` function to create a Matplotlib figure of the biomass composition results.
+- Tests for the `biocomp()` function.
+- Documentation for the `biocomp()` and `plot_biocomp()` functions.
 
 ## v19.10
 
 #### Added
 
-- `ChemicalEquation()` class to determine properties of the reactants and products in a given chemical reaction equation
-- Tests for chemical equation class
-- Documentation for the chemical equation class
+- `ChemicalEquation()` class to determine properties of the reactants and products in a given chemical reaction equation.
+- Tests for chemical equation class.
+- Documentation for the chemical equation class.
 
 ## v19.8
 
 #### Added
 
-- `tdh_chan()` and `tdh_horio()` functions for transport disengaging height
-- Tests for the TDH functions
-- Added math equations to terminal velocity doc strings
+- `tdh_chan()` and `tdh_horio()` functions for transport disengaging height.
+- Tests for the TDH functions.
+- Added math equations to terminal velocity doc strings.
 
 #### Changed
 
 - Use terminal velocity from Newton's law to determine max value for guess in `ut_ganser()` function.
-- `ut_ganser()` now returns a scalar, not a tuple as in previous versions
+- `ut_ganser()` now returns a scalar, not a tuple as in previous versions.
 
 ## v19.7
 
