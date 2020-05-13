@@ -25,9 +25,11 @@ def proximate_analysis(fc, vm, ash, moisture, disp=False):
     proximate_bases : dict
         Proximate analysis bases calculated from as-received basis. Keys and
         associated list of values in the dictionary are
+
         - `'ar': [fc, vm, ash, moisture]` for as-received basis (% ar)
         - `'dry': [fc, vm, ash]` for dry basis (% dry)
         - `'daf': [fc, vm]` for dry ash-free basis (% daf)
+
         where `fc` is fixed carbon and `vm` is volatile matter.
 
     Raises
