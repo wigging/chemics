@@ -48,5 +48,7 @@ from .transport_disengaging_height import tdh_chan
 from .transport_disengaging_height import tdh_horio
 from .transport_velocity import utr
 
+from .ultimate_analysis import ultimate_analysis
+
 from .wood_heat_capacity import cp_wood
 from .wood_thermal_conductivity import k_wood
