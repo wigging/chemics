@@ -38,7 +38,7 @@ from .minimum_fluidization_velocity import umf_reynolds
 from .molecular_weight import mw
 from .molecular_weight import mw_mix
 
-from .proximate_analysis import proximate_analysis
+from .proximate_bases import proximate_bases
 
 from .terminal_velocity import ut
 from .terminal_velocity import ut_haider

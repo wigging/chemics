@@ -2,10 +2,10 @@ import numpy as np
 import textwrap
 
 
-def proximate_analysis(fc, vm, ash, moisture, disp=False):
+def proximate_bases(fc, vm, ash, moisture, disp=False):
     """
-    Convert proximate analysis from as-received basis to dry and dry-ash free
-    bases.
+    Convert proximate analysis from as-received basis (% ar) to dry basis (%
+    dry) and dry-ash free basis (% daf).
 
     Parameters
     ----------
@@ -22,15 +22,12 @@ def proximate_analysis(fc, vm, ash, moisture, disp=False):
 
     Returns
     -------
-    proximate_bases : dict
-        Proximate analysis bases calculated from as-received basis. Keys and
-        associated list of values in the dictionary are
-
-        - `'ar': [fc, vm, ash, moisture]` for as-received basis (% ar)
-        - `'dry': [fc, vm, ash]` for dry basis (% dry)
-        - `'daf': [fc, vm]` for dry ash-free basis (% daf)
-
-        where `fc` is fixed carbon and `vm` is volatile matter.
+    bases : dict
+        Proximate analysis bases calculated from given as-received basis.
+        Bases are represented by keys in the dictionary where `'ar'` is
+        as-received basis with values of `[FC, VM, ash, moisture]`, `'dry'` is
+        dry basis with values of `[FC, VM, ash]`, and `'daf'` is dry ash-free
+        basis with values of `[FC, VM]`.
 
     Raises
     ------
@@ -39,7 +36,7 @@ def proximate_analysis(fc, vm, ash, moisture, disp=False):
 
     Example
     -------
-    >>> proximate_analysis(16.92, 76.40, 0.64, 6.04)
+    >>> proximate_bases(16.92, 76.40, 0.64, 6.04)
     {
         'ar': [16.92, 76.4, 0.64, 6.04],
         'dry': [18.00, 81.31, 0.68],
@@ -63,13 +60,6 @@ def proximate_analysis(fc, vm, ash, moisture, disp=False):
     prox_daf = [100 * x / (sum_dry - prox_dry[-1]) for x in prox_dry[:-1]]
     sum_daf = sum(prox_daf)
 
-    # results dictionary
-    proximate_bases = {
-        'ar': prox_ar,
-        'dry': prox_dry,
-        'daf': prox_daf
-    }
-
     # print results to console if `disp=True`
     if disp:
         results = textwrap.dedent(f"""
@@ -82,4 +72,11 @@ def proximate_analysis(fc, vm, ash, moisture, disp=False):
         """)
         print(results)
 
-    return proximate_bases
+    # results dictionary
+    bases = {
+        'ar': prox_ar,
+        'dry': prox_dry,
+        'daf': prox_daf
+    }
+
+    return bases

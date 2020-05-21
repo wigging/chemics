@@ -95,7 +95,7 @@ given.
    geldart
    minimum_fluidization_velocity
    molecular_weight
-   proximate_analysis
+   proximate_bases
    terminal_velocity
    transport_disengaging_height
    transport_velocity
