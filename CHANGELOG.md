@@ -2,12 +2,14 @@
 
 Version numbers use calendar versioning based on `YY.MM.MICRO`. See the [CalVer](https://calver.org) website for more information about this versioning convention. The format of this changelog follows the approach outlined on the [Keep a Changelog](https://keepachangelog.com) website.
 
-## v20.5 - WIP
+## v20.5
 
 #### Added
 
  - `ubr_holland()` function to calculate bubble rise velocity.
- - Tests and documentation for the `ubr_holland()` function.
+ - `proximate_bases()` function for proximate analysis bases.
+ - `ultimate_bases()` function for ultimate analysis bases.
+ - Tests and documentation for the functions mentioned above.
 
 #### Changed
 
