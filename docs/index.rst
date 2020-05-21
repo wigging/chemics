@@ -99,6 +99,7 @@ given.
    terminal_velocity
    transport_disengaging_height
    transport_velocity
+   ultimate_analysis
    wood_heat_capacity
    wood_thermal_conductivity
 
