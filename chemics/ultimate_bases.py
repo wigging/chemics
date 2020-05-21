@@ -1,10 +1,10 @@
 import numpy as np
 
 
-def ultimate_analysis(c, h, o, n, s, ash, moisture, disp=False):
+def ultimate_bases(c, h, o, n, s, ash, moisture, disp=False):
     """
-    Convert ultimate analysis from as-received basis to dry basis and dry
-    ash-free basis.
+    Convert ultimate analysis from as-received basis (% ar) to dry basis (%
+    dry) and dry ash-free (% daf) basis.
 
     Parameters
     ----------
@@ -27,13 +27,13 @@ def ultimate_analysis(c, h, o, n, s, ash, moisture, disp=False):
 
     Returns
     -------
-    ultimate_bases : dict
-        Ultimate analysis bases calculated from as-received basis. Keys and
-        associated list of values in the dictionary are
-
-        - `'ar': [c, h, o, n, s, ash, moisture]` for as-received basis (% ar)
-        - `'dry': [c, h, o, n, s, ash]` for dry basis (% dry)
-        - `'daf': [c, h, o, n, s]` for daf basis (% daf)
+    bases : dict
+        Ultimate analysis bases calculated from given as-received basis. Bases
+        are represented by keys in the dictionary where `'ar'` is as-received
+        basis with values that represent `[C, H, O, N, S, ash, moisture]`,
+        `'dry'` is dry basis with values that represent `[C, H, O, N, S,
+        ash]`, and `'daf'` is dry ash-free basis with values of `[C, H, O, N,
+        S]`.
 
     Raises
     ------
@@ -42,7 +42,7 @@ def ultimate_analysis(c, h, o, n, s, ash, moisture, disp=False):
 
     Example
     -------
-    >>> ultimate_analysis(49.52, 5.28, 38.35, 0.15, 0.02, 0.64, 6.04)
+    >>> ultimate_bases(49.52, 5.28, 38.35, 0.15, 0.02, 0.64, 6.04)
     {
         'ar': [49.52, 5.28, 38.35, 0.15, 0.02, 0.64, 6.04],
         'dry': [52.70, 5.61, 40.81, 0.15, 0.02, 0.68],
@@ -66,13 +66,6 @@ def ultimate_analysis(c, h, o, n, s, ash, moisture, disp=False):
     ult_daf = [100 * x / (sum_dry - ult_dry[-1]) for x in ult_dry[:-1]]
     sum_daf = sum(ult_daf)
 
-    # results dictionary
-    ultimate_bases = {
-        'ar': ult_ar,
-        'dry': ult_dry,
-        'daf': ult_daf
-    }
-
     # print results to console if `disp=True`
     if disp:
         results = (
@@ -88,4 +81,11 @@ def ultimate_analysis(c, h, o, n, s, ash, moisture, disp=False):
         )
         print(results)
 
-    return ultimate_bases
+    # results dictionary
+    bases = {
+        'ar': ult_ar,
+        'dry': ult_dry,
+        'daf': ult_daf
+    }
+
+    return bases
