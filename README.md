@@ -7,7 +7,14 @@ The [Chemics][] package is a collection of Python functions for conducting calcu
 The [Anaconda][] or [Miniconda][] distribution of Python is recommended for scientific computing. After setting up Python, the Chemics package can be downloaded and installed with the `pip` package manager:
 
 ```bash
-pip install chemics
+$ pip install chemics
+```
+
+Chemics can also be installed with the `conda` package manager:
+
+```bash
+$ conda config --add channels conda-forge
+$ conda install chemics
 ```
 
 ## Usage

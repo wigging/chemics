@@ -15,7 +15,13 @@ with the pip package manager:
 
 .. code-block:: bash
 
-   pip install chemics
+   $ pip install chemics
+
+Chemics can also be installed with the conda package manager:
+
+.. code-block:: bash
+   $ conda config --add channels conda-forge
+   $ conda install chemics
 
 Usage
 -----
