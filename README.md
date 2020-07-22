@@ -1,16 +1,18 @@
 # Chemics
 
-The [Chemics][] package is a collection of Python functions for conducting calculations in the field of chemical and fluidization engineering. Source code for the package is available on [GitHub][] and contributions from the community are encouraged.
+The [Chemics][] package is a collection of Python functions for performing calculations in the field of chemical and fluidization engineering. Source code for the package is available on [GitHub][] and contributions from the community are encouraged.
 
 ## Installation
 
-The [Anaconda][] or [Miniconda][] distribution of Python is recommended for scientific computing. After setting up Python, the Chemics package can be downloaded and installed with the `pip` package manager:
+If you don't have Python installed on your computer, the [Anaconda][] or [Miniconda][] distribution of Python is recommended for scientific computing. After setting up Python, the Chemics package can be downloaded and installed using the pip or conda package managers.
+
+Install Chemics using the pip package manager:
 
 ```bash
 $ pip install chemics
 ```
 
-Chemics can also be installed with the `conda` package manager:
+Install Chemics using the conda package manager:
 
 ```bash
 $ conda config --add channels conda-forge
