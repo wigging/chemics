@@ -1,5 +1,5 @@
 
-def prandtl(cp, mu, k):
+def prandtl(cp=None, mu=None, k=None, nu=None, alpha=None):
     """
     Calculate the dimensionless Prandtl number for a fluid or gas.
 
@@ -21,15 +21,22 @@ def prandtl(cp, mu, k):
     Returns
     -------
     pr : float
-        Prandtl number
+        Prandtl number [-]
 
     Example
     -------
-    >>> cp = 4188; mu = 0.001307; k = 0.5674
-    >>> prandtl(cp, mu, k)
+    >>> prandtl(cp=4188, mu=0.001307, k=0.5674)
     9.647
+
+    >>> prandtl(nu=1.5064e-5, alpha=2.1002e-5)
+    0.71726
     """
-    pr = (cp * mu) / k
+    if cp and mu and k:
+        pr = (cp * mu) / k
+    elif nu and alpha:
+        pr = nu / alpha
+    else:
+        raise ValueError('Must provide cp, mu, and k or nu and alpha')
 
     return pr
 
@@ -76,4 +83,5 @@ def reynolds(u, d, rho=None, mu=None, nu=None):
         raise ValueError('Must provide density and viscosity or dynamic viscosity. Not all three.')
     else:
         raise ValueError('Either density and viscosity, or dynamic viscosity is needed')
+
     return re
