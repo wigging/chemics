@@ -31,17 +31,22 @@ def prandtl(cp=None, mu=None, k=None, nu=None, alpha=None):
     >>> prandtl(nu=1.5064e-5, alpha=2.1002e-5)
     0.71726
 
+    Raises
+    ------
+    ValueError
+        Must provide (cp, mu, k) or (nu, alpha)
+
     References
     ----------
-    .. [1] Daizo Kunii and Octave Levenspiel. Fluidization Engineering.
-       Butterworth-Heinemann, 2nd edition, 1991.
+    Daizo Kunii and Octave Levenspiel. Fluidization Engineering.
+    Butterworth-Heinemann, 2nd edition, 1991.
     """
     if cp and mu and k:
         pr = (cp * mu) / k
     elif nu and alpha:
         pr = nu / alpha
     else:
-        raise ValueError('Must provide cp, mu, k or nu, alpha')
+        raise ValueError('Must provide (cp, mu, k) or (nu, alpha)')
 
     return pr
 
@@ -50,7 +55,7 @@ def reynolds(u, d, rho=None, mu=None, nu=None):
     """
     Calculate the dimensionless Reynolds number for a fluid or gas flow.
 
-    .. math:: Re = \\frac{\\rho u d}{\\mu} = \\frac{u d}{\\nu}
+    .. math:: Re = \\frac{\\rho\\, u\\, d}{\\mu} = \\frac{u\\, d}{\\nu}
 
     Parameters
     ----------
@@ -78,10 +83,15 @@ def reynolds(u, d, rho=None, mu=None, nu=None):
     >>> reynolds(0.25, 0.102, nu=1.4e-6)
     18214.2857
 
+    Raises
+    ------
+    ValueError
+        Must provide (u, d, rho, mu) or (u, d, nu)
+
     References
     ----------
-    .. [1] Daizo Kunii and Octave Levenspiel. Fluidization Engineering.
-       Butterworth-Heinemann, 2nd edition, 1991.
+    Daizo Kunii and Octave Levenspiel. Fluidization Engineering.
+    Butterworth-Heinemann, 2nd edition, 1991.
     """
     if rho and mu and not nu:
         re = (rho * u * d) / mu
