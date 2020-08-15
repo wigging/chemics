@@ -13,9 +13,9 @@ def prandtl(cp=None, mu=None, k=None, nu=None, alpha=None):
         Dynamic viscosity [kg/(m⋅s)]
     k : float
         Thermal conductivity [W/(m⋅K)]
-    nu : float
+    nu : float, optional
         Kinematic viscosity [m²/s]
-    alpha : float
+    alpha : float, optional
         Thermal diffusivity [m²/s]
 
     Returns
@@ -30,13 +30,18 @@ def prandtl(cp=None, mu=None, k=None, nu=None, alpha=None):
 
     >>> prandtl(nu=1.5064e-5, alpha=2.1002e-5)
     0.71726
+
+    References
+    ----------
+    .. [1] Daizo Kunii and Octave Levenspiel. Fluidization Engineering.
+       Butterworth-Heinemann, 2nd edition, 1991.
     """
     if cp and mu and k:
         pr = (cp * mu) / k
     elif nu and alpha:
         pr = nu / alpha
     else:
-        raise ValueError('Must provide cp, mu, and k or nu and alpha')
+        raise ValueError('Must provide cp, mu, k or nu, alpha')
 
     return pr
 
@@ -67,21 +72,22 @@ def reynolds(u, d, rho=None, mu=None, nu=None):
 
     Examples
     --------
-    >>> 1
+    >>> reynolds(2.6, 0.025, rho=910, mu=0.38)
+    155.65789
 
-    >>> 2
+    >>> reynolds(0.25, 0.102, nu=1.4e-6)
+    18214.2857
 
     References
     ----------
+    .. [1] Daizo Kunii and Octave Levenspiel. Fluidization Engineering.
+       Butterworth-Heinemann, 2nd edition, 1991.
     """
-
     if rho and mu and not nu:
         re = (rho * u * d) / mu
     elif nu and not rho and not mu:
         re = (u * d) / nu
-    elif rho and mu and nu:
-        raise ValueError('Must provide density and viscosity or dynamic viscosity. Not all three.')
     else:
-        raise ValueError('Either density and viscosity, or dynamic viscosity is needed')
+        raise ValueError('Must provide (u, d, rho, mu) or (u, d, nu)')
 
     return re
