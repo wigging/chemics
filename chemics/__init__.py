@@ -21,6 +21,9 @@ from .conversions import molefrac_to_massfrac
 
 from .devol_time import devol_time
 
+from .dimensionless_numbers import prandtl
+from .dimensionless_numbers import reynolds
+
 from .gas_density import rhog
 from .gas_pressure import patm
 from .gas_thermal_conductivity import k_gas_inorganic
@@ -38,7 +41,6 @@ from .minimum_fluidization_velocity import umf_reynolds
 from .molecular_weight import mw
 from .molecular_weight import mw_mix
 
-from .prandtl_number import prandtl
 from .proximate_bases import proximate_bases
 
 from .terminal_velocity import ut
