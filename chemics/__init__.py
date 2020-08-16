@@ -21,6 +21,7 @@ from .conversions import molefrac_to_massfrac
 
 from .devol_time import devol_time
 
+from .dimensionless_numbers import biot
 from .dimensionless_numbers import prandtl
 from .dimensionless_numbers import reynolds
 

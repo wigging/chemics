@@ -6,6 +6,11 @@ import chemics as cm
 from pytest import approx
 
 
+def test_biot():
+    bi = cm.biot(4.63, 0.001, 3.84)
+    assert bi == approx(0.0012057, rel=1e-2)
+
+
 def test_prandtl_args1():
     pr = cm.prandtl(cp=4188, mu=0.001307, k=0.5674)
     assert pr == approx(9.647, rel=1e-2)

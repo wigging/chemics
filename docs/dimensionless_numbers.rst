@@ -3,8 +3,9 @@ Dimensionless numbers
 
 Functions are provided for the following dimensionless numbers:
 
-* Reynolds number (Re)
+* Biot number (Bi)
 * Prandtl number (Pr)
+* Reynolds number (Re)
 
 Source code
 -----------

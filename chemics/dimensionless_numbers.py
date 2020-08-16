@@ -1,4 +1,38 @@
 
+def biot(h, d, k):
+    """
+    Calculate the dimensionless Biot number.
+
+    .. math:: Bi = \\frac{h\\, d}{k}
+
+    Parameters
+    ----------
+    h : float
+        Convective heat transfer coefficient [W/(m²⋅K)]
+    d : float
+        Characteristic length or dimension [m]
+    k : float
+        Thermal conductivity [W/(m⋅K)]
+
+    Returns
+    -------
+    bi : float
+        Biot number [-]
+
+    Example
+    -------
+    >>> biot(4.63, 0.001, 3.84)
+    0.0012057
+
+    References
+    ----------
+    Daizo Kunii and Octave Levenspiel. Fluidization Engineering.
+    Butterworth-Heinemann, 2nd edition, 1991.
+    """
+    bi = (h * d) / k
+    return bi
+
+
 def prandtl(cp=None, mu=None, k=None, nu=None, alpha=None):
     """
     Calculate the dimensionless Prandtl number for a fluid or gas.
@@ -23,8 +57,8 @@ def prandtl(cp=None, mu=None, k=None, nu=None, alpha=None):
     pr : float
         Prandtl number [-]
 
-    Example
-    -------
+    Examples
+    --------
     >>> prandtl(cp=4188, mu=0.001307, k=0.5674)
     9.647
 
