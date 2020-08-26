@@ -5,6 +5,8 @@ Functions are provided for the following dimensionless numbers:
 
 * Biot number (Bi)
 * Prandtl number (Pr)
+* Pyrolysis number I (Py I)
+* Pyrolysis number II (Py II)
 * Reynolds number (Re)
 
 Source code

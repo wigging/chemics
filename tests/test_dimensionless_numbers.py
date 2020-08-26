@@ -21,6 +21,16 @@ def test_prandtl_args2():
     assert pr == approx(0.71726, rel=1e-2)
 
 
+def test_pyroI():
+    pyI = cm.pyroI(k=0.12, kr=1.38556, rho=540, cp=3092.871049, r=0.0001847)
+    assert pyI == approx(1.5198, rel=1e-2)
+
+
+def test_pyroII():
+    pyII = cm.pyroII(h=862.6129, kr=1.38556, rho=540, cp=3092.871049, r=0.0001847)
+    assert pyII == approx(2.018038, rel=1e-2)
+
+
 def test_reynolds_args1():
     re = cm.reynolds(2.6, 0.025, rho=910, mu=0.38)
     assert re == approx(155.65789, rel=1e-2)

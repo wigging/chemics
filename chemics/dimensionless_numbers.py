@@ -85,6 +85,84 @@ def prandtl(cp=None, mu=None, k=None, nu=None, alpha=None):
     return pr
 
 
+def pyroI(k, kr, rho, cp, r):
+    """
+    Calculate the pyrolysis number Py I for a biomass particle.
+
+    .. math:: Py^I = \\frac{k}{\\rho\\,C_p\\,R^2\\,K}
+
+    Parameters
+    ----------
+    k : float
+        Thermal conductivity of the biomass particle [W/mK]
+    kr : float
+        Rate constant [1/s]
+    rho : float
+        Density of the biomass particle [kg/m³]
+    cp : float
+        Heat capacity of the biomass particle [J/kgK]
+    r : float
+        Radius of the biomass particle [m]
+
+    Returns
+    -------
+    pyI : float
+        Pyrolysis number Py I [-]
+
+    Example
+    -------
+    >>> pyroI(k=0.12, kr=1.38556, rho=540, cp=3092.871049, r=0.0001847)
+    1.5198
+
+    References
+    ----------
+    D.L. Pyle and C.A. Zaror. Heat Transfer and Kinetics in the Low
+    Temperature Pyrolysis of Solids. Chemical Engineering Science, vol. 39,
+    no. 1, pg. 147-158, 1984.
+    """
+    pyI = k / (kr * rho * cp * (r**2))
+    return pyI
+
+
+def pyroII(h, kr, rho, cp, r):
+    """
+    Calculate the pyrolysis number Py II for a biomass particle.
+
+    .. math:: Py^{II} = \\frac{h}{\\rho\\,C_p\\,R\\,K}
+
+    Parameters
+    ----------
+    h : float
+        Convective heat transfer coefficient [W/m²K]
+    kr : float
+        Rate constant [1/s]
+    rho : float
+        Density of the biomass particle [kg/m³]
+    cp : float
+        Heat capacity of the biomass particle [J/kgK]
+    r : float
+        Radius of the biomass particle [m]
+
+    Returns
+    -------
+    pyII : float
+        Pyrolysis number Py II [-]
+
+    Example
+    -------
+    >>> pyroII(h=862.6129, kr=1.38556, rho=540, cp=3092.871049, r=0.0001847)
+    2.018038
+
+    References
+    ----------
+    D.L. Pyle and C.A. Zaror. Heat Transfer and Kinetics in the Low
+    Temperature Pyrolysis of Solids. Chemical Engineering Science, vol. 39,
+    no. 1, pg. 147-158, 1984.
+    """
+    pyII = h / (kr * rho * cp * r)
+    return pyII
+
+
 def reynolds(u, d, rho=None, mu=None, nu=None):
     """
     Calculate the dimensionless Reynolds number for a fluid or gas flow.
