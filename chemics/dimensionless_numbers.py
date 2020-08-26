@@ -102,7 +102,7 @@ def pyroI(k, kr, rho, cp, r):
     cp : float
         Heat capacity of the biomass particle [J/kgK]
     r : float
-        Radius of the biomass particle [m]
+        Radius or characteristic length of the biomass particle [m]
 
     Returns
     -------
@@ -141,7 +141,7 @@ def pyroII(h, kr, rho, cp, r):
     cp : float
         Heat capacity of the biomass particle [J/kgK]
     r : float
-        Radius of the biomass particle [m]
+        Radius or characteristic length of the biomass particle [m]
 
     Returns
     -------
