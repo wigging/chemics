@@ -14,6 +14,12 @@ from .chemical_equation import ChemicalEquation
 
 from .choking_velocity import uch_bifan
 from .choking_velocity import uch_leung
+from .choking_velocity import uch_matsen
+from .choking_velocity import uch_psri
+from .choking_velocity import uch_punwani
+from .choking_velocity import uch_yang
+from .choking_velocity import uch_yousfi
+from .choking_velocity import uch_zhang
 
 from .conversions import slm_to_lpm
 from .conversions import massfrac_to_molefrac

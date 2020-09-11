@@ -2,6 +2,12 @@
 
 Version numbers use calendar versioning based on `YY.MM.MICRO`. See the [CalVer](https://calver.org) website for more information about this versioning convention. The format of this changelog follows the approach outlined on the [Keep a Changelog](https://keepachangelog.com) website.
 
+## v20.9
+
+#### Fixed
+
+- Imports for remaining choking velocity functions
+
 ## v20.8
 
 #### Added
