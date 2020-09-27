@@ -4,6 +4,10 @@ Version numbers use calendar versioning based on `YY.MM.MICRO`. See the [CalVer]
 
 ## v20.9
 
+#### Added
+
+- `archimedes()` function to calculate Archimedes number
+
 #### Fixed
 
 - Imports for remaining choking velocity functions
