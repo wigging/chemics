@@ -6,6 +6,11 @@ import chemics as cm
 from pytest import approx
 
 
+def test_archimedes():
+    ar = cm.archimedes(0.001, 910, 2500, 0.001307)
+    assert ar == approx(8309.1452, rel=1e-2)
+
+
 def test_biot():
     bi = cm.biot(4.63, 0.001, 3.84)
     assert bi == approx(0.0012057, rel=1e-2)
