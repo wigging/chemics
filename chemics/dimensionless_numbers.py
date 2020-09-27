@@ -1,3 +1,39 @@
+def archimedes(dp, rhog, rhos, mu):
+    """
+    Calculate the dimensionless Archimedes number.
+
+    .. math:: Ar = \\frac{dp^3 \\rho_g (\\rho_s - \\rho_g) g}{\\mu^2}
+
+    Parameters
+    ----------
+    dp : float
+        Particle diameter [m]
+    rhog : float
+        Gas density [kg/m³]
+    rhos : float
+        Solid density [kg/m³]
+    mu : float
+        Dynamic viscosity [kg/(m⋅s)]
+
+    Returns
+    -------
+    ar : float
+        Archimedes number [-]
+
+    Example
+    -------
+    >>> archimedes(0.001, 910, 2500, 0.001307)
+    8309.1452
+
+    References
+    ----------
+    Daizo Kunii and Octave Levenspiel. Fluidization Engineering.
+    Butterworth-Heinemann, 2nd edition, 1991.
+    """
+    g = 9.81    # gravity acceleraton [m/s²]
+    ar = (dp**3 * rhog * (rhos - rhog) * g) / (mu**2)
+    return ar
+
 
 def biot(h, d, k):
     """
