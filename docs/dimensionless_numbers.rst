@@ -3,6 +3,7 @@ Dimensionless numbers
 
 Functions are provided for the following dimensionless numbers:
 
+* Archimedes number (Ar)
 * Biot number (Bi)
 * Prandtl number (Pr)
 * Pyrolysis number I (Py I)
