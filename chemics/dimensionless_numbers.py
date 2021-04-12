@@ -2,7 +2,7 @@ def archimedes(dp, rhog, rhos, mu):
     """
     Calculate the dimensionless Archimedes number.
 
-    .. math:: Ar = \\frac{dp^3 \\rho_g (\\rho_s - \\rho_g) g}{\\mu^2}
+    .. math:: Ar = \\frac{d_p^3 \\rho_g (\\rho_s - \\rho_g) g}{\\mu^2}
 
     Parameters
     ----------
