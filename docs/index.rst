@@ -101,6 +101,7 @@ given.
    devol_time
    dimensionless_numbers
    gas_density
+   gas_heat_capacity
    gas_thermal_conductivity
    gas_viscosity
    geldart

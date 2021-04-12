@@ -6,10 +6,10 @@ def cp_gas(formula, T, CAS='', full=False):
     """
     Calculate heat capacity of a gas as a function of temperature using
     coefficients from Yaws' Critical Property Data for Chemical Engineers and
-    Chemists. The CAS (Chemical Abstracts Service) number may be required for
+    Chemists [1]_. The CAS (Chemical Abstracts Service) number may be required for
     some species.
 
-    .. math:: C_p = A + B T + C T^2 + D T^3 + E T^4 + F T^5 + G T^6
+    .. math:: C_p = A + B\\,T + C\\,T^2 + D\\,T^3 + E\\,T^4 + F\\,T^5 + G\\,T^6
 
     Parameters
     ----------
