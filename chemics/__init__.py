@@ -35,6 +35,7 @@ from .dimensionless_numbers import pyroII
 from .dimensionless_numbers import reynolds
 
 from .gas_density import rhog
+from .gas_heat_capacity import cp_gas
 from .gas_pressure import patm
 from .gas_thermal_conductivity import k_gas_inorganic
 from .gas_thermal_conductivity import k_gas_organic
