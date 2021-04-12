@@ -9,6 +9,8 @@ def cp_gas(formula, T, CAS='', full=False):
     Chemists. The CAS (Chemical Abstracts Service) number may be required for
     some species.
 
+    .. math:: C_p = A + B T + C T^2 + D T^3 + E T^4 + F T^5 + G T^6
+
     Parameters
     ----------
     formula : str
@@ -36,6 +38,32 @@ def cp_gas(formula, T, CAS='', full=False):
         Maximum temperature for the correlation [K].
     A, B, C, D, E, F, G : float
         Coefficients used to calculate the heat capacity.
+
+    Raises
+    ------
+    ValueError
+        If heat capacity is not available for chemical formula.
+    ValueError
+        If multiple substances have same chemical then CAS number is required.
+    ValueError
+        If temperature is outside range of applicable data.
+
+    Examples
+    --------
+    >>> cp_gas('CBrClF2', 700)
+    97.4982
+
+    >>> cp_gas('C5H10O2', 850, CAS='75-98-9')
+    268.4920
+
+    >>> cp_gas('NO2', 900)
+    51.0686
+
+    References
+    ----------
+    .. [1] Carl L. Yaws. Heat capacity of gas Tables 39 and 40 in Yaws'
+       Critical Property Data for Chemical Engineers and Chemists. Published
+       by Knovel, 2014.
     """
     abs_path = Path(__file__).parent.absolute()
 
