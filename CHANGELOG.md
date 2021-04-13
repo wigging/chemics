@@ -2,6 +2,17 @@
 
 Version numbers use calendar versioning based on `YY.MM.MICRO`. See the [CalVer](https://calver.org) website for more information about this versioning convention. The format of this changelog follows the approach outlined on the [Keep a Changelog](https://keepachangelog.com) website.
 
+## v21.4
+
+#### Added
+
+- `cp_gas()` function to calculate gas heat capacity
+- Tests and documentation for the above function
+
+#### Fixed
+
+- Fix dp in docstring for Archimedes function
+
 ## v20.9
 
 #### Added
