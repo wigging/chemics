@@ -69,6 +69,43 @@ def biot(h, d, k):
     return bi
 
 
+def peclet(ui, L, Dax):
+    """
+    Calculate the dimensionless Peclet number for mass transfer.
+
+    The Peclet number is defined as the ratio between the bulk mass transport
+    (convection) and the molecular diffusion.
+
+    .. math:: Pe = \\frac{u_i L}{D_{ax}}
+
+    Parameters
+    ----------
+    ui : float
+        Interstitial velocity [m/s]
+    L : float
+        Length or characteristic dimension [m]
+    Dax : float
+        Axial dispersion coefficient [m^2/s]
+
+    Returns
+    -------
+    pe : float
+        Peclet number [-]
+
+    Example
+    -------
+    >>> pe(3.0e-3, 0.25, 4.7e-4)
+    1.5957
+
+    References
+    ----------
+    J.D. Seader, E.J. Henley, D.K. Roper. Separation Process Principles.
+    John Wiley & Sons, Inc., 3rd edition, 2011.
+    """
+    pe = ui * L / Dax
+    return pe
+
+
 def prandtl(cp=None, mu=None, k=None, nu=None, alpha=None):
     """
     Calculate the dimensionless Prandtl number for a fluid or gas.
@@ -249,3 +286,77 @@ def reynolds(u, d, rho=None, mu=None, nu=None):
         raise ValueError('Must provide (u, d, rho, mu) or (u, d, nu)')
 
     return re
+
+
+def schmidt(mu, rho, Dm):
+    """
+    Calculate the dimensionless Schmidt number.
+
+    The Schmidt number represents the ratio between momentum diffusivity
+    (kinematic viscosity) and mass diffusivity.
+
+    .. math:: Sc = \\frac{\\mu}{\\rho D_m}
+
+    Parameters
+    ----------
+    mu : float
+        Viscosity of the fluid flowing through the packed bed [Pa s]
+    rho : float
+        Density of the fluid flowing through the packed bed [kg/m^3]
+    Dm : float
+        Molecular diffusion coefficient [m^2/s]
+
+    Returns
+    -------
+    sc : float
+        Schmidt number [-]
+
+    Example
+    -------
+    >>> schmidt(8.90e-4, 997.07, 2.299e-9)
+    388.26
+
+    References
+    ----------
+    J.D. Seader, E.J. Henley, D.K. Roper. Separation Process Principles.
+    John Wiley & Sons, Inc., 3rd edition, 2011.
+    """
+    sc = mu / rho / Dm
+    return sc
+    
+    
+def sherwood(k, d, Dm):
+    """
+    Calculate the dimensionless Sherwood number.
+
+    The Sherwood number represents the ratio between the convective mass transfer
+    and the rate of diffusive mass transport.
+
+    .. math:: Sh = \\frac{k d}{D_m}
+
+    Parameters
+    ----------
+    k : float
+        Convective mass transfer coefficient [m/s]
+    d : float
+        Particle diameter or characteristic length [m]
+    Dm : float
+        Molecular diffusion coefficient [m^2/s]
+
+    Returns
+    -------
+    sh : float
+        Sherwood number [-]
+
+    Example
+    -------
+    >>> sherwood(2.3e-4, 5.0e-6, 4.0e-9)
+    0.2875
+
+    References
+    ----------
+    J.D. Seader, E.J. Henley, D.K. Roper. Separation Process Principles.
+    John Wiley & Sons, Inc., 3rd edition, 2011.
+    """
+    sh = k * d / Dm
+    return sh
