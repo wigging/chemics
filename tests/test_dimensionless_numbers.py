@@ -59,3 +59,18 @@ def test_schmidt():
 def test_sherwood():
     sh = cm.sherwood(2.3e-4, 5.0e-6, 4.0e-9)
     assert sh == approx(0.2875, rel=1e-2)
+
+
+def test_flow_regime_args1():
+    regime = cm.flow_regime(u=2.6, d=0.025, rho=910, mu=0.38)
+    assert regime == "laminar"
+
+
+def test_flow_regime_args2():
+    regime = cm.flow_regime(Re=3250)
+    assert regime == "transitional"
+
+
+def test_flow_regime_args3():
+    regime = cm.flow_regime(u=0.25, d=0.102, nu=1.4e-6)
+    assert regime == "turbulent"

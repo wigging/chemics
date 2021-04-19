@@ -36,6 +36,7 @@ from .dimensionless_numbers import pyroII
 from .dimensionless_numbers import reynolds
 from .dimensionless_numbers import schmidt
 from .dimensionless_numbers import sherwood
+from .dimensionless_numbers import flow_regime
 
 from .gas_density import rhog
 from .gas_heat_capacity import cp_gas

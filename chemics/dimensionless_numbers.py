@@ -1,3 +1,6 @@
+import chemics as cm
+
+
 def archimedes(dp, rhog, rhos, mu):
     """
     Calculate the dimensionless Archimedes number.
@@ -323,14 +326,14 @@ def schmidt(mu, rho, Dm):
     """
     sc = mu / rho / Dm
     return sc
-    
-    
+
+
 def sherwood(k, d, Dm):
     """
     Calculate the dimensionless Sherwood number.
 
-    The Sherwood number represents the ratio between the convective mass transfer
-    and the rate of diffusive mass transport.
+    The Sherwood number represents the ratio between the convective mass
+    transfer and the rate of diffusive mass transport.
 
     .. math:: Sh = \\frac{k d}{D_m}
 
@@ -360,3 +363,68 @@ def sherwood(k, d, Dm):
     """
     sh = k * d / Dm
     return sh
+
+
+def flow_regime(Re=None, u=None, d=None, rho=None, mu=None, nu=None):
+    """
+    Determine flow regime (laminar, transitional or turbulent) considering the
+    Reynolds number boundaries for the case of a straight, non-smooth pipe.
+    Laminar regime: Re < 2100; Transitional regime: 2100 <= Re <= 4000;
+    Laminar regime: Re > 4000;
+
+    Parameters
+    ----------
+    Re : float
+        Reynolds number [-]
+    u : float
+        Flow speed [m/s]
+    d : float
+        Characteristic length or dimension [m]
+    rho : float, optional
+        Density of the fluid or gas [kg/m^3]
+    mu : float, optional
+        Dynamic viscosity of the fluid or gas [kg/(m s)]
+    nu : float, optional
+        Kinematic viscosity of the fluid or gas [m^2/s]
+
+    Returns
+    -------
+    regime : string
+        Flow regime. One of laminar, transitional or turbulent.
+
+    Examples
+    --------
+    >>> flow_regime(u=2.6, d=0.025, rho=910, mu=0.38)
+    'laminar'
+
+    >>> reynolds(Re=3250)
+    'transitional'
+
+    >>> reynolds(u=0.25, d=0.102, nu=1.4e-6)
+    'turbulent'
+
+    Raises
+    ------
+    ValueError
+        Must provide Re or (u, d, rho, mu) or (u, d, nu)
+
+    References
+    ----------
+    R.H. Perry, D.W. Green. Perry's Chemical Engineers' Handbook.
+    McGraw-Hill, 8th edition, 2008.
+    """
+    if not Re:
+        if (rho and mu and not nu) or (nu and not rho and not mu):
+            Re = cm.reynolds(u, d, rho=rho, mu=mu, nu=nu)
+        else:
+            raise ValueError(
+                'Must provide Re or (u, d, rho, mu) or (u, d, nu)'
+            )
+    if Re < 2100:
+        regime = 'laminar'
+    elif 2100 <= Re <= 4000:
+        regime = 'transitional'
+    elif Re > 4000:
+        regime = 'turbulent'
+
+    return regime
