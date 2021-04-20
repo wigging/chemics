@@ -49,6 +49,11 @@ from .gas_viscosity import mu_herning
 
 from .geldart import geldart_chart
 
+from .mass_transfer_correlations import molecular_diffusion_coeff
+from .mass_transfer_correlations import convective_mt_coeff
+from .mass_transfer_correlations import axial_dispersion_coeff
+from .mass_transfer_correlations import axial_dispersion_coeff_sc
+
 from .minimum_fluidization_velocity import umf_coeff
 from .minimum_fluidization_velocity import umf_ergun
 from .minimum_fluidization_velocity import umf_reynolds
