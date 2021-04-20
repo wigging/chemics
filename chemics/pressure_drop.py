@@ -34,6 +34,6 @@ def pressure_drop_ergun(mu, epsilon, u0, rhof, dp):
     J.D. Seader, E.J. Henley, D.K. Roper. Separation Process Principles.
     John Wiley & Sons, Inc., 3rd edition, 2011.
     """
-    pressure_drop = 150*mu*(1-epsilon)**2*u0/(dp**2*epsilon**3) + \
-        1.75*rhof*(1-epsilon)*u0**2/(dp*epsilon**3)
+    pressure_drop = 150 * mu * (1 - epsilon)**2 * u0 / (dp**2 * epsilon**3) + \
+        1.75 * rhof * (1 - epsilon) * u0**2 / (dp * epsilon**3)
     return pressure_drop
