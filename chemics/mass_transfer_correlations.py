@@ -3,11 +3,11 @@ def molecular_diffusion_coeff(mw, T, mu, Vc, phi=1.0):
     Estimate the molecular diffusion coefficient using the Wilke-Chang
     equation.
 
-    .. math::  D_m = \\frac{7.4 \\times 10^{-8} (\\phi M)^0.5 T}{\\mu V_{bp}^0.6}
+    .. math::  D_m = \\frac{7.4 \\times 10^{-8} (\\phi M)^{0.5} T}{\\mu V_{bp}^{0.6}}
 
     where:
 
-    .. math::  V_{bp} = 0.285 * V_c^1.048
+    .. math::  V_{bp} = 0.285 \\times V_c^{1.048}
 
     Parameters
     ----------
@@ -19,7 +19,7 @@ def molecular_diffusion_coeff(mw, T, mu, Vc, phi=1.0):
         Viscosity of the solvent [cP]
     Vc : float
         Critical volume of the solvent [cm^3/mol]
-    phi : float
+    phi : float, optional
         Association factor [-]. phi is 2.26 for water, 1.9 for methanol, 1.5
         for ethanol and 1.0 for an unassociated solvent.
 
@@ -48,9 +48,12 @@ def convective_mt_coeff(Dm, dp, epsilon, Re, Sc):
     Estimate the convective mass transfer coefficient using Wilson and
     Geankoplis correlation.
 
-    .. math:: Sh = 1.09 \\varepsilon^{-1} Re^0.33 Sc^0.33, 0.0015 < Re < 55
-    .. math:: Sh = 0.25 \\varepsilon^{-1} Re^0.69 Sc^0.33, 55 < Re < 1050
-    .. math:: k_f = \\frac{Sh D_m}{d_p}
+    .. math::  k_f = \\frac{Sh D_m}{d_p}
+
+    where
+
+    .. math::  Sh = 1.09 \\varepsilon^{-1} Re^{0.33} Sc^{0.33}, \\quad 0.0015 < Re < 55
+    .. math::  Sh = 0.25 \\varepsilon^{-1} Re^{0.69} Sc^{0.33}, \\quad 55 < Re < 1050
 
     Parameters
     ----------
@@ -70,15 +73,15 @@ def convective_mt_coeff(Dm, dp, epsilon, Re, Sc):
     kf : float
         Convective mass transfer coefficient [m/s]
 
-    Example
-    -------
-    >>> convective_mt_coeff(4.79e-10, 5e-6, 0.335, 7.21e-3, 1452.0)
-    6.77e-4
-
     Raises
     ------
     ValueError
         If Re is not in range 0.0015 - 1050.
+
+    Example
+    -------
+    >>> convective_mt_coeff(4.79e-10, 5e-6, 0.335, 7.21e-3, 1452.0)
+    6.77e-4
 
     References
     ----------
@@ -141,7 +144,7 @@ def axial_dispersion_coeff_sc(Dm, epsilon, Re, Sc):
     Estimate the axial dispersion coefficient under supercritical conditions
     using the correlation of Funazukuri et al.
 
-    .. math:: Dax = \\frac{D_m}{\\varepsilon} 1.317 (\\varepsilon Re Sc)^1.392
+    .. math:: D_{ax} = \\frac{D_m}{\\varepsilon} 1.317 (\\varepsilon Re Sc)^{1.392}
 
     Valid for:
 
@@ -162,16 +165,16 @@ def axial_dispersion_coeff_sc(Dm, epsilon, Re, Sc):
     -------
     Dax : float
         Axial dispersion coefficient [m^2/s]
+    
+    Raises
+    ------
+    ValueError
+        If epsilon*Re*Sc is not > 0.3 or Sc in not in range 3.9 - 665
 
     Example
     -------
     >>> axial_dispersion_coeff_sc(4.7e-9, 0.4, 1100.0, 135.0)
     0.06835
-
-    Raises
-    ------
-    ValueError
-        If epsilon*Re*Sc is not > 0.3 or Sc in not in range 3.9 - 665
 
     References
     ----------

@@ -97,7 +97,7 @@ def peclet(ui, L, Dax):
 
     Example
     -------
-    >>> pe(3.0e-3, 0.25, 4.7e-4)
+    >>> peclet(3.0e-3, 0.25, 4.7e-4)
     1.5957
 
     References
@@ -369,16 +369,20 @@ def flow_regime(Re=None, u=None, d=None, rho=None, mu=None, nu=None):
     """
     Determine flow regime (laminar, transitional or turbulent) considering the
     Reynolds number boundaries for the case of a straight, non-smooth pipe.
-    Laminar regime: Re < 2100; Transitional regime: 2100 <= Re <= 4000;
-    Laminar regime: Re > 4000;
+    
+    Laminar regime: Re < 2100
+    
+    Transitional regime: 2100 <= Re <= 4000
+    
+    Laminar regime: Re > 4000
 
     Parameters
     ----------
-    Re : float
+    Re : float, optional
         Reynolds number [-]
-    u : float
+    u : float, optional
         Flow speed [m/s]
-    d : float
+    d : float, optional
         Characteristic length or dimension [m]
     rho : float, optional
         Density of the fluid or gas [kg/m^3]
@@ -397,10 +401,10 @@ def flow_regime(Re=None, u=None, d=None, rho=None, mu=None, nu=None):
     >>> flow_regime(u=2.6, d=0.025, rho=910, mu=0.38)
     'laminar'
 
-    >>> reynolds(Re=3250)
+    >>> flow_regime(Re=3250)
     'transitional'
 
-    >>> reynolds(u=0.25, d=0.102, nu=1.4e-6)
+    >>> flow_regime(u=0.25, d=0.102, nu=1.4e-6)
     'turbulent'
 
     Raises
