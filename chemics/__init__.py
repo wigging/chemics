@@ -52,6 +52,8 @@ from .minimum_fluidization_velocity import umf_reynolds
 from .molecular_weight import mw
 from .molecular_weight import mw_mix
 
+from .pressure_drop import pressure_drop_ergun
+
 from .proximate_bases import proximate_bases
 
 from .terminal_velocity import ut
