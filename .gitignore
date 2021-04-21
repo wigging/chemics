@@ -1,3 +1,6 @@
+.vscode/
+pipfile
+pipfile.lock
 
 # Created by https://www.gitignore.io/api/vim,latex,linux,macos,python,pycharm,windows,sublimetext,jupyternotebook,visualstudiocode
 # Edit at https://www.gitignore.io/?templates=vim,latex,linux,macos,python,pycharm,windows,sublimetext,jupyternotebook,visualstudiocode
