@@ -109,7 +109,7 @@ def axial_dispersion_coeff(Dm, dp, ui):
     Estimate the axial dispersion coefficient using Edwards and Richardson
     correlation.
 
-    .. math:: D{ax} = 0.73 D_m + 0.5 d_p u_i
+    .. math:: D_{ax} = 0.73 D_m + 0.5 d_p u_i
 
     Parameters
     ----------
