@@ -1,3 +1,6 @@
+import chemics as cm
+
+
 def archimedes(dp, rhog, rhos, mu):
     """
     Calculate the dimensionless Archimedes number.
@@ -67,6 +70,43 @@ def biot(h, d, k):
     """
     bi = (h * d) / k
     return bi
+
+
+def peclet(ui, L, Dax):
+    """
+    Calculate the dimensionless Peclet number for mass transfer.
+
+    The Peclet number is defined as the ratio between the bulk mass transport
+    (convection) and the molecular diffusion.
+
+    .. math:: Pe = \\frac{u_i L}{D_{ax}}
+
+    Parameters
+    ----------
+    ui : float
+        Interstitial velocity [m/s]
+    L : float
+        Length or characteristic dimension [m]
+    Dax : float
+        Axial dispersion coefficient [m^2/s]
+
+    Returns
+    -------
+    pe : float
+        Peclet number [-]
+
+    Example
+    -------
+    >>> peclet(3.0e-3, 0.25, 4.7e-4)
+    1.5957
+
+    References
+    ----------
+    J.D. Seader, E.J. Henley, D.K. Roper. Separation Process Principles.
+    John Wiley & Sons, Inc., 3rd edition, 2011.
+    """
+    pe = ui * L / Dax
+    return pe
 
 
 def prandtl(cp=None, mu=None, k=None, nu=None, alpha=None):
@@ -249,3 +289,146 @@ def reynolds(u, d, rho=None, mu=None, nu=None):
         raise ValueError('Must provide (u, d, rho, mu) or (u, d, nu)')
 
     return re
+
+
+def schmidt(mu, rho, Dm):
+    """
+    Calculate the dimensionless Schmidt number.
+
+    The Schmidt number represents the ratio between momentum diffusivity
+    (kinematic viscosity) and mass diffusivity.
+
+    .. math:: Sc = \\frac{\\mu}{\\rho D_m}
+
+    Parameters
+    ----------
+    mu : float
+        Viscosity of the fluid flowing through the packed bed [Pa s]
+    rho : float
+        Density of the fluid flowing through the packed bed [kg/m^3]
+    Dm : float
+        Molecular diffusion coefficient [m^2/s]
+
+    Returns
+    -------
+    sc : float
+        Schmidt number [-]
+
+    Example
+    -------
+    >>> schmidt(8.90e-4, 997.07, 2.299e-9)
+    388.26
+
+    References
+    ----------
+    J.D. Seader, E.J. Henley, D.K. Roper. Separation Process Principles.
+    John Wiley & Sons, Inc., 3rd edition, 2011.
+    """
+    sc = mu / rho / Dm
+    return sc
+
+
+def sherwood(k, d, Dm):
+    """
+    Calculate the dimensionless Sherwood number.
+
+    The Sherwood number represents the ratio between the convective mass
+    transfer and the rate of diffusive mass transport.
+
+    .. math:: Sh = \\frac{k d}{D_m}
+
+    Parameters
+    ----------
+    k : float
+        Convective mass transfer coefficient [m/s]
+    d : float
+        Particle diameter or characteristic length [m]
+    Dm : float
+        Molecular diffusion coefficient [m^2/s]
+
+    Returns
+    -------
+    sh : float
+        Sherwood number [-]
+
+    Example
+    -------
+    >>> sherwood(2.3e-4, 5.0e-6, 4.0e-9)
+    0.2875
+
+    References
+    ----------
+    J.D. Seader, E.J. Henley, D.K. Roper. Separation Process Principles.
+    John Wiley & Sons, Inc., 3rd edition, 2011.
+    """
+    sh = k * d / Dm
+    return sh
+
+
+def flow_regime(Re=None, u=None, d=None, rho=None, mu=None, nu=None):
+    """
+    Determine flow regime (laminar, transitional or turbulent) considering the
+    Reynolds number boundaries for the case of a straight, non-smooth pipe.
+    
+    Laminar regime: Re < 2100
+    
+    Transitional regime: 2100 <= Re <= 4000
+    
+    Laminar regime: Re > 4000
+
+    Parameters
+    ----------
+    Re : float, optional
+        Reynolds number [-]
+    u : float, optional
+        Flow speed [m/s]
+    d : float, optional
+        Characteristic length or dimension [m]
+    rho : float, optional
+        Density of the fluid or gas [kg/m^3]
+    mu : float, optional
+        Dynamic viscosity of the fluid or gas [kg/(m s)]
+    nu : float, optional
+        Kinematic viscosity of the fluid or gas [m^2/s]
+
+    Returns
+    -------
+    regime : string
+        Flow regime. One of laminar, transitional or turbulent.
+
+    Examples
+    --------
+    >>> flow_regime(u=2.6, d=0.025, rho=910, mu=0.38)
+    'laminar'
+
+    >>> flow_regime(Re=3250)
+    'transitional'
+
+    >>> flow_regime(u=0.25, d=0.102, nu=1.4e-6)
+    'turbulent'
+
+    Raises
+    ------
+    ValueError
+        Must provide Re or (u, d, rho, mu) or (u, d, nu)
+
+    References
+    ----------
+    R.H. Perry, D.W. Green. Perry's Chemical Engineers' Handbook.
+    McGraw-Hill, 8th edition, 2008.
+    """
+    if not Re:
+        if (rho and mu and not nu) or (nu and not rho and not mu):
+            Re = cm.reynolds(u, d, rho=rho, mu=mu, nu=nu)
+        else:
+            raise ValueError(
+                'Must provide Re or (u, d, rho, mu) or (u, d, nu)'
+            )
+    if Re < 2100:
+        regime = 'laminar'
+    elif 2100 <= Re <= 4000:
+        regime = 'transitional'
+    elif Re > 4000:
+        regime = 'turbulent'
+
+    return regime

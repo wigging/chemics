@@ -16,6 +16,11 @@ def test_biot():
     assert bi == approx(0.0012057, rel=1e-2)
 
 
+def test_peclet():
+    pe = cm.peclet(3.0e-3, 0.25, 4.7e-4)
+    assert pe == approx(1.5957, rel=1e-2)
+
+
 def test_prandtl_args1():
     pr = cm.prandtl(cp=4188, mu=0.001307, k=0.5674)
     assert pr == approx(9.647, rel=1e-2)
@@ -44,3 +49,28 @@ def test_reynolds_args1():
 def test_reynolds_args2():
     re = cm.reynolds(0.25, 0.102, nu=1.4e-6)
     assert re == approx(18214.2857, rel=1e-2)
+
+
+def test_schmidt():
+    sc = cm.schmidt(8.90e-4, 997.07, 2.299e-9)
+    assert sc == approx(388.26, rel=1e-2)
+
+
+def test_sherwood():
+    sh = cm.sherwood(2.3e-4, 5.0e-6, 4.0e-9)
+    assert sh == approx(0.2875, rel=1e-2)
+
+
+def test_flow_regime_args1():
+    regime = cm.flow_regime(u=2.6, d=0.025, rho=910, mu=0.38)
+    assert regime == "laminar"
+
+
+def test_flow_regime_args2():
+    regime = cm.flow_regime(Re=3250)
+    assert regime == "transitional"
+
+
+def test_flow_regime_args3():
+    regime = cm.flow_regime(u=0.25, d=0.102, nu=1.4e-6)
+    assert regime == "turbulent"

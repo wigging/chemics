@@ -29,10 +29,14 @@ from .devol_time import devol_time
 
 from .dimensionless_numbers import archimedes
 from .dimensionless_numbers import biot
+from .dimensionless_numbers import peclet
 from .dimensionless_numbers import prandtl
 from .dimensionless_numbers import pyroI
 from .dimensionless_numbers import pyroII
 from .dimensionless_numbers import reynolds
+from .dimensionless_numbers import schmidt
+from .dimensionless_numbers import sherwood
+from .dimensionless_numbers import flow_regime
 
 from .gas_density import rhog
 from .gas_heat_capacity import cp_gas
@@ -44,6 +48,11 @@ from .gas_viscosity import mu_graham
 from .gas_viscosity import mu_herning
 
 from .geldart import geldart_chart
+
+from .mass_transfer_correlations import molecular_diffusion_coeff
+from .mass_transfer_correlations import convective_mt_coeff
+from .mass_transfer_correlations import axial_dispersion_coeff
+from .mass_transfer_correlations import axial_dispersion_coeff_sc
 
 from .minimum_fluidization_velocity import umf_coeff
 from .minimum_fluidization_velocity import umf_ergun
