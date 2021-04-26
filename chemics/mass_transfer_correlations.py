@@ -165,7 +165,7 @@ def axial_dispersion_coeff_sc(Dm, epsilon, Re, Sc):
     -------
     Dax : float
         Axial dispersion coefficient [m^2/s]
-    
+
     Raises
     ------
     ValueError
@@ -182,12 +182,12 @@ def axial_dispersion_coeff_sc(Dm, epsilon, Re, Sc):
     coefficients in packed beds under supercritical conditions.
     J. Supercrit. Fluid, 1998, 13 (1–3), 169–175.
     """
-    if (epsilon*Re*Sc > 0.3) and (3.9 < Sc < 665):
-        Dax = Dm/epsilon * 1.317 * (epsilon * Re * Sc)**1.392
+    if (epsilon * Re * Sc > 0.3) and (3.9 < Sc < 665):
+        Dax = Dm / epsilon * 1.317 * (epsilon * Re * Sc)**1.392
     else:
         raise ValueError(
             f'Correlation not applicable in the given conditions. \n'
-            f'epsilon*Re*Sc must be > 0.3. It is {epsilon*Re*Sc:.2f}. \n'
+            f'epsilon * Re * Sc must be > 0.3. It is {epsilon * Re * Sc:.2f}. \n'
             f'Sc must be in range 3.9 - 665. It is {Sc:.2f}. \n'
         )
     return Dax
