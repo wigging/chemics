@@ -45,8 +45,8 @@ def molecular_diffusion_coeff(mw, T, mu, Vc, phi=1.0):
 
 def convective_mt_coeff(Dm, dp, epsilon, Re, Sc):
     """
-    Estimate the convective mass transfer coefficient using Wilson and
-    Geankoplis correlation.
+    Estimate the convective mass transfer coefficient in packed beds using the
+    Wilson and Geankoplis correlation.
 
     .. math::  k_f = \\frac{Sh D_m}{d_p}
 
@@ -106,8 +106,8 @@ def convective_mt_coeff(Dm, dp, epsilon, Re, Sc):
 
 def axial_dispersion_coeff(Dm, dp, ui):
     """
-    Estimate the axial dispersion coefficient using Edwards and Richardson
-    correlation.
+    Estimate the axial dispersion coefficient in packed beds using the Edwards
+    and Richardson correlation.
 
     .. math:: D_{ax} = 0.73 D_m + 0.5 d_p u_i
 
@@ -141,8 +141,8 @@ def axial_dispersion_coeff(Dm, dp, ui):
 
 def axial_dispersion_coeff_sc(Dm, epsilon, Re, Sc):
     """
-    Estimate the axial dispersion coefficient under supercritical conditions
-    using the correlation of Funazukuri et al.
+    Estimate the axial dispersion coefficient in packed beds under supercritical
+    conditions using the correlation of Funazukuri et al.
 
     .. math:: D_{ax} = \\frac{D_m}{\\varepsilon} 1.317 (\\varepsilon Re Sc)^{1.392}
 
