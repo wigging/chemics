@@ -6,7 +6,7 @@ The following is a set of guidelines for contributing to the Chemics Python pack
 
 ## Code style
 
-All code in the Chemics package should adhere to the style enforced by the [Flake8][f8] tool. This will ensure a consistent code format throughout the package and prevent syntax errors during development.
+All code in the Chemics package should adhere to the style enforced by the [Flake8][f8] tool. This will ensure a consistent code format throughout the package and prevent syntax errors during development. For the Flake8 style settings, ignore the E501, W503, W605 errors and warnings.
 
 ## Docstrings
 
@@ -31,6 +31,10 @@ Don't forget to edit the changelog based on contributions. Follow the style on t
 ## Sphinx documentation
 
 Finally, new source code should be included in the [Sphinx documentation][sd] located in the `docs/` folder.
+
+## Creating a Pull Request
+
+All Pull Requests should be submitted to the `develop` branch; not to the `main` branch. When a new version is ready to be released the `develop` branch will be merged with the `main` branch.
 
 [f8]: https://pypi.org/project/flake8/
 [np]: https://numpydoc.readthedocs.io/en/latest/format.html

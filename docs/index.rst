@@ -105,8 +105,10 @@ given.
    gas_thermal_conductivity
    gas_viscosity
    geldart
+   mass_transfer_correlations
    minimum_fluidization_velocity
    molecular_weight
+   pressure_drop
    proximate_bases
    terminal_velocity
    transport_disengaging_height
