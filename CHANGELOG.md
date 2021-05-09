@@ -2,9 +2,17 @@
 
 Version numbers use calendar versioning based on `YY.MM.MICRO`. See the [CalVer](https://calver.org) website for more information about this versioning convention. The format of this changelog follows the approach outlined on the [Keep a Changelog](https://keepachangelog.com) website.
 
-## version
+## 21.5
 
-here
+#### Added
+
+- Mass transfer correlations
+- Peclet (Pe), Schmidt (Sc), and Sherwood (Sh) dimensionless numbers
+- Function to calculate pressure drop using Ergun equation
+
+#### Changed
+
+- Updated contributing guidelines
 
 ## v21.4
 
