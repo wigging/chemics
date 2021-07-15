@@ -63,7 +63,7 @@ from .molecular_weight import mw_mix
 
 from .pressure_drop import pressure_drop_ergun
 
-from .proximate_bases import proximate_bases
+from .proximate_analysis import Proximate
 
 from .terminal_velocity import ut
 from .terminal_velocity import ut_haider
@@ -73,7 +73,7 @@ from .transport_disengaging_height import tdh_chan
 from .transport_disengaging_height import tdh_horio
 from .transport_velocity import utr
 
-from .ultimate_bases import ultimate_bases
+from .ultimate_analysis import Ultimate
 
 from .wood_heat_capacity import cp_wood
 from .wood_thermal_conductivity import k_wood
