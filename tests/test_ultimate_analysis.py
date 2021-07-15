@@ -1,5 +1,5 @@
 """
-Tests for ultimate bases module.
+Tests for ultimate analysis class object.
 """
 
 import chemics as cm
