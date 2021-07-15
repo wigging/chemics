@@ -109,11 +109,11 @@ given.
    minimum_fluidization_velocity
    molecular_weight
    pressure_drop
-   proximate_bases
+   proximate_analysis
    terminal_velocity
    transport_disengaging_height
    transport_velocity
-   ultimate_bases
+   ultimate_analysis
    wood_heat_capacity
    wood_thermal_conductivity
 

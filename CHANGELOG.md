@@ -2,6 +2,17 @@
 
 Version numbers use calendar versioning based on `YY.MM.MICRO`. See the [CalVer](https://calver.org) website for more information about this versioning convention. The format of this changelog follows the approach outlined on the [Keep a Changelog](https://keepachangelog.com) website.
 
+## 21.7
+
+#### Added
+
+- `Proximate` and `Ultimate` analysis classes
+- Tests and documentation for the above classes
+
+#### Removed
+
+- Deleted `proximate_bases()` and `ultimate_bases()` functions
+
 ## 21.5
 
 #### Added
