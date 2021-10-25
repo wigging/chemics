@@ -112,18 +112,3 @@ def cp_gas(formula, T, CAS='', full=False):
         return Cp, CAS, Tmin, Tmax, A, B, C, D, E, F, G
     else:
         return Cp
-
-
-if __name__ == '__main__':
-
-    cp1 = cp_gas('CBrClF2', 700)
-    print('cp1', cp1)
-
-    # cp2 = cp_gas('C5H10O2', 850)
-    # print('cp2', cp2)
-
-    cp2 = cp_gas('C5H10O2', 850, CAS='75-98-9')
-    print('cp2', cp2)
-
-    cp3 = cp_gas('NO2', 900)
-    print('cp3', cp3)
