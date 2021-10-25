@@ -105,6 +105,7 @@ given.
    gas_thermal_conductivity
    gas_viscosity
    geldart
+   liquid_heat_capacity
    mass_transfer_correlations
    minimum_fluidization_velocity
    molecular_weight

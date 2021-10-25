@@ -2,6 +2,17 @@
 
 Version numbers use calendar versioning based on `YY.MM.MICRO`. See the [CalVer](https://calver.org) website for more information about this versioning convention. The format of this changelog follows the approach outlined on the [Keep a Changelog](https://keepachangelog.com) website.
 
+## 21.10
+
+#### Added
+
+- `cp_liquid()` function to calculate liquid heat capacity
+- Tests and documentation for the `cp_liquid()` function
+
+#### Removed
+
+- Unused code in gas heat capacity module
+
 ## 21.7
 
 #### Added
