@@ -49,6 +49,8 @@ from .gas_viscosity import mu_herning
 
 from .geldart import geldart_chart
 
+from .liquid_heat_capacity import cp_liquid
+
 from .mass_transfer_correlations import molecular_diffusion_coeff
 from .mass_transfer_correlations import convective_mt_coeff
 from .mass_transfer_correlations import axial_dispersion_coeff
