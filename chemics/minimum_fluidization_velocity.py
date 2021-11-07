@@ -20,7 +20,7 @@ def umf_coeff(dp, mu, rhog, rhos, coeff='wenyu'):
     rhos : float
         Density of bed particle [kg/m³]
     coeff : string
-        Keyword to determine which coefficients to use for umf calculation.
+        Keyword to determine which coefficients to use for Umf calculation.
         Valid options are 'wenyu', 'rich', 'sax', 'babu', 'grace', and 'chit'.
         Default coefficients are set to 'wenyu'.
 
@@ -40,37 +40,20 @@ def umf_coeff(dp, mu, rhog, rhos, coeff='wenyu'):
        Butterworth-Heinemann, 2nd edition, 1991.
     """
 
-    if coeff == 'wenyu':
-        # Wen and Yu coefficients [-]
-        a = 33.7
-        b = 0.0408
-    elif coeff == 'rich':
-        # Richardson coefficients [-]
-        a = 25.7
-        b = 0.0365
-    elif coeff == 'sax':
-        # Saxena and Vogel coefficients [-]
-        a = 25.3
-        b = 0.0571
-    elif coeff == 'babu':
-        # Babu coefficients [-]
-        a = 25.3
-        b = 0.0651
-    elif coeff == 'grace':
-        # Grace coefficients [-]
-        a = 27.2
-        b = 0.0408
-    elif coeff == 'chit':
-        # Chitester coefficients [-]
-        a = 28.7
-        b = 0.0494
-    else:
-        raise ValueError('Coefficient is not a valid option.')
+    ab_coeffs = {
+        'wenyu': (33.7, 0.0408),  # Wen and Yu coefficients [-]
+        'rich': (25.7, 0.0365),   # Richardson coefficients [-]
+        'sax': (25.3, 0.0571),    # Saxena and Vogel coefficients [-]
+        'babu': (25.3, 0.0651),   # Babu coefficients [-]
+        'grace': (27.2, 0.0408),  # Grace coefficients [-]
+        'chit': (28.7, 0.0494)    # Chitester coefficients [-]
+    }
 
     # g is acceleration due to gravity [m/s²], Ar is Archimedes number [-], and
     # Re is Reynolds number [-]
     g = 9.81
     Ar = (dp**3 * rhog * (rhos - rhog) * g) / (mu**2)
+    a, b = ab_coeffs[coeff]
     Re = (a**2 + b * Ar)**0.5 - a
 
     # minimum fluidization velocity [m/s]
