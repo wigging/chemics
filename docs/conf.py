@@ -21,14 +21,14 @@ sys.path.insert(0, os.path.abspath('..'))
 # -- Project information -----------------------------------------------------
 
 project = 'Chemics'
-copyright = '2021, Gavin Wiggins'
+copyright = '2022, Gavin Wiggins'
 author = 'Gavin Wiggins'
 
 # The short X.Y version
-version = '21.10'
+version = '22.8'
 
 # The full version, including alpha/beta/rc tags
-release = '21.10'
+release = '22.8'
 
 
 # -- General configuration ---------------------------------------------------
