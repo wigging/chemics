@@ -2,6 +2,19 @@
 
 Version numbers use calendar versioning based on `YY.MM.MICRO`. See the [CalVer](https://calver.org) website for more information about this versioning convention. The format of this changelog follows the approach outlined on the [Keep a Changelog](https://keepachangelog.com) website.
 
+## 22.8
+
+#### Fixed
+
+- Fix CAS numbers for cp liquid organic
+- Fix CAS number for cp liquid inorganic
+- Fix CAS numbers for cp gas organic
+- Fix CAS numbers in cp gas inorganic
+
+#### Changed
+
+- Use dictionary for Umf coefficients
+
 ## 21.10
 
 #### Added
