@@ -1,27 +1,18 @@
 # Chemics
 
-The [Chemics][] package is a collection of Python functions for performing calculations in the field of chemical and fluidization engineering. Source code for the package is available on [GitHub][] and contributions from the community are encouraged.
+The chemics package is a collection of Python functions for performing calculations in the field of chemical reactor engineering. Source code for the package is available on GitHub and contributions from the community are encouraged.
 
 ## Installation
 
-If you don't have Python installed on your computer, the [Anaconda][] or [Miniconda][] distribution of Python is recommended for scientific computing. After setting up Python, the Chemics package can be downloaded and installed using the pip or conda package managers.
-
-Install Chemics using the pip package manager:
+If you don't have Python installed on your computer, the [Anaconda](https://www.anaconda.com) or [Miniconda](https://conda.io/miniconda.html) distribution of Python is recommended for scientific computing. After setting up Python, the chemics package can be downloaded and installed using the pip package manager.
 
 ```bash
 $ pip install chemics
 ```
 
-Install Chemics using the conda package manager:
-
-```bash
-$ conda config --add channels conda-forge
-$ conda install chemics
-```
-
 ## Usage
 
-The example below imports the Chemics package then uses the `rhog()` function to calculate the density of a gas based on its molecular weight, pressure, and temperature.
+The example below imports the chemics package then uses the `rhog()` function to calculate the density of a gas based on its molecular weight, pressure, and temperature.
 
 ```python
 import chemics as cm
@@ -66,11 +57,11 @@ ce.rct_properties
 # massfrac  0.613275  0.386725
 ```
 
-More examples are available in the [chemics-examples][] repository.
+More examples are available in the `examples` directory.
 
 ## Documentation
 
-Documentation for the Chemics package is available at [chemics.github.io](https://chemics.github.io).
+Documentation for the chemics package is available at [chemics.readthedocs.io](https://chemics.readthedocs.io).
 
 ## Contributing
 
@@ -79,10 +70,3 @@ See the [CONTRIBUTING.md](CONTRIBUTING.md) document for guidelines on contributi
 ## License
 
 Chemics is available under the MIT License - see the [LICENSE](LICENSE) file for more information.
-
-
-[anaconda]: https://www.anaconda.com
-[chemics]: https://pypi.org/project/chemics/
-[chemics-examples]: https://github.com/chemics/chemics-examples
-[github]: https://github.com/chemics/chemics
-[miniconda]: https://conda.io/miniconda.html
