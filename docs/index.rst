@@ -2,9 +2,9 @@ Chemics
 =======
 
 The Chemics_ package is a collection of Python functions for performing
-calculations in the field of chemical and fluidization engineering. Source
-code for the package is available on GitHub_ and contributions from the
-community are encouraged.
+calculations in the field of chemical engineering. Source code for the
+package is available on GitHub_ and contributions from the community are
+encouraged.
 
 Installation
 ------------
@@ -19,13 +19,6 @@ Install Chemics using the pip package manager:
 .. code-block:: bash
 
    $ pip install chemics
-
-Install Chemics using the conda package manager:
-
-.. code-block:: bash
-
-   $ conda config --add channels conda-forge
-   $ conda install chemics
 
 Usage
 -----
@@ -62,7 +55,7 @@ products from a given chemical equation.
     # molfrac        0.5       0.5
     # massfrac  0.613275  0.386725
 
-More examples are available in the `chemics-examples`_ repository.
+See the `examples <https://github.com/wigging/chemics>`_ directory in the GitHub repository for more examples.
 
 Documentation
 -------------
@@ -105,7 +98,6 @@ Package index and modules
 
 .. _anaconda: https://www.anaconda.com
 .. _chemics: https://pypi.org/project/chemics/
-.. _contributing: https://github.com/chemics/chemics/blob/master/CONTRIBUTING.md
-.. _chemics-examples: https://github.com/chemics/chemics-examples
-.. _github: https://github.com/chemics/chemics
+.. _contributing: https://github.com/wigging/chemics/blob/main/CONTRIBUTING.md
+.. _github: https://github.com/wigging/chemics
 .. _miniconda: https://conda.io/miniconda.html
