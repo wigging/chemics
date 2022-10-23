@@ -40,23 +40,6 @@ pressure, and temperature.
 
     cm.rhog(28, 170100, 773)
 
-The :code:`ut()` function calculates the terminal velocity of a particle
-according to the Haider and Levenspiel 1989 paper as shown below.
-
-.. code-block:: python
-
-    import chemics as cm
-
-    # Parameters
-    dp = 0.00016    # particle diameter [m]
-    mu = 1.8e-5     # gas viscosity [kg/(m s)]
-    phi = 0.67      # particle sphericity [-]
-    rhog = 1.2      # gas density [kg/m^3]
-    rhos = 2600     # particle density [kg/m^3]
-
-    # Haider and Levenspiel terminal velocity [m/s]
-    ut_haider = cm.ut_haider(dp, mu, phi, rhog, rhos)
-
 Use the :code:`ChemicalEquation` class to get properties of the reactants and
 products from a given chemical equation.
 
