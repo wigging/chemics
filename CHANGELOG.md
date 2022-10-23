@@ -2,6 +2,12 @@
 
 Version numbers use calendar versioning based on `YY.MM.MICRO`. See the [CalVer](https://calver.org) website for more information about this versioning convention. The format of this changelog follows the approach outlined on the [Keep a Changelog](https://keepachangelog.com) website.
 
+## 22.10
+
+#### Removed
+
+- Code, tests, and documentation related to fluidization. See [issue 27](https://github.com/wigging/chemics/issues/27) for more information.
+
 ## 22.8
 
 #### Fixed
