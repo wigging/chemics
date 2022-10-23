@@ -5,9 +5,9 @@ with open('README.md', 'r') as fh:
 
 setuptools.setup(
     name='chemics',
-    version='22.8',
+    version='22.10',
     author='Gavin Wiggins',
-    description='A Python package for chemical reactor engineering',
+    description='A Python package for chemical engineering',
     long_description=long_description,
     long_description_content_type='text/markdown',
     url='https://github.com/chemics/chemics',
