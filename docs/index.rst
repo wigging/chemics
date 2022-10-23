@@ -92,28 +92,17 @@ given.
    :maxdepth: 1
 
    atomic_elements
-   bed_expansion_factor
    biomass_composition
-   bubble_rise_velocity
    chemical_equation
-   choking_velocity
    conversions
-   devol_time
    dimensionless_numbers
    gas_density
    gas_heat_capacity
    gas_thermal_conductivity
    gas_viscosity
-   geldart
    liquid_heat_capacity
-   mass_transfer_correlations
-   minimum_fluidization_velocity
    molecular_weight
-   pressure_drop
    proximate_analysis
-   terminal_velocity
-   transport_disengaging_height
-   transport_velocity
    ultimate_analysis
    wood_heat_capacity
    wood_thermal_conductivity
