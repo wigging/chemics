@@ -2,97 +2,41 @@ import numpy as np
 import os
 import pandas as pd
 
-__all__ = ['mu_gas', 'mu_graham', 'mu_herning']
 
-
-def _mu(df, formula, temp, cas, full):
+def mu_gas(formula, temp, cas=None, disp=False):
     """
-    Helper for the `mu_gas` function to determine gas viscosity.
-
-    Parameters
-    ----------
-    df : dataframe
-        Dataframe from inorganic or organic data
-    formula : str
-        Molecular formula for the gas
-    temp : float
-        Gas temperature
-    cas : str
-        CAS number
-    full : bool
-        Flag to print more information
-
-    Returns
-    -------
-    mu_gas : float
-        Viscosity of gas [micropoise]
-    mu_gas, cas, tmin, tmax, a, b, c, d : tuple
-        Additional values returned only if full=True.
-    """
-
-    if cas:
-        # new dataframe based only on row for cas number
-        df = df[df['CAS No.'] == str(cas)]
-
-    cas = df.loc[formula]['CAS No.']
-    tmin = df.loc[formula]['temperature, Tmin (K)']
-    tmax = df.loc[formula]['temperature, Tmax (K)']
-    a = df.loc[formula]['A']
-    b = df.loc[formula]['B']
-    c = df.loc[formula]['C']
-    d = df.loc[formula]['D']
-
-    if temp < tmin or temp > tmax:
-        raise ValueError('Temperature out of range. Applicable values are '
-                         f'{tmin} - {tmax} K for {formula} gas.')
-
-    mu = a + b * temp + c * (temp**2) + d * (temp**3)
-
-    if full:
-        return mu, cas, tmin, tmax, a, b, c, d
-    else:
-        return mu
-
-
-def mu_gas(formula, temp, cas=None, full=False):
-    """
-    Viscosity of gas as a function of temperature. Results calculated from
-    coefficients in Yaws' Critical Property Data for Chemical Engineers and
-    Chemists [1]_. CAS (Chemical Abstracts Service) number may be required for
-    some species.
+    Gas viscosity as a function of temperature using coefficients in Yaws'
+    Critical Property Data for Chemical Engineers and Chemists [1]_. CAS
+    (Chemical Abstracts Service) number may be required for some species.
 
     Parameters
     ----------
     formula : str
         Molecular formula of the gas.
     temp : float
-        Temperature of the gas [K]
+        Gas temperature [K].
     cas : str, optional
-        CAS number of the gas, required for some species [-]
-    full : bool, optional
-        When set to :code:`False` (default) just gas viscosity is returned.
-        When set to :code:`True` then return gas viscosity and other
-        information.
-
-    Returns
-    -------
-    mu_gas : float
-        Viscosity of gas [micropoise]
-
-    mu_gas, cas, tmin, tmax, a, b, c, d : tuple
-        Additional values are only returned when keyword :code:`full=True`.
-
-        | mu_gas - Viscosity of gas [micropoise]
-        | cas - CAS number [-]
-        | tmin, tmax - Temperature range at which results are applicable [K]
-        | a, b, c, d - Values for regression coefficients [-]
+        CAS number of the gas, required for some species.
+    disp : bool
+        Display information about the calculation such as the CAS number,
+        applicable temperature range in Kelvin, and values for regression
+        coefficients.
 
     Raises
     ------
+    KeyError
+        If provided CAS number is not found.
     ValueError
-        If gas formula is not found in csv data file.
+        If multiple substances found for given formula.
+    KeyError
+        If gas chemical formula not found.
     ValueError
-        If gas temperature is not in range between tmin and tmax.
+        If given temperataure is out of range for calculation.
+
+    Returns
+    -------
+    mu : float
+        Gas viscosity [microPoise].
 
     Examples
     --------
@@ -108,8 +52,17 @@ def mu_gas(formula, temp, cas=None, full=False):
     >>> mu_gas('N2', 773)
     363.82
 
-    >>> mu_gas('N2', 773, full=True)
-    (363.82, '7727-37-9', 63.15, 1970.0, 4.46, 0.63, -0.00026, 5.41e-08)
+    >>> mu_gas('N2', 773, disp=True)
+    Formula        N2
+    CAS            7727-37-9
+    Min Temp. (K)  63.15
+    Max Temp. (K)  1970.0
+    A              4.46555763078484
+    B              0.638137789753159
+    C              -0.0002659562785407
+    D              5.41126875437814e-08
+    μ (microPoise) 363.8235847080749
+    363.8235847080749
 
     References
     ----------
@@ -118,33 +71,64 @@ def mu_gas(formula, temp, cas=None, full=False):
        2014.
     """
     abs_path = os.path.dirname(os.path.abspath(__file__))
-
     data_inorganic = abs_path + '/data/mu-gas-inorganic.csv'
-    df_inorganic = pd.read_csv(data_inorganic, index_col=0)
-
     data_organic = abs_path + '/data/mu-gas-organic.csv'
-    df_organic = pd.read_csv(data_organic, index_col=0)
 
-    if formula in df_inorganic.index:
+    if cas:
+        df_inorg = pd.read_csv(data_inorganic, index_col=2)
+        df_org = pd.read_csv(data_organic, index_col=2)
 
-        if isinstance(df_inorganic.loc[formula], pd.DataFrame) and cas is None:
-            raise ValueError(f'Multiple substances available for {formula}. '
-                             'Include CAS number with input parameters.')
-
-        mu = _mu(df_inorganic, formula, temp, cas, full)
-        return mu
-
-    elif formula in df_organic.index:
-
-        if isinstance(df_organic.loc[formula], pd.DataFrame) and cas is None:
-            raise ValueError(f'Multiple substances available for {formula}. '
-                             'Include CAS number with input parameters.')
-
-        mu = _mu(df_organic, formula, temp, cas, full)
-        return mu
-
+        if cas in df_inorg.index:
+            data = df_inorg.loc[cas]
+            formula = data['molecular formula']
+        elif cas in df_org.index:
+            data = df_org.loc[cas]
+            formula = data['molecular formula']
+        else:
+            raise KeyError(f'CAS number {cas} not found')
     else:
-        raise ValueError(f'Gas viscosity for {formula} is not available.')
+        df_inorg = pd.read_csv(data_inorganic, index_col=0)
+        df_org = pd.read_csv(data_organic, index_col=0)
+
+        if formula in df_inorg.index:
+            data = df_inorg.loc[formula]
+            if isinstance(data, pd.DataFrame):
+                raise ValueError(f'Multiple substances available for {formula}. '
+                                 'Include CAS number with input parameters.')
+            cas = data['CAS No.']
+        elif formula in df_org.index:
+            data = df_org.loc[formula]
+            if isinstance(data, pd.DataFrame):
+                raise ValueError(f'Multiple substances available for {formula}. '
+                                 'Include CAS number with input parameters.')
+            cas = data['CAS No.']
+        else:
+            raise KeyError(f'Formula {formula} not found')
+
+    tmin = data['temperature, Tmin (K)']
+    tmax = data['temperature, Tmax (K)']
+    a = data['A']
+    b = data['B']
+    c = data['C']
+    d = data['D']
+    mu = a + b * temp + c * (temp**2) + d * (temp**3)
+
+    if temp < tmin or temp > tmax:
+        raise ValueError('Temperature out of range. Applicable values are '
+                         f'{tmin}-{tmax} K for {formula} gas.')
+
+    if disp:
+        print('Formula       ', formula)
+        print('CAS           ', cas)
+        print('Min Temp. (K) ', tmin)
+        print('Max Temp. (K) ', tmax)
+        print('A             ', a)
+        print('B             ', b)
+        print('C             ', c)
+        print('D             ', d)
+        print('μ (microPoise)', mu)
+
+    return mu
 
 
 def mu_graham(mus, xs):

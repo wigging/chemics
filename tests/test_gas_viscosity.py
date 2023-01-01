@@ -1,5 +1,5 @@
 """
-Tests for the gas_viscosity module. Updated by G.W. on 11/30/2018.
+Tests for the gas_viscosity module. Updated by G.W. on 12/31/2022.
 
 mu = Gas viscosity [micropoise]
 cas = CAS number [-]
@@ -9,43 +9,63 @@ a, b, c, d = Regression coefficients [-]
 """
 
 import chemics as cm
-from pytest import approx
+from pytest import approx, raises
 
 
 # Functions to test
 # ----------------------------------------------------------------------------
 
-def test_mu_h2():
-    mu_h2 = cm.mu_gas('H2', 404)
-    assert mu_h2 == approx(113.18, rel=1e-2)
-
-
-def test_mu_n2():
-    mu_n2 = cm.mu_gas('N2', 773)
-    assert mu_n2 == approx(363.82, rel=1e-2)
-
-
-def test_mu_n2_full():
-    mu_n2, *stats = cm.mu_gas('N2', 773, full=True)
-    cas, tmin, tmax, a, b, c, d = stats
-    assert mu_n2 == approx(363.82, rel=1e-2)
-    assert cas == '7727-37-9'
-    assert tmin == approx(63.15, rel=1e-2)
-    assert tmax == approx(1970.0, rel=1e-2)
-    assert a == approx(4.465557, rel=1e-2)
-    assert b == approx(0.63813778, rel=1e-2)
-    assert c == approx(-0.0002659562, rel=1e-2)
-    assert d == approx(5.411268e-08, rel=1e-2)
-
-
 def test_mu_ch4():
-    mu_ch4 = cm.mu_gas('CH4', 810)
-    assert mu_ch4 == approx(234.21, rel=1e-2)
+    mu = cm.mu_gas('CH4', 810)
+    assert mu == approx(234.21, rel=1e-2)
+
+
+def test_nh3_err():
+    with raises(KeyError):
+        _ = cm.mu_gas('NH3', 900)
+
+
+def test_nh3():
+    mu = cm.mu_gas('NH3', 900, cas='7664-41-7')
+    assert mu == approx(319.14, rel=1e-2)
+
+
+def test_err():
+    with raises(ValueError):
+        _ = cm.mu_gas('C2Cl2F4', 900)
 
 
 def test_mu_c2cl2f4():
-    mu_c2cl2f4 = cm.mu_gas('C2Cl2F4', 900, cas='374-07-2')
-    assert mu_c2cl2f4 == approx(314.90, rel=1e-2)
+    mu = cm.mu_gas('C2Cl2F4', 900, cas='374-07-2')
+    assert mu == approx(314.90, rel=1e-2)
+
+
+def test_mu_h2():
+    mu = cm.mu_gas('H2', 404)
+    assert mu == approx(113.18, rel=1e-2)
+
+
+def test_mu_n2():
+    mu = cm.mu_gas('N2', 773)
+    assert mu == approx(363.82, rel=1e-2)
+
+
+def test_mu_n2_disp(capsys):
+    mu = cm.mu_gas('N2', 773, disp=True)
+    assert mu == approx(363.82, rel=1e-2)
+
+    captured = capsys.readouterr()
+    assert captured.out == (
+        'Formula        N2\n'
+        'CAS            7727-37-9\n'
+        'Min Temp. (K)  63.15\n'
+        'Max Temp. (K)  1970.0\n'
+        'A              4.46555763078484\n'
+        'B              0.638137789753159\n'
+        'C              -0.0002659562785407\n'
+        'D              5.41126875437814e-08\n'
+        'μ (microPoise) 363.8235847080749\n'
+    )
 
 
 def test_mu_graham():
