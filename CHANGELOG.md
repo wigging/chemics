@@ -2,6 +2,12 @@
 
 Version numbers use calendar versioning based on `YY.MM.MICRO`. See the [CalVer](https://calver.org) website for more information about this versioning convention. The format of this changelog follows the approach outlined on the [Keep a Changelog](https://keepachangelog.com) website.
 
+## 23.1
+
+#### Changed
+
+- Updated gas viscosity function for better use of the CAS number
+
 ## 22.10
 
 #### Removed

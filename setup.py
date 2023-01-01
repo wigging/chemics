@@ -5,7 +5,7 @@ with open('README.md', 'r') as fh:
 
 setuptools.setup(
     name='chemics',
-    version='22.10',
+    version='23.1',
     author='Gavin Wiggins',
     description='A Python package for chemical engineering',
     long_description=long_description,
