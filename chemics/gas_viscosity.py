@@ -24,11 +24,11 @@ def mu_gas(formula, temp, cas=None, disp=False):
 
     Raises
     ------
-    KeyError
+    ValueError
         If provided CAS number is not found.
     ValueError
         If multiple substances found for given formula.
-    KeyError
+    ValueError
         If gas chemical formula not found.
     ValueError
         If given temperataure is out of range for calculation.
@@ -71,36 +71,31 @@ def mu_gas(formula, temp, cas=None, disp=False):
        Property Data for Chemical Engineers and Chemists. Published by Knovel,
        2014.
     """
-    abs_path = os.path.dirname(os.path.abspath(__file__))
-    data_csv = abs_path + '/data/gas-viscosity-yaws.csv'
+    path = os.path.dirname(os.path.abspath(__file__))
+    df = pd.read_csv(path + '/data/gas-viscosity-yaws.csv')
 
     if cas:
-        df_csv = pd.read_csv(data_csv, index_col=2)
-
-        if cas in df_csv.index:
-            df = df_csv.loc[cas]
-            formula = df['Formula']
-        else:
-            raise KeyError(f'CAS number {cas} not found')
+        row = df.query(f"CAS == '{cas}'")
+        if len(row) == 0:
+            raise ValueError(f'CAS number {cas} not found')
     else:
-        df_csv = pd.read_csv(data_csv, index_col=0)
+        row = df.query(f"Formula == '{formula}'")
+        if len(row) > 1:
+            raise ValueError(f'Multiple substances available for {formula}. '
+                             'Include CAS number with input parameters.')
+        elif len(row) == 0:
+            raise ValueError(f'Formula {formula} not found')
 
-        if formula in df_csv.index:
-            df = df_csv.loc[formula]
-            if isinstance(df, pd.DataFrame):
-                raise ValueError(f'Multiple substances available for {formula}. '
-                                 'Include CAS number with input parameters.')
-            cas = df['CAS']
-        else:
-            raise KeyError(f'Formula {formula} not found')
-
-    name = df['Name']
-    tmin = df['Tmin']
-    tmax = df['Tmax']
-    a = df['A']
-    b = df['B']
-    c = df['C']
-    d = df['D']
+    values = row.values[0]
+    formula = values[0]
+    name = values[1]
+    cas = values[2]
+    tmin = values[3]
+    tmax = values[4]
+    a = values[5]
+    b = values[6]
+    c = values[7]
+    d = values[8]
     mu = a + b * temp + c * (temp**2) + d * (temp**3)
 
     if temp < tmin or temp > tmax:

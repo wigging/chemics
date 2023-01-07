@@ -21,7 +21,7 @@ def test_mu_ch4():
 
 
 def test_nh3_err():
-    with raises(KeyError):
+    with raises(ValueError):
         _ = cm.mu_gas('NH3', 900)
 
 
