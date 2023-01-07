@@ -57,6 +57,7 @@ def test_mu_n2_disp(capsys):
     captured = capsys.readouterr()
     assert captured.out == (
         'Formula        N2\n'
+        'Name           nitrogen\n'
         'CAS            7727-37-9\n'
         'Min Temp. (K)  63.15\n'
         'Max Temp. (K)  1970.0\n'

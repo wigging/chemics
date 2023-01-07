@@ -5,8 +5,8 @@ import pandas as pd
 
 def mu_gas(formula, temp, cas=None, disp=False):
     """
-    Gas viscosity as a function of temperature using coefficients in Yaws'
-    Critical Property Data for Chemical Engineers and Chemists [1]_. CAS
+    Gas viscosity as a function of temperature using coefficients from Yaws'
+    Critical Property Data for Chemical Engineers and Chemists [1]_. The CAS
     (Chemical Abstracts Service) number may be required for some species.
 
     Parameters
@@ -54,6 +54,7 @@ def mu_gas(formula, temp, cas=None, disp=False):
 
     >>> mu_gas('N2', 773, disp=True)
     Formula        N2
+    Name           nitrogen
     CAS            7727-37-9
     Min Temp. (K)  63.15
     Max Temp. (K)  1970.0
@@ -71,46 +72,35 @@ def mu_gas(formula, temp, cas=None, disp=False):
        2014.
     """
     abs_path = os.path.dirname(os.path.abspath(__file__))
-    data_inorganic = abs_path + '/data/mu-gas-inorganic.csv'
-    data_organic = abs_path + '/data/mu-gas-organic.csv'
+    data_csv = abs_path + '/data/gas-viscosity-yaws.csv'
 
     if cas:
-        df_inorg = pd.read_csv(data_inorganic, index_col=2)
-        df_org = pd.read_csv(data_organic, index_col=2)
+        df_csv = pd.read_csv(data_csv, index_col=2)
 
-        if cas in df_inorg.index:
-            data = df_inorg.loc[cas]
-            formula = data['molecular formula']
-        elif cas in df_org.index:
-            data = df_org.loc[cas]
-            formula = data['molecular formula']
+        if cas in df_csv.index:
+            df = df_csv.loc[cas]
+            formula = df['Formula']
         else:
             raise KeyError(f'CAS number {cas} not found')
     else:
-        df_inorg = pd.read_csv(data_inorganic, index_col=0)
-        df_org = pd.read_csv(data_organic, index_col=0)
+        df_csv = pd.read_csv(data_csv, index_col=0)
 
-        if formula in df_inorg.index:
-            data = df_inorg.loc[formula]
-            if isinstance(data, pd.DataFrame):
+        if formula in df_csv.index:
+            df = df_csv.loc[formula]
+            if isinstance(df, pd.DataFrame):
                 raise ValueError(f'Multiple substances available for {formula}. '
                                  'Include CAS number with input parameters.')
-            cas = data['CAS No.']
-        elif formula in df_org.index:
-            data = df_org.loc[formula]
-            if isinstance(data, pd.DataFrame):
-                raise ValueError(f'Multiple substances available for {formula}. '
-                                 'Include CAS number with input parameters.')
-            cas = data['CAS No.']
+            cas = df['CAS']
         else:
             raise KeyError(f'Formula {formula} not found')
 
-    tmin = data['temperature, Tmin (K)']
-    tmax = data['temperature, Tmax (K)']
-    a = data['A']
-    b = data['B']
-    c = data['C']
-    d = data['D']
+    name = df['Name']
+    tmin = df['Tmin']
+    tmax = df['Tmax']
+    a = df['A']
+    b = df['B']
+    c = df['C']
+    d = df['D']
     mu = a + b * temp + c * (temp**2) + d * (temp**3)
 
     if temp < tmin or temp > tmax:
@@ -119,6 +109,7 @@ def mu_gas(formula, temp, cas=None, disp=False):
 
     if disp:
         print('Formula       ', formula)
+        print('Name          ', name)
         print('CAS           ', cas)
         print('Min Temp. (K) ', tmin)
         print('Max Temp. (K) ', tmax)
