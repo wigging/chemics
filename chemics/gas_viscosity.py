@@ -86,16 +86,15 @@ def mu_yaws(formula, temp, cas=None, disp=False):
         elif len(row) == 0:
             raise ValueError(f'Formula {formula} not found')
 
-    values = row.values[0]
-    formula = values[0]
-    name = values[1]
-    cas = values[2]
-    tmin = values[3]
-    tmax = values[4]
-    a = values[5]
-    b = values[6]
-    c = values[7]
-    d = values[8]
+    formula = row['Formula'].iloc[0]
+    name = row['Name'].iloc[0]
+    cas = row['CAS'].iloc[0]
+    tmin = row['Tmin'].iloc[0]
+    tmax = row['Tmax'].iloc[0]
+    a = row['A'].iloc[0]
+    b = row['B'].iloc[0]
+    c = row['C'].iloc[0]
+    d = row['D'].iloc[0]
     mu = a + b * temp + c * (temp**2) + d * (temp**3)
 
     if temp < tmin or temp > tmax:
@@ -225,3 +224,9 @@ def mu_herning(mus, mws, xs):
         raise ValueError('Sum of mole fractions must be 1.0')
     mu = np.sum(mus * xs * np.sqrt(mws)) / np.sum(xs * np.sqrt(mws))
     return mu
+
+
+if __name__ == '__main__':
+
+    mu = mu_yaws('N2', 773)
+    print('mu is', mu)
