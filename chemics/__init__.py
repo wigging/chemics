@@ -23,7 +23,7 @@ from .dimensionless_numbers import sherwood
 from .dimensionless_numbers import flow_regime
 
 from .gas_density import rhog
-from .gas_heat_capacity import cp_gas
+from .gas_heat_capacity import cp_yaws
 from .gas_pressure import patm
 from .gas_thermal_conductivity import k_yaws
 from .gas_viscosity import mu_yaws
