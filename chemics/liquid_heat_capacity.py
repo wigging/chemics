@@ -2,66 +2,52 @@ import pandas as pd
 from pathlib import Path
 
 
-def cp_liquid(formula, T, CAS='', full=False):
+def cp_liquid(formula, temp, cas=None, disp=False):
     """
-    Calculate the heat capacity of a liquid as a function of temperature using
-    coefficients from Yaws' Critical Property Data for Chemical Engineers and
-    Chemists [1]_. The CAS (Chemical Abstracts Service) number may be
-    required for some species. Inorganic species are calculated using
-
-    .. math:: C_p = A + B\\,T + C\\,T^2 + D\\,T^3
-
-    while organic species are determined from
+    Liquid heat capacity as a function of temperature using Yaws' coefficients
+    [1]_. The CAS(Chemical Abstracts Service) number may be required for some
+    species.
 
     .. math:: C_p = A + B\\,T + C\\,T^2 + D\\,T^3 + E\\,T^4
 
     Parameters
     ----------
     formula : str
-        Chemical formula.
-    T : float
-        Temperature [K].
-    CAS : str, optional
-        CAS number for the given chemical formula.
-    full : bool, optional
-        When `False` (default) only liquid heat capacity is returned, otherwise
-        heat capacity and other information are returned.
-
-    Returns
-    -------
-    Cp : float
-        Heat capacity [J/(mol⋅K)].
-
-    If `full` is `True` then also return
-
-    CAS : str
-        CAS number for the given chemical formula.
-    Tmin : float
-        Minimum temperature for the correlation [K].
-    Tmax : float
-        Maximum temperature for the correlation [K].
-    A, B, C, D : float
-        Coefficients used to calculate the heat capacity. Also returns
-        coefficient E for organic species.
+        Molecular formula of the gas.
+    temp : float
+        Gas temperature [K].
+    cas : str, optional
+        CAS number of the gas, required for some species.
+    disp : bool
+        Display information about the calculation such as the CAS number,
+        applicable temperature range in Kelvin, and values for regression
+        coefficients.
 
     Raises
     ------
     ValueError
-        If heat capacity is not available for chemical formula.
+        If provided CAS number is not found.
     ValueError
-        If multiple substances have same chemical then CAS number is required.
+        If multiple substances found for given formula.
     ValueError
-        If temperature is outside range of applicable data.
+        If gas chemical formula not found.
+    ValueError
+        If given temperataure is out of range for calculation.
+
+    Returns
+    -------
+    cp : float
+        Liquid heat capacity [J/(mol⋅K)].
 
     Examples
     --------
     >>> cp_liquid('CBrF3', 250)
     107.2774
 
-    >>> cp_liquid('CBrF3', 250, full=True)
+    >>> cp_liquid('CBrF3', 250, disp=True)
     107.2774, '75-63-8', 177.59, 299.82, -215.02, 4.01, -0.017, 2.68e-05, 1.54e-09
 
-    >>> cp_liquid('C38H76', 400, CAS='61828-17-9')
+    >>> cp_liquid('C38H76', 400, cas='61828-17-9')
     1307.0624
 
     References
@@ -70,53 +56,49 @@ def cp_liquid(formula, T, CAS='', full=False):
        Critical Property Data for Chemical Engineers and Chemists. Published
        by Knovel, 2014.
     """
-    abs_path = Path(__file__).parent.absolute()
+    path = Path(__file__).parent.absolute()
+    df = pd.read_csv(path / 'data/liquid-heat-capacity-yaws.csv')
+    df.fillna(0.0, inplace=True)
 
-    path_org = abs_path / 'data/cp-liquid-organic.csv'
-    path_inorg = abs_path / 'data/cp-liquid-inorganic.csv'
-
-    df_org = pd.read_csv(path_org, index_col=0)
-    df_inorg = pd.read_csv(path_inorg, index_col=0)
-
-    # Determine if formula is organic or inorganic species otherwise it's not
-    # available in the Yaws' correlation data.
-    if formula in df_org.index:
-        df = df_org
-    elif formula in df_inorg.index:
-        df = df_inorg
+    if cas:
+        row = df.query(f"CAS == '{cas}'")
+        if len(row) == 0:
+            raise ValueError(f'CAS number {cas} not found')
     else:
-        raise ValueError(f'Heat capacity for {formula} is not available.')
+        row = df.query(f"Formula == '{formula}'")
+        if len(row) > 1:
+            raise ValueError(f'Multiple substances available for {formula}. '
+                             'Include CAS number with input parameters.')
+        elif len(row) == 0:
+            raise ValueError(f'Formula {formula} not found')
 
-    # Require CAS number if multiple species are found.
-    if isinstance(df.loc[formula], pd.DataFrame) and CAS == '':
-        raise ValueError(f'Multiple substances available for {formula}. '
-                         'Include CAS number with input parameters.')
-    elif isinstance(df.loc[formula], pd.DataFrame):
-        df = df[df['CAS No.'] == CAS]
+    formula = row['Formula'].iloc[0]
+    name = row['Name'].iloc[0]
+    cas = row['CAS'].iloc[0]
+    tmin = row['Tmin'].iloc[0]
+    tmax = row['Tmax'].iloc[0]
+    a = row['A'].iloc[0]
+    b = row['B'].iloc[0]
+    c = row['C'].iloc[0]
+    d = row['D'].iloc[0]
+    e = row['E'].iloc[0]
+    cp = a + (b * temp) + (c * temp**2) + (d * temp**3) + (e * temp**4)
 
-    ser = df.loc[formula]
-
-    CAS = ser['CAS No.']
-    Tmin = ser['temperature, Tmin (K)']
-    Tmax = ser['temperature, Tmax (K)']
-    A = ser['A']
-    B = ser['B']
-    C = ser['C']
-    D = ser['D']
-
-    if len(ser) == 8:
-        Cp = A + B * T + C * T**2 + D * T**3
-    else:
-        E = ser['E']
-        Cp = A + B * T + C * T**2 + D * T**3 + E * T**4
-
-    if T < Tmin or T > Tmax:
+    if temp < tmin or temp > tmax:
         raise ValueError('Temperature out of range. Applicable values are '
-                         f'{Tmin}-{Tmax} K for {formula} gas.')
+                         f'{tmin}-{tmax} K for {formula} gas.')
 
-    if full and len(ser) == 8:
-        return Cp, CAS, Tmin, Tmax, A, B, C, D
-    elif full and len(ser) == 9:
-        return Cp, CAS, Tmin, Tmax, A, B, C, D, E
-    else:
-        return Cp
+    if disp:
+        print('Formula       ', formula)
+        print('Name          ', name)
+        print('CAS           ', cas)
+        print('Min Temp. (K) ', tmin)
+        print('Max Temp. (K) ', tmax)
+        print('A             ', a)
+        print('B             ', b)
+        print('C             ', c)
+        print('D             ', d)
+        print('E             ', e)
+        print('Cp (J/mol⋅K)  ', cp)
+
+    return cp

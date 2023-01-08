@@ -12,5 +12,5 @@ def test_cp1():
 
 
 def test_cp2():
-    cp2 = cm.cp_liquid('C38H76', 400, CAS='61828-17-9')
+    cp2 = cm.cp_liquid('C38H76', 400, cas='61828-17-9')
     assert cp2 == approx(1307.0624, rel=1e-2)
