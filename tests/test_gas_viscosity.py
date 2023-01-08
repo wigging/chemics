@@ -15,39 +15,24 @@ from pytest import approx, raises
 # Functions to test
 # ----------------------------------------------------------------------------
 
-def test_mu_ch4():
-    mu = cm.mu_gas('CH4', 810)
-    assert mu == approx(234.21, rel=1e-2)
-
-
-def test_nh3_err():
-    with raises(ValueError):
-        _ = cm.mu_gas('NH3', 900)
-
-
-def test_nh3():
-    mu = cm.mu_gas('NH3', 900, cas='7664-41-7')
-    assert mu == approx(319.14, rel=1e-2)
-
-
-def test_err():
-    with raises(ValueError):
-        _ = cm.mu_gas('C2Cl2F4', 900)
-
-
-def test_mu_c2cl2f4():
-    mu = cm.mu_gas('C2Cl2F4', 900, cas='374-07-2')
-    assert mu == approx(314.90, rel=1e-2)
-
-
 def test_mu_h2():
     mu = cm.mu_gas('H2', 404)
     assert mu == approx(113.18, rel=1e-2)
 
 
-def test_mu_n2():
-    mu = cm.mu_gas('N2', 773)
-    assert mu == approx(363.82, rel=1e-2)
+def test_mu_ch4():
+    mu = cm.mu_gas('CH4', 810)
+    assert mu == approx(234.21, rel=1e-2)
+
+
+def test_mu_nh3():
+    mu = cm.mu_gas('NH3', 900, cas='7664-41-7')
+    assert mu == approx(319.14, rel=1e-2)
+
+
+def test_mu_c2cl2f4():
+    mu = cm.mu_gas('C2Cl2F4', 900, cas='374-07-2')
+    assert mu == approx(314.90, rel=1e-2)
 
 
 def test_mu_n2_disp(capsys):
@@ -67,6 +52,21 @@ def test_mu_n2_disp(capsys):
         'D              5.41126875437814e-08\n'
         'μ (microPoise) 363.8235847080749\n'
     )
+
+
+def test_mu_n2_err():
+    with raises(ValueError):
+        _ = cm.mu_gas('N2', 6010)
+
+
+def test_mu_nh3_err():
+    with raises(ValueError):
+        _ = cm.mu_gas('NH3', 900)
+
+
+def test_mu_c2cl2f4_err():
+    with raises(ValueError):
+        _ = cm.mu_gas('C2Cl2F4', 900)
 
 
 def test_mu_graham():
