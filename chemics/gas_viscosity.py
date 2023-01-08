@@ -3,7 +3,7 @@ import os
 import pandas as pd
 
 
-def mu_gas(formula, temp, cas=None, disp=False):
+def mu_yaws(formula, temp, cas=None, disp=False):
     """
     Gas viscosity as a function of temperature using coefficients from Yaws'
     Critical Property Data for Chemical Engineers and Chemists [1]_. The CAS
