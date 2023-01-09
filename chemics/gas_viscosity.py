@@ -1,6 +1,85 @@
 import numpy as np
 import os
 import pandas as pd
+from pathlib import Path
+
+
+def mu_gas_ludwig(formula, temp, disp=False):
+    """
+    Gas viscosity as a function of temperature using Ludwig's coefficients
+    [1]_. Temperature must be within range.
+
+    TODO - finish this docstring.
+    TODO - add CAS numbers to data for working with duplicate formulas.
+    TODO - add tests for this function.
+    TODO - add this function to documentation.
+    TODO - add example scripts for this function.
+
+    Parameters
+    ----------
+    formula : str
+        Molecular formula of the gas.
+    temp : float
+        Gas temperature [K].
+    disp : bool
+        Display information about the calculation such as the applicable
+        temperature range in Kelvin, and values for regression coefficients.
+
+    Raises
+    ------
+    ValueError
+        If gas chemical formula not found.
+    ValueError
+        If given temperataure is out of range for calculation.
+
+    Returns
+    -------
+    mu : float
+        Gas viscosity [microPoise].
+
+    Examples
+    --------
+    >>> mu_gas_ludwig('NH3', 850)
+    300.84642499999995
+
+    References
+    ----------
+    .. [1] A. Kayode Coker. Table C-2 Viscosity of Gas in Ludwig's Applied
+       Process Design for Chemical and Petrochemical Plants, Volume 2, 4th
+       Edition. Elsevier, 2010.
+   """
+    path = Path(__file__).parent.absolute()
+    df = pd.read_csv(path / 'data/gas-viscosity-ludwig.csv')
+
+    row = df.query(f"Formula == '{formula}'")
+
+    if len(row) == 0:
+        raise ValueError(f'Formula {formula} not found')
+
+    formula = row['Formula'].iloc[0]
+    name = row['Name'].iloc[0]
+    tmin = row['Tmin'].iloc[0]
+    tmax = row['Tmax'].iloc[0]
+    a = row['A'].iloc[0]
+    b = row['B'].iloc[0]
+    c = row['C'].iloc[0]
+    mu = a + (b * temp) + (c * temp**2)
+
+    if temp < tmin or temp > tmax:
+        raise ValueError('Temperature out of range. Applicable values are '
+                         f'{tmin}-{tmax} K for {formula} gas.')
+
+    if disp:
+        print('Formula       ', formula)
+        print('Name          ', name)
+        print('Min Temp. (K) ', tmin)
+        print('Max Temp. (K) ', tmax)
+        print('A             ', a)
+        print('B             ', b)
+        print('C             ', c)
+        print('μ (microPoise)', mu)
+
+    return mu
 
 
 def mu_yaws(formula, temp, cas=None, disp=False):
@@ -229,4 +308,10 @@ def mu_herning(mus, mws, xs):
 if __name__ == '__main__':
 
     mu = mu_yaws('N2', 773)
+    print('mu is', mu)
+
+    mu = mu_gas_ludwig('NH3', 850)
+    print('mu is', mu)
+
+    mu = mu_gas_ludwig('NH3', 850, disp=True)
     print('mu is', mu)
