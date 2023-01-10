@@ -245,11 +245,11 @@ def mu_gasmix_graham(mus, xs):
     return mu_mix
 
 
-def mu_herning(mus, mws, xs):
+def mu_gasmix_herning(mus, mws, xs):
     """
-    Calculate viscosity of a gas mixture using the approach by Herning and
-    Zipperer [4]_. Formula presented here is based on Equation 1 from the
-    Davidson report [5]_.
+    Gas mixture viscosity using the approach by Herning and Zipperer
+    [4]_. Formula presented here is based on Equation 1 from the Davidson
+    report [5]_.
 
     .. math:: \\mu_{mix} = \\frac{\\sum (\\mu_i \\cdot x_i \\cdot \\sqrt{MW_i})}{\\sum (x_i \\cdot \\sqrt{MW_i})}
 
@@ -279,11 +279,11 @@ def mu_herning(mus, mws, xs):
 
     Example
     -------
-    >>> mu_h2 = cm.mu_gas('H2', 773.15)
-    ... mu_n2 = cm.mu_gas('N2', 773.15)
+    >>> mu_h2 = cm.mu_gas_yaws('H2', 773.15)
+    ... mu_n2 = cm.mu_gas_yaws('N2', 773.15)
     ... mw_h2 = cm.mw('H2')
     ... mw_n2 = cm.mw('N2')
-    ... mu_herning([mu_h2, mu_n2], [mw_h2, mw_n2], [0.85, 0.15])
+    ... mu_gasmix_herning([mu_h2, mu_n2], [mw_h2, mw_n2], [0.85, 0.15])
     252.81
 
     References
@@ -302,15 +302,3 @@ def mu_herning(mus, mws, xs):
         raise ValueError('Sum of mole fractions must be 1.0')
     mu = np.sum(mus * xs * np.sqrt(mws)) / np.sum(xs * np.sqrt(mws))
     return mu
-
-
-if __name__ == '__main__':
-
-    mu = mu_gas_yaws('N2', 773)
-    print('mu is', mu)
-
-    mu = mu_gas_ludwig('NH3', 850)
-    print('mu is', mu)
-
-    mu = mu_gas_ludwig('NH3', 850, disp=True)
-    print('mu is', mu)

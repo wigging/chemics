@@ -28,7 +28,7 @@ from .gas_pressure import patm
 from .gas_thermal_conductivity import k_gas_yaws
 from .gas_viscosity import mu_gas_yaws
 from .gas_viscosity import mu_gasmix_graham
-from .gas_viscosity import mu_herning
+from .gas_viscosity import mu_gasmix_herning
 
 from .liquid_heat_capacity import cp_liquid
 

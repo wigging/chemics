@@ -81,5 +81,5 @@ def test_mix_b():
     mu_n2 = cm.mu_gas_yaws('N2', 773.15)
     mw_h2 = cm.mw('H2')
     mw_n2 = cm.mw('N2')
-    mu_mix = cm.mu_herning([mu_h2, mu_n2], [mw_h2, mw_n2], [0.85, 0.15])
+    mu_mix = cm.mu_gasmix_herning([mu_h2, mu_n2], [mw_h2, mw_n2], [0.85, 0.15])
     assert mu_mix == approx(252.81, rel=1e-2)
