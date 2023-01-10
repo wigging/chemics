@@ -30,7 +30,7 @@ from .gas_viscosity import mu_gas_yaws
 from .gas_viscosity import mu_gasmix_graham
 from .gas_viscosity import mu_gasmix_herning
 
-from .liquid_heat_capacity import cp_liquid
+from .liquid_heat_capacity import cp_liq_yaws
 
 from .molecular_weight import mw
 from .molecular_weight import mw_mix

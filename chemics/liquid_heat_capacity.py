@@ -2,7 +2,7 @@ import pandas as pd
 from pathlib import Path
 
 
-def cp_liquid(formula, temp, cas=None, disp=False):
+def cp_liq_yaws(formula, temp, cas=None, disp=False):
     """
     Liquid heat capacity as a function of temperature using Yaws' coefficients
     [1]_. The CAS(Chemical Abstracts Service) number may be required for some
@@ -41,13 +41,13 @@ def cp_liquid(formula, temp, cas=None, disp=False):
 
     Examples
     --------
-    >>> cp_liquid('CBrF3', 250)
+    >>> cp_liq_yaws('CBrF3', 250)
     107.2774
 
-    >>> cp_liquid('CBrF3', 250, disp=True)
+    >>> cp_liq_yaws('CBrF3', 250, disp=True)
     107.2774, '75-63-8', 177.59, 299.82, -215.02, 4.01, -0.017, 2.68e-05, 1.54e-09
 
-    >>> cp_liquid('C38H76', 400, cas='61828-17-9')
+    >>> cp_liq_yaws('C38H76', 400, cas='61828-17-9')
     1307.0624
 
     References
