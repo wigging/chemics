@@ -1,8 +1,8 @@
 import pandas as pd
-import os
+from pathlib import Path
 
 
-def k_yaws(formula, temp, cas=None, disp=False):
+def k_gas_yaws(formula, temp, cas=None, disp=False):
     """
     Gas thermal conductivity as a function of temperature using Yaws'
     coefficients [1]_. The CAS(Chemical Abstracts Service) number may be
@@ -39,13 +39,13 @@ def k_yaws(formula, temp, cas=None, disp=False):
 
     Examples
     --------
-    >>> k_yaws('N2', 773)
+    >>> k_gas_yaws('N2', 773)
     0.05356876932986771
 
-    >>> k_yaws('C18H38O', 920, cas='593-32-8')
+    >>> k_gas_yaws('C18H38O', 920, cas='593-32-8')
     0.04174183983759623
 
-    >>> k_yaws('N2', 773, disp=True)
+    >>> k_gas_yaws('N2', 773, disp=True)
     Formula        N2
     Name           nitrogen
     CAS            7727-37-9
@@ -64,8 +64,8 @@ def k_yaws(formula, temp, cas=None, disp=False):
        Critical Property Data for Chemical Engineers and Chemists. Published
        by Knovel, 2014.
     """
-    path = os.path.dirname(os.path.abspath(__file__))
-    df = pd.read_csv(path + '/data/gas-thermal-conductivity-yaws.csv')
+    path = Path(__file__).parent.absolute()
+    df = pd.read_csv(path / 'data/gas-thermal-conductivity-yaws.csv')
 
     if cas:
         row = df.query(f"CAS == '{cas}'")

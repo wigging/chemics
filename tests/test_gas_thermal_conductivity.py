@@ -1,12 +1,5 @@
 """
-Tests for the gas_thermal_conductivity module grouped by functions for
-inorganic and organic compounds. Updated by G.W. on 11/07/2018.
-
-k = Gas thermal conductivity [W/(m K)]
-cas = CAS number [-]
-tmin = Minimum temperature applicable to equation [K]
-tmax = Maximum temperature applicable to equation [K]
-a, b, c, d = Regression coefficients [-]
+Tests for the gas_thermal_conductivity module.
 """
 
 import chemics as cm
@@ -14,12 +7,12 @@ from pytest import approx, raises
 
 
 def test_k_n2():
-    k_n2 = cm.k_yaws('N2', 773)
+    k_n2 = cm.k_gas_yaws('N2', 773)
     assert k_n2 == approx(0.0535, rel=1e-2)
 
 
 def test_k_n2_disp(capsys):
-    k = cm.k_yaws('N2', 773, disp=True)
+    k = cm.k_gas_yaws('N2', 773, disp=True)
     assert k == approx(0.0535, rel=1e-2)
 
     captured = capsys.readouterr()
@@ -38,20 +31,20 @@ def test_k_n2_disp(capsys):
 
 
 def test_k_o2():
-    k_o2 = cm.k_yaws('O2', 773)
+    k_o2 = cm.k_gas_yaws('O2', 773)
     assert k_o2 == approx(0.0588, rel=1e-2)
 
 
 def test_k_co_err():
     with raises(ValueError):
-        _ = cm.k_yaws('CO', 801)
+        _ = cm.k_gas_yaws('CO', 801)
 
 
 def test_k_co():
-    k_co = cm.k_yaws('CO', 801, cas='630-08-0')
+    k_co = cm.k_gas_yaws('CO', 801, cas='630-08-0')
     assert k_co == approx(0.05722, rel=1e-2)
 
 
 def test_k_c18h38o():
-    k_c18h38o = cm.k_yaws('C18H38O', 920, cas='593-32-8')
+    k_c18h38o = cm.k_gas_yaws('C18H38O', 920, cas='593-32-8')
     assert k_c18h38o == approx(0.04174, rel=1e-2)
