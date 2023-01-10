@@ -72,7 +72,7 @@ def test_mu_c2cl2f4_err():
 def test_mu_graham():
     mu_h2 = cm.mu_gas_yaws('H2', 773.15)
     mu_n2 = cm.mu_gas_yaws('N2', 773.15)
-    mu_mix = cm.mu_graham([mu_h2, mu_n2], [0.85, 0.15])
+    mu_mix = cm.mu_gasmix_graham([mu_h2, mu_n2], [0.85, 0.15])
     assert mu_mix == approx(207.37, rel=1e-2)
 
 

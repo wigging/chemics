@@ -14,7 +14,7 @@ mu_ch4 = cm.mu_gas_yaws('CH4', 773.15)
 # Determine viscosity of a gas mixture
 # ----------------------------------------------------------------------------
 
-mu_mix = cm.mu_graham([mu_h2, mu_n2, mu_ch4], [0.4, 0.1, 0.5])
+mu_mix = cm.mu_gasmix_graham([mu_h2, mu_n2, mu_ch4], [0.4, 0.1, 0.5])
 
 # Print results
 # ----------------------------------------------------------------------------

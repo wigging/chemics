@@ -194,10 +194,10 @@ def mu_gas_yaws(formula, temp, cas=None, disp=False):
     return mu
 
 
-def mu_graham(mus, xs):
+def mu_gasmix_graham(mus, xs):
     """
-    Calculate viscosity of a gas mixture using Graham's method [2]_. Formula
-    presented here is based on Equation 1 from the Davidson report [3]_.
+    Gas mixture viscosity using Graham's method [2]_. Formula presented here
+    is based on Equation 1 from the Davidson report [3]_.
 
     .. math:: \\mu_{mix} = \\sum (x_i \\cdot \\mu_i)
 
@@ -224,9 +224,9 @@ def mu_graham(mus, xs):
 
     Example
     -------
-    >>> mu_h2 = cm.mu_gas('H2', 773.15)
-    ... mu_n2 = cm.mu_gas('N2', 773.15)
-    ... mu_graham([mu_h2, mu_n2], [0.85, 0.15])
+    >>> mu_h2 = cm.mu_gas_yaws('H2', 773.15)
+    ... mu_n2 = cm.mu_gas_yaws('N2', 773.15)
+    ... mu_gasmix_graham([mu_h2, mu_n2], [0.85, 0.15])
     207.37
 
     References
