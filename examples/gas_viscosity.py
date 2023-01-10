@@ -7,9 +7,9 @@ import chemics as cm
 # Determine viscosity of gas at temperature [K]
 # ----------------------------------------------------------------------------
 
-mu_h2 = cm.mu_yaws('H2', 773.15)
-mu_n2 = cm.mu_yaws('N2', 773.15)
-mu_ch4 = cm.mu_yaws('CH4', 773.15)
+mu_h2 = cm.mu_gas_yaws('H2', 773.15)
+mu_n2 = cm.mu_gas_yaws('N2', 773.15)
+mu_ch4 = cm.mu_gas_yaws('CH4', 773.15)
 
 # Determine viscosity of a gas mixture
 # ----------------------------------------------------------------------------

@@ -1,5 +1,4 @@
 import numpy as np
-import os
 import pandas as pd
 from pathlib import Path
 
@@ -82,7 +81,7 @@ def mu_gas_ludwig(formula, temp, disp=False):
     return mu
 
 
-def mu_yaws(formula, temp, cas=None, disp=False):
+def mu_gas_yaws(formula, temp, cas=None, disp=False):
     """
     Gas viscosity as a function of temperature using coefficients from Yaws'
     Critical Property Data for Chemical Engineers and Chemists [1]_. The CAS
@@ -119,19 +118,19 @@ def mu_yaws(formula, temp, cas=None, disp=False):
 
     Examples
     --------
-    >>> mu_gas('CH4', 810)
+    >>> mu_gas_yaws('CH4', 810)
     234.21
 
-    >>> mu_gas('C2Cl2F4', 900, cas='374-07-2')
+    >>> mu_gas_yaws('C2Cl2F4', 900, cas='374-07-2')
     314.90
 
-    >>> mu_gas('H2', 404)
+    >>> mu_gas_yaws('H2', 404)
     113.18
 
-    >>> mu_gas('N2', 773)
+    >>> mu_gas_yaws('N2', 773)
     363.82
 
-    >>> mu_gas('N2', 773, disp=True)
+    >>> mu_gas_yaws('N2', 773, disp=True)
     Formula        N2
     Name           nitrogen
     CAS            7727-37-9
@@ -150,8 +149,8 @@ def mu_yaws(formula, temp, cas=None, disp=False):
        Property Data for Chemical Engineers and Chemists. Published by Knovel,
        2014.
     """
-    path = os.path.dirname(os.path.abspath(__file__))
-    df = pd.read_csv(path + '/data/gas-viscosity-yaws.csv')
+    path = Path(__file__).parent.absolute()
+    df = pd.read_csv(path / 'data/gas-viscosity-yaws.csv')
 
     if cas:
         row = df.query(f"CAS == '{cas}'")
@@ -307,7 +306,7 @@ def mu_herning(mus, mws, xs):
 
 if __name__ == '__main__':
 
-    mu = mu_yaws('N2', 773)
+    mu = mu_gas_yaws('N2', 773)
     print('mu is', mu)
 
     mu = mu_gas_ludwig('NH3', 850)
