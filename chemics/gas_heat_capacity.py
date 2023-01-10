@@ -2,7 +2,7 @@ import pandas as pd
 from pathlib import Path
 
 
-def cp_yaws(formula, temp, cas=None, disp=False):
+def cp_gas_yaws(formula, temp, cas=None, disp=False):
     """
     Gas heat capacity as a function of temperature using Yaws' coefficients
     [1]_. The CAS(Chemical Abstracts Service) number may be required for some
@@ -41,13 +41,13 @@ def cp_yaws(formula, temp, cas=None, disp=False):
 
     Examples
     --------
-    >>> cp_yaws('CBrClF2', 700)
+    >>> cp_gas_yaws('CBrClF2', 700)
     97.4982
 
-    >>> cp_yaws('C5H10O2', 850, CAS='75-98-9')
+    >>> cp_gas_yaws('C5H10O2', 850, CAS='75-98-9')
     268.4920
 
-    >>> cp_yaws('NO2', 900)
+    >>> cp_gas_yaws('NO2', 900)
     51.0686
 
     References
