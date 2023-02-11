@@ -164,7 +164,7 @@ class Gas:
     def k_yaws(self, temp, cas=None, disp=False):
         """
         Calculate gas thermal conductivity as a function of temperature using
-        Yaws' coefficients [1]_. The CAS (Chemical Abstracts Service) number
+        Yaws' coefficients [2]_. The CAS (Chemical Abstracts Service) number
         may be required for some species.
 
         Parameters
@@ -221,7 +221,7 @@ class Gas:
 
         References
         ----------
-        .. [1] Carl L. Yaws. Thermal Conductivity Gas Tables 84 and 85 in Yaws'
+        .. [2] Carl L. Yaws. Thermal Conductivity Gas Tables 84 and 85 in Yaws'
            Critical Property Data for Chemical Engineers and Chemists. Published
            by Knovel, 2014.
         """
@@ -274,7 +274,7 @@ class Gas:
     def mu_ludwig(self, temp, cas=None, disp=False):
         """
         Gas viscosity as a function of temperature using Ludwig's coefficients
-        [1]_. Temperature must be within range. CAS number is only used for
+        [3]_. Temperature must be within range. CAS number is only used for
         duplicate species.
 
         .. math:: \\mu = A + B\\,T + C\\,T^2
@@ -319,7 +319,7 @@ class Gas:
 
         References
         ----------
-        .. [1] A. Kayode Coker. Table C-2 Viscosity of Gas in Ludwig's Applied
+        .. [3] A. Kayode Coker. Table C-2 Viscosity of Gas in Ludwig's Applied
            Process Design for Chemical and Petrochemical Plants, Volume 2, 4th
            Edition. Elsevier, 2010.
         """
@@ -368,7 +368,7 @@ class Gas:
     def mu_yaws(self, temp, cas=None, disp=False):
         """
         Gas viscosity as a function of temperature using coefficients from Yaws'
-        Critical Property Data for Chemical Engineers and Chemists [1]_. The CAS
+        Critical Property Data for Chemical Engineers and Chemists [4]_. The CAS
         (Chemical Abstracts Service) number may be required for some species.
 
         Parameters
@@ -429,7 +429,7 @@ class Gas:
 
         References
         ----------
-        .. [1] Carl L. Yaws. Viscosity Gas Tables 80 and 81 in Yaws' Critical
+        .. [4] Carl L. Yaws. Viscosity Gas Tables 80 and 81 in Yaws' Critical
            Property Data for Chemical Engineers and Chemists. Published by Knovel,
            2014.
         """

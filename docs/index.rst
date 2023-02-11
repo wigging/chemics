@@ -72,10 +72,7 @@ given.
    chemical_equation
    conversions
    dimensionless_numbers
-   gas_density
-   gas_heat_capacity
-   gas_thermal_conductivity
-   gas_viscosity
+   gas
    liquid_heat_capacity
    molecular_weight
    proximate_analysis
