@@ -1,5 +1,6 @@
 # flake8: noqa
 
+from .atm_pressure import patm
 from .atomic_elements import atomic_elements
 
 from .biomass_composition import biocomp
@@ -22,13 +23,9 @@ from .dimensionless_numbers import schmidt
 from .dimensionless_numbers import sherwood
 from .dimensionless_numbers import flow_regime
 
-from .gas_density import rhog
-from .gas_heat_capacity import cp_gas_yaws
-from .gas_pressure import patm
-from .gas_thermal_conductivity import k_gas_yaws
-from .gas_viscosity import mu_gas_yaws
-from .gas_viscosity import mu_gasmix_graham
-from .gas_viscosity import mu_gasmix_herning
+from .gas import Gas
+from .gas_mixture import mu_graham
+from .gas_mixture import mu_herning
 
 from .liquid_heat_capacity import cp_liq_yaws
 

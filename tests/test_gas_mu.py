@@ -1,11 +1,5 @@
 """
-Tests for the gas_viscosity module. Updated by G.W. on 12/31/2022.
-
-mu = Gas viscosity [micropoise]
-cas = CAS number [-]
-tmin = Minimum temperature applicable to equation [K]
-tmax = Maximum temperature applicable to equation [K]
-a, b, c, d = Regression coefficients [-]
+Tests for gas viscosity methods and gas mixture viscosity functions.
 """
 
 import chemics as cm
@@ -16,27 +10,32 @@ from pytest import approx, raises
 # ----------------------------------------------------------------------------
 
 def test_mu_h2():
-    mu = cm.mu_gas_yaws('H2', 404)
+    gas = cm.Gas('H2')
+    mu = gas.mu_yaws(404)
     assert mu == approx(113.18, rel=1e-2)
 
 
 def test_mu_ch4():
-    mu = cm.mu_gas_yaws('CH4', 810)
+    gas = cm.Gas('CH4')
+    mu = gas.mu_yaws(810)
     assert mu == approx(234.21, rel=1e-2)
 
 
 def test_mu_nh3():
-    mu = cm.mu_gas_yaws('NH3', 900, cas='7664-41-7')
+    gas = cm.Gas('NH3')
+    mu = gas.mu_yaws(900, cas='7664-41-7')
     assert mu == approx(319.14, rel=1e-2)
 
 
 def test_mu_c2cl2f4():
-    mu = cm.mu_gas_yaws('C2Cl2F4', 900, cas='374-07-2')
+    gas = cm.Gas('C2Cl2F4')
+    mu = gas.mu_yaws(900, cas='374-07-2')
     assert mu == approx(314.90, rel=1e-2)
 
 
 def test_mu_n2_disp(capsys):
-    mu = cm.mu_gas_yaws('N2', 773, disp=True)
+    gas = cm.Gas('N2')
+    mu = gas.mu_yaws(773, disp=True)
     assert mu == approx(363.82, rel=1e-2)
 
     captured = capsys.readouterr()
@@ -56,30 +55,41 @@ def test_mu_n2_disp(capsys):
 
 def test_mu_n2_err():
     with raises(ValueError):
-        _ = cm.mu_gas_yaws('N2', 6010)
+        gas = cm.Gas('N2')
+        _ = gas.mu_yaws(6010)
 
 
 def test_mu_nh3_err():
     with raises(ValueError):
-        _ = cm.mu_gas_yaws('NH3', 900)
+        gas = cm.Gas('NH3')
+        _ = gas.mu_yaws(900)
 
 
 def test_mu_c2cl2f4_err():
     with raises(ValueError):
-        _ = cm.mu_gas_yaws('C2Cl2F4', 900)
+        gas = cm.Gas('C2Cl2F4')
+        _ = gas.mu_yaws(900)
 
 
 def test_mu_graham():
-    mu_h2 = cm.mu_gas_yaws('H2', 773.15)
-    mu_n2 = cm.mu_gas_yaws('N2', 773.15)
-    mu_mix = cm.mu_gasmix_graham([mu_h2, mu_n2], [0.85, 0.15])
+    gas1 = cm.Gas('H2')
+    mu1 = gas1.mu_yaws(773.15)
+
+    gas2 = cm.Gas('N2')
+    mu2 = gas2.mu_yaws(773.15)
+
+    mu_mix = cm.mu_graham([mu1, mu2], [0.85, 0.15])
     assert mu_mix == approx(207.37, rel=1e-2)
 
 
-def test_mix_b():
-    mu_h2 = cm.mu_gas_yaws('H2', 773.15)
-    mu_n2 = cm.mu_gas_yaws('N2', 773.15)
-    mw_h2 = cm.mw('H2')
-    mw_n2 = cm.mw('N2')
-    mu_mix = cm.mu_gasmix_herning([mu_h2, mu_n2], [mw_h2, mw_n2], [0.85, 0.15])
+def test_mu_herning():
+    gas1 = cm.Gas('H2')
+    mw1 = gas1.mw
+    mu1 = gas1.mu_yaws(773.15)
+
+    gas2 = cm.Gas('N2')
+    mw2 = gas2.mw
+    mu2 = gas2.mu_yaws(773.15)
+
+    mu_mix = cm.mu_herning([mu1, mu2], [mw1, mw2], [0.85, 0.15])
     assert mu_mix == approx(252.81, rel=1e-2)
