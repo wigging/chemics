@@ -4,14 +4,23 @@ from .molecular_weight import mw
 
 
 class Gas:
+    """
+    Gas properties class.
+
+    Parameters
+    ----------
+    formula : str
+        Molecular formula of the gas
+
+    Attributes
+    ----------
+    formula : str
+        Molecular formula of the gas
+    mw : float
+        Molecular weight of the gas [g/mol]
+    """
 
     def __init__(self, formula):
-        """
-        Parameters
-        ----------
-        formula : str
-            Molecular formula of the gas.
-        """
         self.formula = formula
         self.mw = mw(formula)
 
@@ -268,20 +277,25 @@ class Gas:
         [1]_. Temperature must be within range. CAS number is only used for
         duplicate species.
 
-        TODO - finish this docstring.
-        TODO - add tests for this function.
-        TODO - add this function to documentation.
+        .. math:: \\mu = A + B\\,T + C\\,T^2
 
         Parameters
         ----------
         temp : float
             Gas temperature [K]
+        cas : str, optional
+            CAS number of the gas, required for some species.
         disp : bool
             Display information about the calculation such as the applicable
-            temperature range in Kelvin, and values for regression coefficients.
+            temperature range in Kelvin and values for regression
+            coefficients.
 
         Raises
         ------
+        ValueError
+            If provided CAS number is not found.
+        ValueError
+            If multiple substances found for given formula.
         ValueError
             If gas chemical formula not found.
         ValueError
@@ -382,7 +396,7 @@ class Gas:
         Returns
         -------
         mu : float
-            Gas viscosity [microPoise].
+            Gas viscosity [microPoise]
 
         Examples
         --------

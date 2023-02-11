@@ -6,34 +6,31 @@ import chemics as cm
 from pytest import approx, raises
 
 
-# Functions to test
-# ----------------------------------------------------------------------------
-
-def test_mu_h2():
+def test_mu_yaws1():
     gas = cm.Gas('H2')
     mu = gas.mu_yaws(404)
     assert mu == approx(113.18, rel=1e-2)
 
 
-def test_mu_ch4():
+def test_mu_yaws2():
     gas = cm.Gas('CH4')
     mu = gas.mu_yaws(810)
     assert mu == approx(234.21, rel=1e-2)
 
 
-def test_mu_nh3():
+def test_mu_yaws3():
     gas = cm.Gas('NH3')
     mu = gas.mu_yaws(900, cas='7664-41-7')
     assert mu == approx(319.14, rel=1e-2)
 
 
-def test_mu_c2cl2f4():
+def test_mu_yaws4():
     gas = cm.Gas('C2Cl2F4')
     mu = gas.mu_yaws(900, cas='374-07-2')
     assert mu == approx(314.90, rel=1e-2)
 
 
-def test_mu_n2_disp(capsys):
+def test_mu_yaws5(capsys):
     gas = cm.Gas('N2')
     mu = gas.mu_yaws(773, disp=True)
     assert mu == approx(363.82, rel=1e-2)
@@ -53,22 +50,34 @@ def test_mu_n2_disp(capsys):
     )
 
 
-def test_mu_n2_err():
+def test_mu_yaws6():
     with raises(ValueError):
         gas = cm.Gas('N2')
         _ = gas.mu_yaws(6010)
 
 
-def test_mu_nh3_err():
+def test_mu_yaws7():
     with raises(ValueError):
         gas = cm.Gas('NH3')
         _ = gas.mu_yaws(900)
 
 
-def test_mu_c2cl2f4_err():
+def test_mu_yaws8():
     with raises(ValueError):
         gas = cm.Gas('C2Cl2F4')
         _ = gas.mu_yaws(900)
+
+
+def test_mu_ludwig1():
+    gas = cm.Gas('NH3')
+    mu = gas.mu_ludwig(850)
+    assert mu == approx(300.8464, rel=1e-2)
+
+
+def test_mu_ludwig2():
+    gas = cm.Gas('C2H4O')
+    mu = gas.mu_ludwig(920, cas='75-07-0')
+    assert mu == approx(242.4685, rel=1e-2)
 
 
 def test_mu_graham():
