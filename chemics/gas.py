@@ -112,7 +112,7 @@ class Gas:
         formula = self.formula
 
         path = Path(__file__).parent.absolute()
-        df = pd.read_csv(path / 'data/gas-heat-capacity-yaws.csv')
+        df = pd.read_csv(path / 'data/gas-cp-yaws.csv')
 
         if cas:
             row = df.query(f"CAS == '{cas}'")
@@ -228,7 +228,7 @@ class Gas:
         formula = self.formula
 
         path = Path(__file__).parent.absolute()
-        df = pd.read_csv(path / 'data/gas-thermal-conductivity-yaws.csv')
+        df = pd.read_csv(path / 'data/gas-k-yaws.csv')
 
         if cas:
             row = df.query(f"CAS == '{cas}'")
@@ -326,7 +326,7 @@ class Gas:
         formula = self.formula
 
         path = Path(__file__).parent.absolute()
-        df = pd.read_csv(path / 'data/gas-viscosity-ludwig.csv')
+        df = pd.read_csv(path / 'data/gas-mu-ludwig.csv')
 
         if cas:
             row = df.query(f"CAS == '{cas}'")
@@ -436,7 +436,7 @@ class Gas:
         formula = self.formula
 
         path = Path(__file__).parent.absolute()
-        df = pd.read_csv(path / 'data/gas-viscosity-yaws.csv')
+        df = pd.read_csv(path / 'data/gas-mu-yaws.csv')
 
         if cas:
             row = df.query(f"CAS == '{cas}'")
