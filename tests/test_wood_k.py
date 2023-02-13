@@ -1,5 +1,5 @@
 """
-Tests for the wood thermal conductivity module.
+Tests for the wood thermal conductivity function.
 """
 
 import chemics as cm

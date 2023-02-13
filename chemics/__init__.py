@@ -35,5 +35,5 @@ from .molecular_weight import mw_mix
 from .proximate_analysis import Proximate
 from .ultimate_analysis import Ultimate
 
-from .wood_heat_capacity import cp_wood
-from .wood_thermal_conductivity import k_wood
+from .wood import cp_wood
+from .wood import k_wood

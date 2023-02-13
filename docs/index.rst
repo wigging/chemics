@@ -73,12 +73,11 @@ given.
    conversions
    dimensionless_numbers
    gas
-   liquid_heat_capacity
+   liquid
    molecular_weight
    proximate_analysis
    ultimate_analysis
-   wood_heat_capacity
-   wood_thermal_conductivity
+   wood
 
 Contributing
 ------------
