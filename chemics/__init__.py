@@ -27,7 +27,7 @@ from .gas import Gas
 from .gas_mixture import mu_graham
 from .gas_mixture import mu_herning
 
-from .liquid_heat_capacity import cp_liq_yaws
+from .liquid import Liquid
 
 from .molecular_weight import mw
 from .molecular_weight import mw_mix
