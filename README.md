@@ -1,6 +1,6 @@
 # Chemics
 
-The chemics package is a collection of Python functions for performing calculations in the field of chemical engineering. Source code for the package is available on GitHub and contributions from the community are encouraged.
+Chemics is a Python package for chemistry and chemical engineering applications. It is open-source and contributions from the scientific community are encouraged.
 
 ## Installation
 
@@ -12,25 +12,31 @@ $ pip install chemics
 
 ## Usage
 
-The example below imports the chemics package then uses the `rhog()` function to calculate the density of a gas based on its molecular weight, pressure, and temperature.
+The example below imports the chemics package and creates a `Gas` class to calculate the density of nitrogen gas at a pressure of 101,325 Pa and 773 K.
 
 ```python
 import chemics as cm
-cm.rhog(28, 101325, 773)    # returns 0.4414
+
+gas = cm.Gas('N2')
+rho = gas.rho(101325, 773)
+print(rho)
+
+# This prints a value of 0.4416
 ```
 
-Use the `ChemicalEquation` class to get properties of the reactants and products from a given chemical equation.
+This example uses the `ChemicalEquation` class to get properties of the reactants and products from a given chemical equation.
 
 ```python
 import chemics as cm
 
 ce = cm.ChemicalEquation('2 HCl + 2 Na -> 2 NaCl + H2')
-
 ce.balance
-# returns True for balanced equation
+
+# Returns True for balanced equation
 
 ce.rct_properties
-# returns a dataframe of the reactant properties
+
+# Returns a dataframe of the reactant properties
 #                HCl        Na
 # moles            2         2
 # species        HCl        Na
@@ -40,7 +46,7 @@ ce.rct_properties
 # massfrac  0.613275  0.386725
 ```
 
-More examples are available in the `examples` directory.
+More examples are available in the `examples` directory and in the documentation.
 
 ## Documentation
 

@@ -23,37 +23,40 @@ Install Chemics using the pip package manager:
 Usage
 -----
 
-The example below imports the Chemics package then uses the :code:`rhog()`
-function to calculate the density of a gas based on its molecular weight,
-pressure, and temperature.
+The example below imports the chemics package and creates a :code:`Gas` class to calculate the density of nitrogen gas at a pressure of 101,325 Pa and 773 K.
 
 .. code-block:: python
 
-    import chemics as cm
+   import chemics as cm
 
-    cm.rhog(28, 170100, 773)
+   gas = cm.Gas('N2')
+   rho = gas.rho(101325, 773)
+   print(rho)
 
-Use the :code:`ChemicalEquation` class to get properties of the reactants and
-products from a given chemical equation.
+   # This prints a value of 0.4416
+
+
+This example uses the :code:`ChemicalEquation` class to get properties of the reactants and products from a given chemical equation.
 
 .. code-block:: python
 
-    import chemics as cm
+   import chemics as cm
 
-    ce = cm.ChemicalEquation('2 HCl + 2 Na -> 2 NaCl + H2')
+   ce = cm.ChemicalEquation('2 HCl + 2 Na -> 2 NaCl + H2')
+   ce.balance
 
-    ce.balance
-    # returns True for balanced equation
+   # Returns True for balanced equation
 
-    ce.rct_properties
-    # returns a dataframe of the reactant properties
-    #                HCl        Na
-    # moles            2         2
-    # species        HCl        Na
-    # molwt       36.458     22.99
-    # mass        72.916     45.98
-    # molfrac        0.5       0.5
-    # massfrac  0.613275  0.386725
+   ce.rct_properties
+
+   # Returns a dataframe of the reactant properties
+   #                HCl        Na
+   # moles            2         2
+   # species        HCl        Na
+   # molwt       36.458     22.99
+   # mass        72.916     45.98
+   # molfrac        0.5       0.5
+   # massfrac  0.613275  0.386725
 
 See the `examples <https://github.com/wigging/chemics>`_ directory in the GitHub repository for more examples.
 

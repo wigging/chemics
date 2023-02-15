@@ -41,7 +41,8 @@ def cp_wood(x, tk):
     References
     ----------
     .. [1] Samuel V. Glass and Samuel L. Zelinka. Moisture Relations and
-       Physical Properties of Wood. Ch. 4 in Wood Handbook, pp. 1-19, 2010.
+       Physical Properties of Wood. Chapter 4 in Wood Handbook, pp. 1-19,
+       2010.
     """
 
     cpw = 4.18  # heat capacity of water, kJ/(kg K)
@@ -85,7 +86,7 @@ def k_wood(gb, so, x):
 
     .. math:: S_x = S_o \\left(1 - \\frac{x}{MC_{fs}} \\right)
 
-    where :math:`S_o` is volumetric shrinkage [%] from Table 4-3 [1]_ and :math:`MC_{fs}`
+    where :math:`S_o` is volumetric shrinkage [%] from Table 4-3 [2]_ and :math:`MC_{fs}`
     is the fiber saturation point assumed to be 30% moisture content.
 
     Parameters
@@ -109,8 +110,9 @@ def k_wood(gb, so, x):
 
     References
     ----------
-    .. [1] Samuel V. Glass and Samuel L. Zelinka. Moisture Relations and
-       Physical Properties of Wood. Ch. 4 in Wood Handbook, pp. 1-19, 2010.
+    .. [2] Samuel V. Glass and Samuel L. Zelinka. Moisture Relations and
+       Physical Properties of Wood. Chapter 4 in Wood Handbook, pp. 1-19,
+       2010.
     """
 
     mcfs = 30   # fiber staturation point estimate [%]

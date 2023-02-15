@@ -2,6 +2,16 @@
 
 Version numbers use calendar versioning based on `YY.MM.MICRO`. See the [CalVer](https://calver.org) website for more information about this versioning convention. The format of this changelog follows the approach outlined on the [Keep a Changelog](https://keepachangelog.com) website.
 
+## 23.2
+
+This version has breaking changes so please upgrade from previous versions.
+
+#### Changed
+
+- Gas density, heat capacity, thermal conductivity, and viscosity functions are now methods in the `Gas` class
+- Liquid heat capacity function is now a method in the `Liquid` class
+- Wood heat capacity and thermal conductivity functions are now in the wood module
+
 ## 23.1
 
 #### Changed
