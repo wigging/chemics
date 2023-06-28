@@ -11,17 +11,23 @@ class Gas:
     ----------
     formula : str
         Molecular formula of the gas
+    cas : str, optional
+        CAS (Chemical Abstracts Service) number of the gas, may be required
+        for some species
 
     Attributes
     ----------
     formula : str
         Molecular formula of the gas
+    cas : str
+        CAS number of the gas
     mw : float
         Molecular weight of the gas [g/mol]
     """
 
-    def __init__(self, formula):
+    def __init__(self, formula, cas=None):
         self.formula = formula
+        self.cas = cas
         self.mw = mw(formula)
 
     def density(self, press, temp):
@@ -53,7 +59,7 @@ class Gas:
         rho = (press * mw) / (r * temp)
         return rho
 
-    def heat_capacity(self, temp, cas=None, disp=False):
+    def heat_capacity(self, temp, disp=False):
         """
         Calculate gas heat capacity as a function of temperature using Yaws'
         coefficients [1]_. The CAS (Chemical Abstracts Service) number may be
@@ -65,8 +71,6 @@ class Gas:
         ----------
         temp : float
             Temperature of the gas [K]
-        cas : str, optional
-            CAS number of the gas, required for some species
         disp : bool
             Display information about the calculation such as the CAS number,
             applicable temperature range in Kelvin, and values for regression
@@ -95,8 +99,8 @@ class Gas:
         >>> gas.heat_capacity(700)
         97.4982
 
-        >>> gas = cm.Gas('C5H10O2')
-        >>> gas.heat_capacity(850, cas='75-98-9')
+        >>> gas = cm.Gas('C5H10O2', cas='75-98-9')
+        >>> gas.heat_capacity(850)
         268.4920
 
         >>> gas = cm.Gas('NO2')
@@ -110,6 +114,7 @@ class Gas:
            by Knovel, 2014.
         """
         formula = self.formula
+        cas = self.cas
 
         path = Path(__file__).parent.absolute()
         df = pd.read_csv(path / 'data/gas-cp-yaws.csv')
