@@ -24,7 +24,7 @@ class Gas:
         self.formula = formula
         self.mw = mw(formula)
 
-    def rho(self, press, temp):
+    def density(self, press, temp):
         """
         Calculate gas density using the molecular weight, pressure, and
         temperature of the gas.
