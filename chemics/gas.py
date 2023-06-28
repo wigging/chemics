@@ -45,7 +45,7 @@ class Gas:
         --------
         >>> import chemics as cm
         >>> gas = cm.Gas('N2')
-        >>> gas.rho(101325, 773)
+        >>> gas.density(101325, 773)
         0.4416
         """
         mw = self.mw / 1000  # convert g/mol to kg/mol
@@ -53,7 +53,7 @@ class Gas:
         rho = (press * mw) / (r * temp)
         return rho
 
-    def cp_yaws(self, temp, cas=None, disp=False):
+    def heat_capacity(self, temp, cas=None, disp=False):
         """
         Calculate gas heat capacity as a function of temperature using Yaws'
         coefficients [1]_. The CAS (Chemical Abstracts Service) number may be
@@ -92,15 +92,15 @@ class Gas:
         --------
         >>> import chemics as cm
         >>> gas = cm.Gas('CBrClF2')
-        >>> gas.cp_yaws(700)
+        >>> gas.heat_capacity(700)
         97.4982
 
         >>> gas = cm.Gas('C5H10O2')
-        >>> gas.cp_yaws(850, cas='75-98-9')
+        >>> gas.heat_capacity(850, cas='75-98-9')
         268.4920
 
         >>> gas = cm.Gas('NO2')
-        >>> gas.cp_yaws(900)
+        >>> gas.heat_capacity(900)
         51.0686
 
         References
