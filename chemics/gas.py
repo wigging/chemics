@@ -166,7 +166,7 @@ class Gas:
 
         return cp
 
-    def k_yaws(self, temp, cas=None, disp=False):
+    def thermal_conductivity(self, temp, cas=None, disp=False):
         """
         Calculate gas thermal conductivity as a function of temperature using
         Yaws' coefficients [2]_. The CAS (Chemical Abstracts Service) number
@@ -203,15 +203,15 @@ class Gas:
         --------
         >>> import chemics as cm
         >>> gas = cm.Gas('N2')
-        >>> gas.k_yaws(773)
+        >>> gas.thermal_conductivity(773)
         0.0535
 
         >>> gas = cm.Gas('C18H38O')
-        >>> gas.k_yaws(920, cas='593-32-8')
+        >>> gas.thermal_conductivity(920, cas='593-32-8')
         0.0417
 
         >>> gas = cm.Gas('N2')
-        >>> gas.k_yaws(773, disp=True)
+        >>> gas.thermal_conductivity(773, disp=True)
         Formula        N2
         Name           nitrogen
         CAS            7727-37-9
