@@ -19,14 +19,14 @@ def test_mu_yaws2():
 
 
 def test_mu_yaws3():
-    gas = cm.Gas('NH3')
-    mu = gas.viscosity(900, method='yaws', cas='7664-41-7')
+    gas = cm.Gas('NH3', cas='7664-41-7')
+    mu = gas.viscosity(900, method='yaws')
     assert mu == approx(319.14, rel=1e-2)
 
 
 def test_mu_yaws4():
-    gas = cm.Gas('C2Cl2F4')
-    mu = gas.viscosity(900, method='yaws', cas='374-07-2')
+    gas = cm.Gas('C2Cl2F4', cas='374-07-2')
+    mu = gas.viscosity(900, method='yaws')
     assert mu == approx(314.90, rel=1e-2)
 
 
@@ -55,8 +55,8 @@ def test_mu_ludwig1():
 
 
 def test_mu_ludwig2():
-    gas = cm.Gas('C2H4O')
-    mu = gas.viscosity(920, method='ludwig', cas='75-07-0')
+    gas = cm.Gas('C2H4O', cas='75-07-0')
+    mu = gas.viscosity(920, method='ludwig')
     assert mu == approx(242.4685, rel=1e-2)
 
 

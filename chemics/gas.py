@@ -11,19 +11,19 @@ class Gas:
     Parameters
     ----------
     formula : str
-        Molecular formula of the gas
+        Molecular formula of the gas.
     cas : str, optional
         CAS (Chemical Abstracts Service) number of the gas, may be required
-        for some species
+        for some species.
 
     Attributes
     ----------
     formula : str
-        Molecular formula of the gas
+        Molecular formula of the gas.
     cas : str
-        CAS number of the gas
+        CAS number of the gas.
     mw : float
-        Molecular weight of the gas [g/mol]
+        Molecular weight of the gas [g/mol].
     """
 
     def __init__(self, formula, cas=None):
@@ -65,7 +65,7 @@ class Gas:
         rho = (press * mw) / (r * temp)
         return rho
 
-    def heat_capacity(self, temp, disp=False):
+    def heat_capacity(self, temp):
         """
         Calculate gas heat capacity as a function of temperature using Yaws'
         coefficients [1]_. The CAS (Chemical Abstracts Service) number may be
@@ -76,11 +76,7 @@ class Gas:
         Parameters
         ----------
         temp : float
-            Temperature of the gas [K]
-        disp : bool
-            Display information about the calculation such as the CAS number,
-            applicable temperature range in Kelvin, and values for regression
-            coefficients.
+            Temperature of the gas [K].
 
         Raises
         ------
@@ -96,7 +92,7 @@ class Gas:
         Returns
         -------
         cp : float
-            Heat capacity of the gas [J/(mol⋅K)]
+            Heat capacity of the gas [J/(mol⋅K)].
 
         Examples
         --------
@@ -119,29 +115,28 @@ class Gas:
            Critical Property Data for Chemical Engineers and Chemists. Published
            by Knovel, 2014.
         """
-        formula = self.formula
-        cas = self.cas
-
         path = Path(__file__).parent.absolute()
         df = pd.read_csv(path / 'data/gas-cp-yaws.csv')
 
-        if cas:
-            row = df.query(f"CAS == '{cas}'")
+        if self.cas:
+            row = df.query(f"CAS == '{self.cas}'")
             if len(row) == 0:
-                raise ValueError(f'CAS number {cas} not found')
+                raise ValueError(f'CAS number {self.cas} not found')
         else:
-            row = df.query(f"Formula == '{formula}'")
+            row = df.query(f"Formula == '{self.formula}'")
             if len(row) > 1:
-                raise ValueError(f'Multiple substances available for {formula}. '
+                raise ValueError(f'Multiple substances available for {self.formula}. '
                                  'Include CAS number with input parameters.')
             elif len(row) == 0:
-                raise ValueError(f'Formula {formula} not found')
+                raise ValueError(f'Formula {self.formula} not found')
 
-        formula = row['Formula'].iloc[0]
-        name = row['Name'].iloc[0]
-        cas = row['CAS'].iloc[0]
         tmin = row['Tmin'].iloc[0]
         tmax = row['Tmax'].iloc[0]
+
+        if temp < tmin or temp > tmax:
+            raise ValueError('Temperature out of range. Applicable values are '
+                             f'{tmin}-{tmax} K for {self.formula} gas.')
+
         a = row['A'].iloc[0]
         b = row['B'].iloc[0]
         c = row['C'].iloc[0]
@@ -151,28 +146,9 @@ class Gas:
         g = row['G'].iloc[0]
         cp = a + (b * temp) + (c * temp**2) + (d * temp**3) + (e * temp**4) + (f * temp**5) + (g * temp**6)
 
-        if temp < tmin or temp > tmax:
-            raise ValueError('Temperature out of range. Applicable values are '
-                             f'{tmin}-{tmax} K for {formula} gas.')
-
-        if disp:
-            print('Formula       ', formula)
-            print('Name          ', name)
-            print('CAS           ', cas)
-            print('Min Temp. (K) ', tmin)
-            print('Max Temp. (K) ', tmax)
-            print('A             ', a)
-            print('B             ', b)
-            print('C             ', c)
-            print('D             ', d)
-            print('E             ', e)
-            print('F             ', f)
-            print('G             ', g)
-            print('Cp (J/mol⋅K)  ', cp)
-
         return cp
 
-    def thermal_conductivity(self, temp, cas=None, disp=False):
+    def thermal_conductivity(self, temp):
         """
         Calculate gas thermal conductivity as a function of temperature using
         Yaws' coefficients [2]_. The CAS (Chemical Abstracts Service) number
@@ -181,13 +157,7 @@ class Gas:
         Parameters
         ----------
         temp : float
-            Temperature of the gas [K]
-        cas : str, optional
-            CAS number of the gas, required for some species
-        disp : bool
-            Display information about the calculation such as the CAS number,
-            applicable temperature range in Kelvin, and values for regression
-            coefficients.
+            Temperature of the gas [K].
 
         Raises
         ------
@@ -203,7 +173,7 @@ class Gas:
         Returns
         -------
         k : float
-            Thermal conductivity of the gas [W/m⋅K]
+            Thermal conductivity of the gas [W/m⋅K].
 
         Examples
         --------
@@ -212,23 +182,9 @@ class Gas:
         >>> gas.thermal_conductivity(773)
         0.0535
 
-        >>> gas = cm.Gas('C18H38O')
-        >>> gas.thermal_conductivity(920, cas='593-32-8')
+        >>> gas = cm.Gas('C18H38O', cas='593-32-8')
+        >>> gas.thermal_conductivity(920)
         0.0417
-
-        >>> gas = cm.Gas('N2')
-        >>> gas.thermal_conductivity(773, disp=True)
-        Formula        N2
-        Name           nitrogen
-        CAS            7727-37-9
-        Min Temp. (K)  63.15
-        Max Temp. (K)  1500.0
-        A              -0.000226779433664
-        B              0.0001027462918646
-        C              -6.015141955845571e-08
-        D              2.2331907127430105e-11
-        k (W/m⋅K)      0.05356876932986771
-        0.05356876932986771
 
         References
         ----------
@@ -236,53 +192,37 @@ class Gas:
            Critical Property Data for Chemical Engineers and Chemists. Published
            by Knovel, 2014.
         """
-        formula = self.formula
-
         path = Path(__file__).parent.absolute()
         df = pd.read_csv(path / 'data/gas-k-yaws.csv')
 
-        if cas:
-            row = df.query(f"CAS == '{cas}'")
+        if self.cas:
+            row = df.query(f"CAS == '{self.cas}'")
             if len(row) == 0:
-                raise ValueError(f'CAS number {cas} not found')
+                raise ValueError(f'CAS number {self.cas} not found')
         else:
-            row = df.query(f"Formula == '{formula}'")
+            row = df.query(f"Formula == '{self.formula}'")
             if len(row) > 1:
-                raise ValueError(f'Multiple substances available for {formula}. '
+                raise ValueError(f'Multiple substances available for {self.formula}. '
                                  'Include CAS number with input parameters.')
             elif len(row) == 0:
-                raise ValueError(f'Formula {formula} not found')
+                raise ValueError(f'Formula {self.formula} not found')
 
-        formula = row['Formula'].iloc[0]
-        name = row['Name'].iloc[0]
-        cas = row['CAS'].iloc[0]
         tmin = row['Tmin'].iloc[0]
         tmax = row['Tmax'].iloc[0]
+
+        if temp < tmin or temp > tmax:
+            raise ValueError('Temperature out of range. Applicable values are '
+                             f'{tmin}-{tmax} K for {self.formula} gas.')
+
         a = row['A'].iloc[0]
         b = row['B'].iloc[0]
         c = row['C'].iloc[0]
         d = row['D'].iloc[0]
-        k = a + b * temp + c * (temp**2) + d * (temp**3)
-
-        if temp < tmin or temp > tmax:
-            raise ValueError('Temperature out of range. Applicable values are '
-                             f'{tmin}-{tmax} K for {formula} gas.')
-
-        if disp:
-            print('Formula       ', formula)
-            print('Name          ', name)
-            print('CAS           ', cas)
-            print('Min Temp. (K) ', tmin)
-            print('Max Temp. (K) ', tmax)
-            print('A             ', a)
-            print('B             ', b)
-            print('C             ', c)
-            print('D             ', d)
-            print('k (W/m⋅K)     ', k)
+        k = a + (b * temp) + (c * temp**2) + (d * temp**3)
 
         return k
 
-    def viscosity(self, temp, *, method, cas=None):
+    def viscosity(self, temp, *, method):
         """
         Gas viscosity as a function of temperature using Ludwig's coefficients
         [3]_ or Yaws' coefficients [4]_. The CAS (Chemical Abstracts Service)
@@ -296,8 +236,6 @@ class Gas:
             Gas temperature [K]
         method : str
             Method for determining coefficients, choose yaws or ludwig.
-        cas : str, optional
-            CAS number of the gas, required for some species.
 
         Raises
         ------
@@ -322,8 +260,8 @@ class Gas:
         >>> gas.viscosity(810, method='yaws')
         234.21
 
-        >>> gas = cm.Gas('C2Cl2F4')
-        >>> gas.viscosity(900, method='yaws', cas='374-07-2')
+        >>> gas = cm.Gas('C2Cl2F4', cas='374-07-2')
+        >>> gas.viscosity(900, method='yaws')
         314.90
 
         >>> gas = cm.Gas('H2')
@@ -334,8 +272,8 @@ class Gas:
         >>> gas.viscosity(850, method='ludwig')
         300.8464
 
-        >>> gas = cm.Gas('C2H4O')
-        >>> gas.viscosity(920, method='ludwig', cas='75-07-0')
+        >>> gas = cm.Gas('C2H4O', cas='75-07-0')
+        >>> gas.viscosity(920, method='ludwig')
         242.4685
 
         References
@@ -361,7 +299,7 @@ class Gas:
             mu = a + (b * temp) + (c * temp**2)
             return mu
 
-        # Lookup coefficients then calculate viscosity
+        # Lookup coefficients then calculate viscosity.
 
         path = Path(__file__).parent.absolute()
 
@@ -372,10 +310,10 @@ class Gas:
         else:
             raise ValueError('Method not available. Choose yaws or ludwig.')
 
-        if cas:
-            row = df.query(f"CAS == '{cas}'")
+        if self.cas:
+            row = df.query(f"CAS == '{self.cas}'")
             if len(row) == 0:
-                raise ValueError(f'CAS number {cas} not found')
+                raise ValueError(f'CAS number {self.cas} not found')
         else:
             row = df.query(f"Formula == '{self.formula}'")
             if len(row) > 1:

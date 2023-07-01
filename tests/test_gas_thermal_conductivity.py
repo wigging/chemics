@@ -12,26 +12,6 @@ def test_k_n2():
     assert k == approx(0.0535, rel=1e-2)
 
 
-def test_k_n2_disp(capsys):
-    gas = cm.Gas('N2')
-    k = gas.thermal_conductivity(773, disp=True)
-    assert k == approx(0.0535, rel=1e-2)
-
-    captured = capsys.readouterr()
-    assert captured.out == (
-        'Formula        N2\n'
-        'Name           nitrogen\n'
-        'CAS            7727-37-9\n'
-        'Min Temp. (K)  63.15\n'
-        'Max Temp. (K)  1500.0\n'
-        'A              -0.000226779433664\n'
-        'B              0.0001027462918646\n'
-        'C              -6.015141955845571e-08\n'
-        'D              2.2331907127430105e-11\n'
-        'k (W/m⋅K)      0.05356876932986771\n'
-    )
-
-
 def test_k_o2():
     gas = cm.Gas('O2')
     k = gas.thermal_conductivity(773)
@@ -45,12 +25,12 @@ def test_k_co_err():
 
 
 def test_k_co():
-    gas = cm.Gas('CO')
-    k = gas.thermal_conductivity(801, cas='630-08-0')
+    gas = cm.Gas('CO', cas='630-08-0')
+    k = gas.thermal_conductivity(801)
     assert k == approx(0.05722, rel=1e-2)
 
 
 def test_k_c18h38o():
-    gas = cm.Gas('C18H38O')
-    k = gas.thermal_conductivity(920, cas='593-32-8')
+    gas = cm.Gas('C18H38O', cas='593-32-8')
+    k = gas.thermal_conductivity(920)
     assert k == approx(0.04174, rel=1e-2)
