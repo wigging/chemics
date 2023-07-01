@@ -1,5 +1,5 @@
 """
-Tests for gas viscosity methods and gas mixture viscosity functions.
+Tests for gas viscosity and gas mixture viscosity.
 """
 
 import chemics as cm
@@ -28,26 +28,6 @@ def test_mu_yaws4():
     gas = cm.Gas('C2Cl2F4')
     mu = gas.viscosity(900, method='yaws', cas='374-07-2')
     assert mu == approx(314.90, rel=1e-2)
-
-
-def test_mu_yaws5(capsys):
-    gas = cm.Gas('N2')
-    mu = gas.viscosity(773, method='yaws', disp=True)
-    assert mu == approx(363.82, rel=1e-2)
-
-    captured = capsys.readouterr()
-    assert captured.out == (
-        'Formula        N2\n'
-        'Name           nitrogen\n'
-        'CAS            7727-37-9\n'
-        'Min Temp. (K)  63.15\n'
-        'Max Temp. (K)  1970.0\n'
-        'A              4.46555763078484\n'
-        'B              0.638137789753159\n'
-        'C              -0.0002659562785407\n'
-        'D              5.41126875437814e-08\n'
-        'μ (microPoise) 363.8235847080749\n'
-    )
 
 
 def test_mu_yaws6():

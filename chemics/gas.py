@@ -1,5 +1,6 @@
 import pandas as pd
 from pathlib import Path
+
 from .molecular_weight import mw
 
 
@@ -29,6 +30,11 @@ class Gas:
         self.formula = formula
         self.cas = cas
         self.mw = mw(formula)
+
+        # Store viscosity coefficients after first execution. This prevents
+        # lookup time for subsequent executions of the viscosity() method.
+        self._coeff_yaws = None
+        self._coeff_ludwig = None
 
     def density(self, press, temp):
         """
@@ -276,7 +282,7 @@ class Gas:
 
         return k
 
-    def viscosity(self, temp, *, method, cas=None, disp=False):
+    def viscosity(self, temp, *, method, cas=None):
         """
         Gas viscosity as a function of temperature using Ludwig's coefficients
         [3]_ or Yaws' coefficients [4]_. The CAS (Chemical Abstracts Service)
@@ -292,10 +298,6 @@ class Gas:
             Method for determining coefficients, choose yaws or ludwig.
         cas : str, optional
             CAS number of the gas, required for some species.
-        disp : bool
-            Display information about the calculation such as the applicable
-            temperature range in Kelvin and values for regression
-            coefficients.
 
         Raises
         ------
@@ -328,20 +330,6 @@ class Gas:
         >>> gas.viscosity(404, method='yaws')
         113.18
 
-        >>> gas = cm.Gas('N2')
-        >>> gas.viscosity(773, method='yaws', disp=True)
-        Formula        N2
-        Name           nitrogen
-        CAS            7727-37-9
-        Min Temp. (K)  63.15
-        Max Temp. (K)  1970.0
-        A              4.46555763078484
-        B              0.638137789753159
-        C              -0.0002659562785407
-        D              5.41126875437814e-08
-        μ (microPoise) 363.8235847080749
-        363.8235847080749
-
         >>> gas = cm.Gas('NH3')
         >>> gas.viscosity(850, method='ludwig')
         300.8464
@@ -359,7 +347,21 @@ class Gas:
            Property Data for Chemical Engineers and Chemists. Published by Knovel,
            2014.
         """
-        formula = self.formula
+
+        # Calculate viscosity if coefficients are already available from a
+        # previous execution. This avoids lookup time if this method is
+        # called multiple times.
+
+        if method == 'yaws' and self._coeff_yaws:
+            a, b, c, d = self._coeff_yaws
+            mu = a + (b * temp) + (c * temp**2) + (d * temp**3)
+            return mu
+        elif method == 'ludwig' and self._coeff_ludwig:
+            a, b, c = self._coeff_ludwig
+            mu = a + (b * temp) + (c * temp**2)
+            return mu
+
+        # Lookup coefficients then calculate viscosity
 
         path = Path(__file__).parent.absolute()
 
@@ -375,62 +377,32 @@ class Gas:
             if len(row) == 0:
                 raise ValueError(f'CAS number {cas} not found')
         else:
-            row = df.query(f"Formula == '{formula}'")
+            row = df.query(f"Formula == '{self.formula}'")
             if len(row) > 1:
-                raise ValueError(f'Multiple substances available for {formula}. '
+                raise ValueError(f'Multiple substances available for {self.formula}. '
                                  'Include CAS number with input parameters.')
             elif len(row) == 0:
-                raise ValueError(f'Formula {formula} not found')
+                raise ValueError(f'Formula {self.formula} not found')
+
+        tmin = row['Tmin'].iloc[0]
+        tmax = row['Tmax'].iloc[0]
+
+        if temp < tmin or temp > tmax:
+            raise ValueError('Temperature out of range. Applicable values are '
+                             f'{tmin}-{tmax} K for {self.formula} gas.')
 
         if method == 'yaws':
-            formula = row['Formula'].iloc[0]
-            name = row['Name'].iloc[0]
-            cas = row['CAS'].iloc[0]
-            tmin = row['Tmin'].iloc[0]
-            tmax = row['Tmax'].iloc[0]
             a = row['A'].iloc[0]
             b = row['B'].iloc[0]
             c = row['C'].iloc[0]
             d = row['D'].iloc[0]
+            self._coeff_yaws = a, b, c, d
             mu = a + b * temp + c * (temp**2) + d * (temp**3)
-
-            if temp < tmin or temp > tmax:
-                raise ValueError('Temperature out of range. Applicable values are '
-                                 f'{tmin}-{tmax} K for {formula} gas.')
-
-            if disp:
-                print('Formula       ', formula)
-                print('Name          ', name)
-                print('CAS           ', cas)
-                print('Min Temp. (K) ', tmin)
-                print('Max Temp. (K) ', tmax)
-                print('A             ', a)
-                print('B             ', b)
-                print('C             ', c)
-                print('D             ', d)
-                print('μ (microPoise)', mu)
+            return mu
         elif method == 'ludwig':
-            formula = row['Formula'].iloc[0]
-            name = row['Name'].iloc[0]
-            tmin = row['Tmin'].iloc[0]
-            tmax = row['Tmax'].iloc[0]
             a = row['A'].iloc[0]
             b = row['B'].iloc[0]
             c = row['C'].iloc[0]
+            self._coeff_ludwig = a, b, c
             mu = a + (b * temp) + (c * temp**2)
-
-            if temp < tmin or temp > tmax:
-                raise ValueError('Temperature out of range. Applicable values are '
-                                 f'{tmin}-{tmax} K for {formula} gas.')
-
-            if disp:
-                print('Formula       ', formula)
-                print('Name          ', name)
-                print('Min Temp. (K) ', tmin)
-                print('Max Temp. (K) ', tmax)
-                print('A             ', a)
-                print('B             ', b)
-                print('C             ', c)
-                print('μ (microPoise)', mu)
-
-        return mu
+            return mu
