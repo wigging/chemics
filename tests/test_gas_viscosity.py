@@ -67,7 +67,11 @@ def test_mu_graham():
     gas2 = cm.Gas('N2')
     mu2 = gas2.viscosity(773.15, method='yaws')
 
-    mu_mix = cm.mu_graham([mu1, mu2], [0.85, 0.15])
+    mus = [mu1, mu2]
+    xs = [0.85, 0.15]
+    gasmix = cm.GasMixture(mus, xs)
+    mu_mix = gasmix.viscosity(method='graham')
+
     assert mu_mix == approx(207.37, rel=1e-2)
 
 
@@ -80,5 +84,10 @@ def test_mu_herning():
     mw2 = gas2.mw
     mu2 = gas2.viscosity(773.15, method='yaws')
 
-    mu_mix = cm.mu_herning([mu1, mu2], [mw1, mw2], [0.85, 0.15])
+    mws = [mw1, mw2]
+    mus = [mu1, mu2]
+    xs = [0.85, 0.15]
+    gasmix = cm.GasMixture(mus, xs, mws)
+    mu_mix = gasmix.viscosity(method='herning')
+
     assert mu_mix == approx(252.81, rel=1e-2)

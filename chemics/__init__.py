@@ -24,8 +24,7 @@ from .dimensionless_numbers import sherwood
 from .dimensionless_numbers import flow_regime
 
 from .gas import Gas
-from .gas_mixture import mu_graham
-from .gas_mixture import mu_herning
+from .gas_mixture import GasMixture
 
 from .liquid import Liquid
 
