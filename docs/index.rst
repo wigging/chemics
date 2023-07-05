@@ -76,6 +76,7 @@ given.
    conversions
    dimensionless_numbers
    gas
+   gas_mixture
    liquid
    molecular_weight
    proximate_analysis
