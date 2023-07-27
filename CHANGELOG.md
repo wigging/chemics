@@ -2,6 +2,19 @@
 
 Version numbers use calendar versioning based on `YY.MM.MICRO`. See the [CalVer](https://calver.org) website for more information about this versioning convention. The format of this changelog follows the approach outlined on the [Keep a Changelog](https://keepachangelog.com) website.
 
+## 23.7
+
+#### Added
+
+- Documentation page for pressure function `patm`
+- Gas mixture class `GasMixture`
+- Store gas viscosity coefficients to improve performance
+
+#### Changed
+
+- Moved CAS input parameter to class init
+- Rename `Gas.mu` to `Gas.viscosity`, `Gas.k` to `Gas.thermal_conductivity`, `Gas.cp` to `Gas.heat_capacity`, and `Gas.rho` to `Gas.density`
+
 ## 23.2
 
 This version has breaking changes so please upgrade from previous versions.

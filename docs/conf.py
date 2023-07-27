@@ -25,10 +25,10 @@ copyright = '2023, Gavin Wiggins'
 author = 'Gavin Wiggins'
 
 # The short X.Y version
-version = '23.2'
+version = '23.7'
 
 # The full version, including alpha/beta/rc tags
-release = '23.2'
+release = '23.7'
 
 
 # -- General configuration ---------------------------------------------------
