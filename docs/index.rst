@@ -30,7 +30,7 @@ The example below imports the chemics package and creates a :code:`Gas` class to
    import chemics as cm
 
    gas = cm.Gas('N2')
-   rho = gas.rho(101325, 773)
+   rho = gas.density(101325, 773)
    print(rho)
 
    # This prints a value of 0.4416
