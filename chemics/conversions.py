@@ -19,14 +19,14 @@ def massfrac_to_molefrac(y, mw):
     Parameters
     ----------
     y : list, tuple or array
-        Mass fraction of each component [-]
+        Mass fraction of each component
     mw : list, tuple or array
-        Molecular weight of each component [g/mol]
+        Molecular weight of each component in g/mol
 
     Returns
     -------
     x : array
-        Mole fractions of each component [-]
+        Mole fractions of each component
 
     Example
     -------

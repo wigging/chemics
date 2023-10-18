@@ -77,22 +77,22 @@ def mw(formula):
     Parameters
     ----------
     formula : str
-        Molecular formula or element.
+        Molecular formula or element
 
     Returns
     -------
     mw : float
-       Molecular weight of the formula or element [g/mol]
+       Molecular weight of the formula or element in g/mol
 
     Examples
     --------
-    >>> mw('C')
+    >>> cm.mw('C')
     12.011
 
-    >>> mw('CH4')
+    >>> cm.mw('CH4')
     16.04
 
-    >>> mw('(NH4)2SO4')
+    >>> cm.mw('(NH4)2SO4')
     132.13
 
     References
@@ -113,14 +113,14 @@ def mw_mix(mws, xs):
     Parameters
     ----------
     mws : list, tuple, or array
-        Molecular weight of each gas component [g/mol]
+        Molecular weight of each gas component in g/mol
     xs : list, tuple, or array
-        Mole fraction of each gas component [-]
+        Mole fraction of each gas component
 
     Returns
     -------
     mw_mix : float
-        Molecular weight of a gas mixture [g/mol]
+        Molecular weight of a gas mixture in g/mol
 
     Raises
     ------

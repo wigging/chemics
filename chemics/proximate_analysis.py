@@ -21,22 +21,22 @@ class Proximate:
     Attributes
     ----------
     ad_basis : ndarray
-        As-determined basis (ad).
+        As-determined basis (ad)
     ar_basis : ndarray
-        As-received basis (ar).
+        As-received basis (ar)
     d_basis : ndarray
-        Dry basis (d).
+        Dry basis (d)
     daf_basis : ndarray
-        Dry ash-free basis (daf).
+        Dry ash-free basis (daf)
 
     Raises
     ------
     ValueError
-        If basis is not ad or ar.
+        If basis is not ad or ar
 
     Example
     -------
-    >>> prox = Proximate([47.26, 40.05, 4.46, 8.23], 'ad')
+    >>> prox = cm.Proximate([47.26, 40.05, 4.46, 8.23], 'ad')
     >>> prox.ar_basis
     array([39.52, 33.49, 3.73, 23.24])
 

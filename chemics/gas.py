@@ -19,11 +19,11 @@ class Gas:
     Attributes
     ----------
     formula : str
-        Molecular formula of the gas.
+        Molecular formula of the gas
     cas : str
-        CAS number of the gas.
+        CAS number of the gas
     mw : float
-        Molecular weight of the gas [g/mol].
+        Molecular weight of the gas in g/mol
     """
 
     def __init__(self, formula, cas=None):
@@ -44,24 +44,23 @@ class Gas:
         Parameters
         ----------
         press : float
-            Pressure of the gas [Pa]
+            Pressure of the gas in pascal
         temp : float
-            Temperature of the gas [K]
+            Temperature of the gas in Kelvin
 
         Returns
         -------
         rho : float
-            Density of the gas [kg/m^3]
+            Density of the gas in kg/m\\ :sup:`3`
 
         Examples
         --------
-        >>> import chemics as cm
         >>> gas = cm.Gas('N2')
         >>> gas.density(101325, 773)
         0.4416
         """
         mw = self.mw / 1000  # convert g/mol to kg/mol
-        r = 8.3145  # ideal gas constant in units of (m^3 Pa)/(K mol)
+        r = 8.3145           # ideal gas constant in units of (m^3 Pa)/(K mol)
         rho = (press * mw) / (r * temp)
         return rho
 
@@ -76,7 +75,7 @@ class Gas:
         Parameters
         ----------
         temp : float
-            Temperature of the gas [K].
+            Temperature of the gas in Kelvin
 
         Raises
         ------
@@ -92,11 +91,10 @@ class Gas:
         Returns
         -------
         cp : float
-            Heat capacity of the gas [J/(mol⋅K)].
+            Heat capacity of the gas in J/(mol⋅K)
 
         Examples
         --------
-        >>> import chemics as cm
         >>> gas = cm.Gas('CBrClF2')
         >>> gas.heat_capacity(700)
         97.4982
@@ -157,7 +155,7 @@ class Gas:
         Parameters
         ----------
         temp : float
-            Temperature of the gas [K].
+            Temperature of the gas in Kelvin
 
         Raises
         ------
@@ -173,11 +171,10 @@ class Gas:
         Returns
         -------
         k : float
-            Thermal conductivity of the gas [W/m⋅K].
+            Thermal conductivity of the gas in W/(m⋅K)
 
         Examples
         --------
-        >>> import chemics as cm
         >>> gas = cm.Gas('N2')
         >>> gas.thermal_conductivity(773)
         0.0535
@@ -233,7 +230,7 @@ class Gas:
         Parameters
         ----------
         temp : float
-            Gas temperature [K]
+            Gas temperature in Kelvin
         method : str
             Method for determining coefficients, choose yaws or ludwig.
 
@@ -251,11 +248,10 @@ class Gas:
         Returns
         -------
         mu : float
-            Gas viscosity [microPoise]
+            Gas viscosity microPoise
 
         Examples
         --------
-        >>> import chemics as cm
         >>> gas = cm.Gas('CH4')
         >>> gas.viscosity(810, method='yaws')
         234.21

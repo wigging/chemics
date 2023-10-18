@@ -15,7 +15,7 @@ def cp_wood(x, tk):
 
     .. math:: c_{p0} = 0.1031 + 0.003867\\,T
 
-    where :math:`T` is temperature [K]. The :math:`A_c` term is calculated from
+    where :math:`T` is temperature in Kelvin. The :math:`A_c` term is calculated from
 
     .. math:: A_c = x (b_1 + b_2 T + b_3 x)
 
@@ -24,18 +24,18 @@ def cp_wood(x, tk):
     Parameters
     ----------
     x : float
-        Moisture content [%]
+        Moisture content as percent
     tk : float
-        Temperature [K]
+        Temperature in Kelvin
 
     Returns
     -------
     cp : float
-        Heat capacity of wood [kJ/(kg K)]
+        Heat capacity of wood in kJ/(kg⋅K)
 
     Example
     -------
-    >>> cp_wood(12, 340)
+    >>> cm.cp_wood(12, 340)
     1.91
 
     References
@@ -92,20 +92,20 @@ def k_wood(gb, so, x):
     Parameters
     ----------
     gb : float
-        Basic specific gravity [-]
+        Basic specific gravity
     so : float
-        Volumetric shrinkage [%]
+        Volumetric shrinkage in percentage
     x : float
-        Moisture content [%]
+        Moisture content in percentage
 
     Returns
     -------
     k : float
-        Thermal conductivity [W/(mK)]
+        Thermal conductivity in W/(m⋅K)
 
     Example
     -------
-    >>> k_wood(0.54, 12.3, 10)
+    >>> cm.k_wood(0.54, 12.3, 10)
     0.1567
 
     References

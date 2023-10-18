@@ -14,9 +14,9 @@ class Ultimate:
         is [C, H, O, N, S, ash, moisture].
     basis : str
         Basis of given ultimate analysis values. Options are 'ad' for
-        as-determined basis or 'ar' for as-received basis.
+        as-determined basis or 'ar' for as-received basis
     ADL : float, optional
-        Air-dry loss as weight percent.
+        Air-dry loss as weight percent
     HO : bool, optional
         If `True` then the given H and O values include H and O from moisture.
         If `False` then the given H and O values exclude H and O from the
@@ -25,13 +25,13 @@ class Ultimate:
     Attributes
     ----------
     ad_basis : ndarray
-        As-determined basis (ad).
+        As-determined basis (ad)
     ar_basis : ndarray
-        As-received basis (ar).
+        As-received basis (ar)
     d_basis : ndarray
-        Dry basis (d).
+        Dry basis (d)
     daf_basis : ndarray
-        Dry ash-free basis (daf).
+        Dry ash-free basis (daf)
 
     Raises
     ------
@@ -40,7 +40,7 @@ class Ultimate:
 
     Example
     -------
-    >>> ult = Ultimate([60.08, 5.44, 25.01, 0.88, 0.73, 7.86, 9.00], 'ad')
+    >>> ult = cm.Ultimate([60.08, 5.44, 25.01, 0.88, 0.73, 7.86, 9.00], 'ad')
     >>> ult.ar_basis
     array([46.86, 6.70, 39.04, 0.68, 0.56, 6.13, 29.02])
 

@@ -9,12 +9,12 @@ def patm(alt):
     Parameters
     ----------
     alt : float
-        Altitude or elevation above sea level [m]
+        Altitude or elevation above sea level in meters
 
     Returns
     -------
     Patm : float
-        Atmospheric pressure [Pa]
+        Atmospheric pressure in pascal
 
     References
     ----------

@@ -16,7 +16,7 @@ class Liquid:
     formula : str
         Molecular formula of the liquid
     mw : float
-        Molecular weight of the liquid [g/mol]
+        Molecular weight of the liquid in g/mol
     """
 
     def __init__(self, formula):
@@ -33,7 +33,7 @@ class Liquid:
         Parameters
         ----------
         temp : float
-            Temperature of the liquid [K]
+            Temperature of the liquid in Kelvin
         cas : str, optional
             CAS number of the liquid, required for some species
         disp : bool
@@ -55,11 +55,10 @@ class Liquid:
         Returns
         -------
         cp : float
-            Heat capacity of the liquid [J/(mol⋅K)]
+            Heat capacity of the liquid in J/(mol⋅K)
 
         Examples
         --------
-        >>> import chemics as cm
         >>> liquid = cm.Liquid('CBrF3')
         >>> liquid.cp_yaws(250)
         107.2774

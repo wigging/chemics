@@ -17,31 +17,31 @@ def biocomp(yc, yh, yo=None, yh2o=0, yash=0, alpha=0.6, beta=0.8, gamma=0.8,
     Parameters
     ----------
     yc : float
-        Mass fraction of carbon in biomass, dry ash free basis [-]
+        Mass fraction of carbon in biomass, dry ash free basis
     yh : float
-        Mass fraction of hydrogen in biomass, dry ash free basis [-]
+        Mass fraction of hydrogen in biomass, dry ash free basis
     yo : float, optional
         Mass fraction of oxygen in biomass, if not given then value is
-        calculated as difference, dry ash free basis [-]. Default is None.
+        calculated as difference, dry ash free basis. Default is None.
     yh2o : float, optional
-        Mass fraction of water in biomass, as received basis [-]. Default is 0.
+        Mass fraction of water in biomass, as received basis. Default is 0.
     yash : float, optional
-        Mass fraction of ash in biomass, as received basis [-]. Default is 0.
+        Mass fraction of ash in biomass, as received basis. Default is 0.
     alpha : float, optional
         Splitting parameter as molar ratio of cellulose and hemicellulose
-        contained in reference mixture RM1 [-]. Default is 0.6.
+        contained in reference mixture RM1. Default is 0.6.
     beta : float, optional
         Splitting parameter as molar ratio of lignin LIG-O and lignin LIG-C
-        contained in reference mixture RM2 [-]. Default is 0.8.
+        contained in reference mixture RM2. Default is 0.8.
     gamma : float, optional
         Splitting parameter as molar ratio of lignin LIG-H and lignin LIG-C
-        contained in reference mixture RM3 [-]. Default is 0.8.
+        contained in reference mixture RM3. Default is 0.8.
     delta : float, optional
         Splitting parameter as molar ratio of lignins (LIG-H and LIG-C) and
-        extractive TGL to define reference mixture RM2 [-]. Default is 1.0.
+        extractive TGL to define reference mixture RM2. Default is 1.0.
     epsilon : float, optional
         Splitting parameter as molar ratio of lignins (LIG-O and LIG-C) and
-        extractive TANN to define reference mixture RM3 [-]. Default is 1.0.
+        extractive TANN to define reference mixture RM3. Default is 1.0.
     printcomp : bool, optional
         Print composition results if True. Default is False.
 
@@ -231,9 +231,9 @@ def plot_biocomp(ax, yc, yh, y_rm1, y_rm2, y_rm3):
     ax : Axes
         The Matplotlib axes from a figure
     yc : float
-        Mass fraction of carbon in biomass, dry ash free basis [-]
+        Mass fraction of carbon in biomass, dry ash free basis
     yh : float
-        Mass fraction of hydrogen in biomass, dry ash free basis [-]
+        Mass fraction of hydrogen in biomass, dry ash free basis
     y_rm1 : array
         Mass fraction of reference mixture RM1 where y_rm1 = [yC, yH, yO]
     y_rm2 : array

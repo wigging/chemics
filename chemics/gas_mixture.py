@@ -8,20 +8,20 @@ class GasMixture:
     Parameters
     ----------
     mus : list, tuple, or array
-        Viscosity of each gas component.
+        Viscosity of each gas component
     xs : list, tuple, or array
-        Mole fraction of each gas component.
+        Mole fraction of each gas component
     mws : optional list, tuple, or array
-        Molecular weight of each gas component [g/mol].
+        Molecular weight of each gas component in g/mol
 
     Attributes
     ----------
     mus : list, tuple, or array
-        Viscosity of each gas component.
+        Viscosity of each gas component
     xs : list, tuple, or array
-        Mole fraction of each gas component.
+        Mole fraction of each gas component
     mws : optional list, tuple, or array
-        Molecular weight of each gas component [g/mol].
+        Molecular weight of each gas component in g/mol
 
     Raises
     ------
@@ -70,8 +70,6 @@ class GasMixture:
 
         Example
         -------
-        >>> import chemics as cm
-
         >>> gas1 = cm.Gas('H2')
         ... mu1 = gas1.viscosity(773.15, method='yaws')
 
