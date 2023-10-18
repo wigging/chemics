@@ -1,5 +1,5 @@
 """
-Tests for the dimensionless numbers module.
+Tests for functions in the dimensionless numbers module.
 """
 
 import chemics as cm
@@ -32,12 +32,12 @@ def test_prandtl_args2():
 
 
 def test_pyroI():
-    pyI = cm.pyroI(k=0.12, kr=1.38556, rho=540, cp=3092.871049, r=0.0001847)
+    pyI = cm.pyrolysis_one(k=0.12, kr=1.38556, rho=540, cp=3092.871049, r=0.0001847)
     assert pyI == approx(1.5198, rel=1e-2)
 
 
 def test_pyroII():
-    pyII = cm.pyroII(h=862.6129, kr=1.38556, rho=540, cp=3092.871049, r=0.0001847)
+    pyII = cm.pyrolysis_two(h=862.6129, kr=1.38556, rho=540, cp=3092.871049, r=0.0001847)
     assert pyII == approx(2.018038, rel=1e-2)
 
 

@@ -12,9 +12,27 @@ Functions are provided for the following dimensionless numbers:
 * Reynolds number (Re)
 * Schmidt number (Sc)
 * Sherwood number (Sh)
+* Flow regime
 
 Source code
 -----------
 
-.. automodule:: chemics.dimensionless_numbers
-   :members:
+.. autofunction:: chemics.archimedes
+
+.. autofunction:: chemics.biot
+
+.. autofunction:: chemics.peclet
+
+.. autofunction:: chemics.prandtl
+
+.. autofunction:: chemics.pyrolysis_one
+
+.. autofunction:: chemics.pyrolysis_two
+
+.. autofunction:: chemics.reynolds
+
+.. autofunction:: chemics.schmidt
+
+.. autofunction:: chemics.sherwood
+
+.. autofunction:: chemics.flow_regime
