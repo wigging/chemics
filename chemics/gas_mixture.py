@@ -7,48 +7,78 @@ class GasMixture:
 
     Parameters
     ----------
-    mus : list, tuple, or array
-        Viscosity of each gas component
-    xs : list, tuple, or array
-        Mole fraction of each gas component
-    mws : optional list, tuple, or array
-        Molecular weight of each gas component in g/mol
+    gases : list of Gas objects
+        Gas objects representing each component of the gas mixture.
+    mole_fractions : list
+        Mole fraction of each gas component.
 
     Attributes
     ----------
-    mus : list, tuple, or array
-        Viscosity of each gas component
-    xs : list, tuple, or array
-        Mole fraction of each gas component
-    mws : optional list, tuple, or array
-        Molecular weight of each gas component in g/mol
+    molecular_weights : list of float
+        Molecular weight of each gas component in g/mol.
+    viscosities : list of float
+        Viscosity of each gas component in microPoise (μP).
+    mole_fractions : list of float
+        Mole fraction of each gas component.
 
     Raises
     ------
     ValueError
-        If sum of mole fractions does not equal one.
+        If sum of mole fractions does not equal 1.
     """
+    def __init__(self, gases, mole_fractions):
 
-    def __init__(self, mus, xs, mws=None):
-        self.mus = np.asarray(mus)
-        self.xs = np.asarray(xs)
-        self.mws = np.asarray(mws)
+        if not np.isclose(sum(mole_fractions), 1.0):
+            raise ValueError('Sum of mole fractions must be 1')
 
-        if not np.isclose(self.xs.sum(), 1.0):
-            raise ValueError('Sum of mole fractions must be one.')
+        n = len(gases)
+        molecular_weights = np.zeros(n)
+        viscosities = np.zeros(n)
 
-    def viscosity(self, *, method):
+        for i, gas in enumerate(gases):
+            mw = gas.molecular_weight
+            mu = gas.viscosity()
+            molecular_weights[i] = mw
+            viscosities[i] = mu
+
+        self.molecular_weights = molecular_weights
+        self.viscosities = viscosities
+        self.mole_fractions = np.asarray(mole_fractions)
+
+    def molecular_weight(self):
         """
-        Gas mixture viscosity using Graham's method [1]_ or the Herning and
-        Zipperer method [2]_. For the Graham method, Equation 1 from the Davidson
-        report [3]_ is used
+        Calculate molecular weight of the gas mixture as a weighted mean.
+
+        Returns
+        -------
+        mw_mixture : float
+            Molecular weight of the gas mixture in g/mol.
+
+        Examples
+        --------
+        >>> gas1 = cm.Gas('H2', 773)
+        >>> gas2 = cm.Gas('N2', 773)
+        >>> mw_mixture = cm.GasMixture([gas1, gas2], [0.8, 0.2])
+        >>> mw_mixture
+        7.2156
+        """
+        mw_gases = self.molecular_weights
+        x_gases = self.mole_fractions
+        mw_mixture = np.average(mw_gases, weights=x_gases)
+        return mw_mixture
+
+    def viscosity(self, method='graham'):
+        """
+        Calculate viscosity of the gas mixture using Graham's method [1]_ or
+        the Herning and Zipperer method [2]_. For the Graham method, Equation
+        1 from the Davidson report [3]_ is used
 
         .. math:: \\mu_{mix} = \\sum (x_i \\cdot \\mu_i)
 
         where :math:`\\mu_{mix}` is viscosity of the gas mixture, :math:`x_i`
         is mole fraction [-] of each component, and :math:`\\mu_i` is gas
         viscosity of each component. For the Herning and Zipperer method,
-        Equation 1 form the Davidson report is used
+        Equation 1 from the Davidson report is used
 
         .. math:: \\mu_{mix} = \\frac{\\sum (\\mu_i \\cdot x_i \\cdot \\sqrt{MW_i})}{\\sum (x_i \\cdot \\sqrt{MW_i})}
 
@@ -61,41 +91,26 @@ class GasMixture:
         ----------
         method : str
             Method for calculating the gas mixture viscosity, choose graham or
-            herning.
+            herning. Default value is graham.
 
         Returns
         -------
-        mu_mix : float
-            Gas mixture viscosity. Units are same as input viscosity.
+        mu_mixture : float
+            Viscosity of the gas mixture in units of microPoise (μP).
 
-        Example
-        -------
-        >>> gas1 = cm.Gas('H2')
-        ... mu1 = gas1.viscosity(773.15, method='yaws')
+        Examples
+        --------
+        >>> gas1 = cm.Gas('H2', 773)
+        >>> gas2 = cm.Gas('N2', 773)
+        >>> gas_mixture = cm.GasMixture([gas1, gas2], [0.85, 0.15])
+        >>> gas_mixture.viscosity()
+        207.34
 
-        >>> gas2 = cm.Gas('N2')
-        ... mu2 = gas2.viscosity(773.15, method='yaws')
-
-        >>> mus = [mu1, mu2]
-        ... xs = [0.85, 0.15]
-        ... gasmix = cm.GasMixture(mus, xs)
-        ... gasmix.viscosity(method='graham')
-        207.37
-
-        >>> gas1 = cm.Gas('H2')
-        ... mw1 = gas1.mw
-        ... mu1 = gas1.viscosity(773.15, method='yaws')
-
-        >>> gas2 = cm.Gas('N2')
-        ... mw2 = gas2.mw
-        ... mu2 = gas2.viscosity(773.15, method='yaws')
-
-        >>> mus = [mu1, mu2]
-        ... xs = [0.85, 0.15]
-        ... mws = [mw1, mw2]
-        ... gasmix = cm.GasMixture(mus, xs, mws)
-        ... gasmix.viscosity(method='herning')
-        252.81
+        >>> gas1 = cm.Gas('H2', 773)
+        >>> gas2 = cm.Gas('N2', 773)
+        >>> gas_mixture = cm.GasMixture([gas1, gas2], [0.85, 0.15])
+        >>> gas_mixture.viscosity(method='herning')
+        252.78
 
         References
         ----------
@@ -108,15 +123,15 @@ class GasMixture:
            Viscosity of Gaseous Mixtures. United States Department of the Interior:
            Report of Investigations 9456, 1993.
         """
-        mus = self.mus
-        xs = self.xs
-        mws = self.mws
+        mw_gases = self.molecular_weights
+        mu_gases = self.viscosities
+        x_gases = self.mole_fractions
 
         if method == 'graham':
-            mu_mix = np.sum(mus * xs)
+            mu_mixture = np.sum(mu_gases * x_gases)
         elif method == 'herning':
-            mu_mix = np.sum(mus * xs * np.sqrt(mws)) / np.sum(xs * np.sqrt(mws))
+            mu_mixture = np.sum(mu_gases * x_gases * np.sqrt(mw_gases)) / np.sum(x_gases * np.sqrt(mw_gases))
         else:
             raise ValueError('Method not available. Choose graham or herning.')
 
-        return mu_mix
+        return mu_mixture
