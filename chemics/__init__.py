@@ -26,8 +26,7 @@ from .gas_mixture import GasMixture
 
 from .liquid import Liquid
 
-from .molecular_weight import mw
-from .molecular_weight import mw_mix
+from .molecular_weight import molecular_weight
 
 from .proximate_analysis import Proximate
 from .ultimate_analysis import Ultimate
@@ -39,6 +38,6 @@ __all__ = [
     'patm', 'atomic_elements', 'biocomp', 'plot_biocomp', 'ChemicalEquation',
     'slm_to_lpm', 'massfrac_to_molefrac', 'molefrac_to_massfrac', 'archimedes',
     'biot', 'peclet', 'prandtl', 'pyrolysis_one', 'pyrolysis_two', 'reynolds',
-    'schmidt', 'sherwood', 'flow_regime', 'Gas', 'GasMixture', 'Liquid', 'mw',
-    'mw_mix', 'Proximate', 'Ultimate', 'cp_wood', 'k_wood'
+    'schmidt', 'sherwood', 'flow_regime', 'Gas', 'GasMixture', 'Liquid', 'molecular_weight',
+    'Proximate', 'Ultimate', 'cp_wood', 'k_wood'
 ]

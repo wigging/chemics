@@ -1,7 +1,40 @@
 import pandas as pd
 from pathlib import Path
 
-from .molecular_weight import mw
+from .molecular_weight import molecular_weight
+
+
+def _check_temperature(formula, temperature, limits):
+    """
+    Check that temperature is within the given limits otherwise raise an error.
+    """
+    tmin = limits[0]
+    tmax = limits[1]
+    if temperature < tmin or temperature > tmax:
+        msg = f'Temperature {temperature} K is out of range {tmin}-{tmax} K for {formula} gas'
+        raise ValueError(msg)
+
+
+def _get_row(csv_file, formula, cas_number):
+    """
+    Construct path to CSV data file then get row from the dataframe.
+    """
+    path = Path(__file__).parent.absolute()
+    df = pd.read_csv(path / csv_file)
+
+    if cas_number:
+        row = df.query(f"CAS == '{cas_number}'")
+        if len(row) == 0:
+            raise ValueError(f'CAS number {cas_number} not found')
+    else:
+        row = df.query(f"Formula == '{formula}'")
+        if len(row) > 1:
+            raise ValueError(f'Multiple substances available for {formula}. '
+                             'Include CAS number with input parameters.')
+        elif len(row) == 0:
+            raise ValueError(f'Formula {formula} not found')
+
+    return row
 
 
 class Gas:
@@ -12,70 +45,70 @@ class Gas:
     ----------
     formula : str
         Molecular formula of the gas.
-    cas : str, optional
-        CAS (Chemical Abstracts Service) number of the gas, may be required
-        for some species.
+    temperature : float
+        Temperature of the gas in kelvin (K).
+    pressure : float, optional
+        Pressure of the gas in pascal (Pa). Default value is 101,325 Pa for standard atmosphere.
+    cas_number : str, optional
+        CAS (Chemical Abstracts Service) number of the gas, may be required for some species.
 
     Attributes
     ----------
     formula : str
-        Molecular formula of the gas
-    cas : str
-        CAS number of the gas
-    mw : float
-        Molecular weight of the gas in g/mol
+        Molecular formula of the gas.
+    temperature : float
+        Temperature of the gas in kelvin (K).
+    pressure : float
+        Pressure of the gas in pascal (Pa).
+    cas_number : str, optional
+        CAS (Chemical Abstracts Service) number of the gas, may be required for some species.
+    molecular_weight : float
+        Molecular weight of the gas in g/mol.
     """
 
-    def __init__(self, formula, cas=None):
+    def __init__(self, formula, temperature, pressure=101325, cas_number=None):
         self.formula = formula
-        self.cas = cas
-        self.mw = mw(formula)
+        self.temperature = temperature
+        self.pressure = pressure
+        self.cas_number = cas_number
+        self.molecular_weight = molecular_weight(formula)
 
-        # Store viscosity coefficients after first execution. This prevents
-        # lookup time for subsequent executions of the viscosity() method.
-        self._coeff_yaws = None
-        self._coeff_ludwig = None
+        # State of each correlation stored as a dictionary
+        # The state is checked for subsequent runs to avoid lookup time
+        # Expects a dictionary such as
+        # state = {'method': 'yaws', 'coefficients': (1, 2, 3), 'limits': (200, 6000)}
+        self._cp_state = {'method': None, 'coefficients': None, 'limits': None}
+        self._k_state = {'method': None, 'coefficients': None, 'limits': None}
+        self._mu_state = {'method': None, 'coefficients': None, 'limits': None}
 
-    def density(self, press, temp):
+    def density(self):
         """
         Calculate gas density using the molecular weight, pressure, and
         temperature of the gas.
 
-        Parameters
-        ----------
-        press : float
-            Pressure of the gas in pascal
-        temp : float
-            Temperature of the gas in Kelvin
-
         Returns
         -------
         rho : float
-            Density of the gas in kg/m\\ :sup:`3`
+            Density of the gas in kg/m\\ :sup:`3`.
 
         Examples
         --------
-        >>> gas = cm.Gas('N2')
-        >>> gas.density(101325, 773)
+        >>> gas = cm.Gas('N2', 773)
+        >>> gas.density()
         0.4416
         """
-        mw = self.mw / 1000  # convert g/mol to kg/mol
-        r = 8.3145           # ideal gas constant in units of (m^3 Pa)/(K mol)
-        rho = (press * mw) / (r * temp)
+        mw = self.molecular_weight / 1000  # convert g/mol to kg/mol
+        r = 8.3145                         # ideal gas constant in (m^3⋅Pa)/(K⋅mol)
+        rho = (self.pressure * mw) / (r * self.temperature)
         return rho
 
-    def heat_capacity(self, temp):
+    def heat_capacity(self):
         """
         Calculate gas heat capacity as a function of temperature using Yaws'
         coefficients [1]_. The CAS (Chemical Abstracts Service) number may be
         required for some species.
 
         .. math:: C_p = A + B\\,T + C\\,T^2 + D\\,T^3 + E\\,T^4 + F\\,T^5 + G\\,T^6
-
-        Parameters
-        ----------
-        temp : float
-            Temperature of the gas in Kelvin
 
         Raises
         ------
@@ -91,20 +124,20 @@ class Gas:
         Returns
         -------
         cp : float
-            Heat capacity of the gas in J/(mol⋅K)
+            Heat capacity of the gas in J/(mol⋅K).
 
         Examples
         --------
-        >>> gas = cm.Gas('CBrClF2')
-        >>> gas.heat_capacity(700)
+        >>> gas = cm.Gas('CBrClF2', 700)
+        >>> gas.heat_capacity()
         97.4982
 
-        >>> gas = cm.Gas('C5H10O2', cas='75-98-9')
-        >>> gas.heat_capacity(850)
+        >>> gas = cm.Gas('C5H10O2', 850, cas_number='75-98-9')
+        >>> gas.heat_capacity()
         268.4920
 
-        >>> gas = cm.Gas('NO2')
-        >>> gas.heat_capacity(900)
+        >>> gas = cm.Gas('NO2', 900)
+        >>> gas.heat_capacity()
         51.0686
 
         References
@@ -113,27 +146,24 @@ class Gas:
            Critical Property Data for Chemical Engineers and Chemists. Published
            by Knovel, 2014.
         """
-        path = Path(__file__).parent.absolute()
-        df = pd.read_csv(path / 'data/gas-cp-yaws.csv')
 
-        if self.cas:
-            row = df.query(f"CAS == '{self.cas}'")
-            if len(row) == 0:
-                raise ValueError(f'CAS number {self.cas} not found')
-        else:
-            row = df.query(f"Formula == '{self.formula}'")
-            if len(row) > 1:
-                raise ValueError(f'Multiple substances available for {self.formula}. '
-                                 'Include CAS number with input parameters.')
-            elif len(row) == 0:
-                raise ValueError(f'Formula {self.formula} not found')
+        # Use coefficients if already set from a previous run
+        # This avoids lookup time when method is called multiple times
+
+        if self._cp_state['method'] == 'yaws':
+            _check_temperature(self.formula, self.temperature, self._cp_state['limits'])
+            a, b, c, d, e, f, g = self._cp_state['coefficients']
+            cp = (a + (b * self.temperature) + (c * self.temperature**2) + (d * self.temperature**3)
+                  + (e * self.temperature**4) + (f * self.temperature**5) + (g * self.temperature**6))
+            return cp
+
+        # Lookup coefficients then calculate heat capacity
+
+        row = _get_row('data/gas-cp-yaws.csv', self.formula, self.cas_number)
 
         tmin = row['Tmin'].iloc[0]
         tmax = row['Tmax'].iloc[0]
-
-        if temp < tmin or temp > tmax:
-            raise ValueError('Temperature out of range. Applicable values are '
-                             f'{tmin}-{tmax} K for {self.formula} gas.')
+        _check_temperature(self.formula, self.temperature, (tmin, tmax))
 
         a = row['A'].iloc[0]
         b = row['B'].iloc[0]
@@ -142,20 +172,18 @@ class Gas:
         e = row['E'].iloc[0]
         f = row['F'].iloc[0]
         g = row['G'].iloc[0]
-        cp = a + (b * temp) + (c * temp**2) + (d * temp**3) + (e * temp**4) + (f * temp**5) + (g * temp**6)
+        cp = (a + (b * self.temperature) + (c * self.temperature**2) + (d * self.temperature**3)
+              + (e * self.temperature**4) + (f * self.temperature**5) + (g * self.temperature**6))
+
+        self._cp_state = {'method': 'yaws', 'coefficients': (a, b, c, d, e, f, g), 'limits': (tmin, tmax)}
 
         return cp
 
-    def thermal_conductivity(self, temp):
+    def thermal_conductivity(self):
         """
         Calculate gas thermal conductivity as a function of temperature using
         Yaws' coefficients [2]_. The CAS (Chemical Abstracts Service) number
         may be required for some species.
-
-        Parameters
-        ----------
-        temp : float
-            Temperature of the gas in Kelvin
 
         Raises
         ------
@@ -171,16 +199,16 @@ class Gas:
         Returns
         -------
         k : float
-            Thermal conductivity of the gas in W/(m⋅K)
+            Thermal conductivity of the gas in W/(m⋅K).
 
         Examples
         --------
-        >>> gas = cm.Gas('N2')
-        >>> gas.thermal_conductivity(773)
+        >>> gas = cm.Gas('N2', 773)
+        >>> gas.thermal_conductivity()
         0.0535
 
-        >>> gas = cm.Gas('C18H38O', cas='593-32-8')
-        >>> gas.thermal_conductivity(920)
+        >>> gas = cm.Gas('C18H38O', 920, cas_number='593-32-8')
+        >>> gas.thermal_conductivity()
         0.0417
 
         References
@@ -189,50 +217,54 @@ class Gas:
            Critical Property Data for Chemical Engineers and Chemists. Published
            by Knovel, 2014.
         """
-        path = Path(__file__).parent.absolute()
-        df = pd.read_csv(path / 'data/gas-k-yaws.csv')
 
-        if self.cas:
-            row = df.query(f"CAS == '{self.cas}'")
-            if len(row) == 0:
-                raise ValueError(f'CAS number {self.cas} not found')
-        else:
-            row = df.query(f"Formula == '{self.formula}'")
-            if len(row) > 1:
-                raise ValueError(f'Multiple substances available for {self.formula}. '
-                                 'Include CAS number with input parameters.')
-            elif len(row) == 0:
-                raise ValueError(f'Formula {self.formula} not found')
+        # Use coefficients if already set from a previous run
+        # This avoids lookup time when method is called multiple times
+
+        if self._k_state['method'] == 'yaws':
+            _check_temperature(self.formula, self.temperature, self._k_state['limits'])
+            a, b, c, d = self._k_state['coefficients']
+            k = a + (b * self.temperature) + (c * self.temperature**2) + (d * self.temperature**3)
+            return k
+
+        # Lookup coefficients then calculate thermal conductivity
+
+        row = _get_row('data/gas-k-yaws.csv', self.formula, self.cas_number)
 
         tmin = row['Tmin'].iloc[0]
         tmax = row['Tmax'].iloc[0]
-
-        if temp < tmin or temp > tmax:
-            raise ValueError('Temperature out of range. Applicable values are '
-                             f'{tmin}-{tmax} K for {self.formula} gas.')
+        _check_temperature(self.formula, self.temperature, (tmin, tmax))
 
         a = row['A'].iloc[0]
         b = row['B'].iloc[0]
         c = row['C'].iloc[0]
         d = row['D'].iloc[0]
-        k = a + (b * temp) + (c * temp**2) + (d * temp**3)
+        k = a + (b * self.temperature) + (c * self.temperature**2) + (d * self.temperature**3)
+
+        self._k_state = {'method': 'yaws', 'coefficients': (a, b, c, d), 'limits': (tmin, tmax)}
 
         return k
 
-    def viscosity(self, temp, *, method):
+    def viscosity(self, method='yaws'):
         """
-        Gas viscosity as a function of temperature using Ludwig's coefficients
-        [3]_ or Yaws' coefficients [4]_. The CAS (Chemical Abstracts Service)
-        number may be required for some species.
+        Calculate gas viscosity as a function of temperature using Ludwig's
+        coefficients [3]_ or Yaws' coefficients [4]_. The CAS
+        (Chemical Abstracts Service) number may be required for some
+        species.
+
+        The Ludwig coefficients are used with the following correlation
 
         .. math:: \\mu = A + B\\,T + C\\,T^2
 
+        The Yaws coefficients are used with the following correlation
+
+        .. math:: \\mu = A + B\\,T + C\\,T^2 + D\\,T^3
+
         Parameters
         ----------
-        temp : float
-            Gas temperature in Kelvin
-        method : str
+        method : str, optional
             Method for determining coefficients, choose yaws or ludwig.
+            Default method is yaws.
 
         Raises
         ------
@@ -248,29 +280,29 @@ class Gas:
         Returns
         -------
         mu : float
-            Gas viscosity microPoise
+            Gas viscosity in microPoise (μP).
 
         Examples
         --------
-        >>> gas = cm.Gas('CH4')
-        >>> gas.viscosity(810, method='yaws')
+        >>> gas = cm.Gas('CH4', 810)
+        >>> gas.viscosity(method='yaws')
         234.21
 
-        >>> gas = cm.Gas('C2Cl2F4', cas='374-07-2')
-        >>> gas.viscosity(900, method='yaws')
+        >>> gas = cm.Gas('C2Cl2F4', 900, cas_number='374-07-2')
+        >>> gas.viscosity()
         314.90
 
-        >>> gas = cm.Gas('H2')
-        >>> gas.viscosity(404, method='yaws')
+        >>> gas = cm.Gas('H2', 404)
+        >>> gas.viscosity()
         113.18
 
-        >>> gas = cm.Gas('NH3')
-        >>> gas.viscosity(850, method='ludwig')
-        300.8464
+        >>> gas = cm.Gas('NH3', 850)
+        >>> gas.viscosity(method='ludwig')
+        300.84
 
-        >>> gas = cm.Gas('C2H4O', cas='75-07-0')
-        >>> gas.viscosity(920, method='ludwig')
-        242.4685
+        >>> gas = cm.Gas('C2H4O', 920, cas_number='75-07-0')
+        >>> gas.viscosity(method='ludwig')
+        242.46
 
         References
         ----------
@@ -282,61 +314,48 @@ class Gas:
            2014.
         """
 
-        # Calculate viscosity if coefficients are already available from a
-        # previous execution. This avoids lookup time if this method is
-        # called multiple times.
+        # Use coefficients if already set from a previous run
+        # This avoids lookup time when method is called multiple times
 
-        if method == 'yaws' and self._coeff_yaws:
-            a, b, c, d = self._coeff_yaws
-            mu = a + (b * temp) + (c * temp**2) + (d * temp**3)
-            return mu
-        elif method == 'ludwig' and self._coeff_ludwig:
-            a, b, c = self._coeff_ludwig
-            mu = a + (b * temp) + (c * temp**2)
+        if self._mu_state['method'] == 'yaws':
+            _check_temperature(self.formula, self.temperature, self._mu_state['limits'])
+            a, b, c, d = self._mu_state['coefficients']
+            mu = a + (b * self.temperature) + (c * self.temperature**2) + (d * self.temperature**3)
             return mu
 
-        # Lookup coefficients then calculate viscosity.
+        if self._mu_state['method'] == 'ludwig':
+            _check_temperature(self.formula, self.temperature, self._mu_state['limits'])
+            a, b, c = self._mu_state['coefficients']
+            mu = a + (b * self.temperature) + (c * self.temperature**2)
+            return mu
 
-        path = Path(__file__).parent.absolute()
+        # Lookup coefficients then calculate viscosity
 
         if method == 'yaws':
-            df = pd.read_csv(path / 'data/gas-viscosity-yaws.csv')
+            row = _get_row('data/gas-viscosity-yaws.csv', self.formula, self.cas_number)
         elif method == 'ludwig':
-            df = pd.read_csv(path / 'data/gas-viscosity-ludwig.csv')
+            row = _get_row('data/gas-viscosity-ludwig.csv', self.formula, self.cas_number)
         else:
             raise ValueError('Method not available. Choose yaws or ludwig.')
 
-        if self.cas:
-            row = df.query(f"CAS == '{self.cas}'")
-            if len(row) == 0:
-                raise ValueError(f'CAS number {self.cas} not found')
-        else:
-            row = df.query(f"Formula == '{self.formula}'")
-            if len(row) > 1:
-                raise ValueError(f'Multiple substances available for {self.formula}. '
-                                 'Include CAS number with input parameters.')
-            elif len(row) == 0:
-                raise ValueError(f'Formula {self.formula} not found')
-
         tmin = row['Tmin'].iloc[0]
         tmax = row['Tmax'].iloc[0]
-
-        if temp < tmin or temp > tmax:
-            raise ValueError('Temperature out of range. Applicable values are '
-                             f'{tmin}-{tmax} K for {self.formula} gas.')
+        _check_temperature(self.formula, self.temperature, (tmin, tmax))
 
         if method == 'yaws':
             a = row['A'].iloc[0]
             b = row['B'].iloc[0]
             c = row['C'].iloc[0]
             d = row['D'].iloc[0]
-            self._coeff_yaws = a, b, c, d
-            mu = a + b * temp + c * (temp**2) + d * (temp**3)
-            return mu
+            mu = a + b * self.temperature + c * (self.temperature**2) + d * (self.temperature**3)
+            coeffs = a, b, c, d
         elif method == 'ludwig':
             a = row['A'].iloc[0]
             b = row['B'].iloc[0]
             c = row['C'].iloc[0]
-            self._coeff_ludwig = a, b, c
-            mu = a + (b * temp) + (c * temp**2)
-            return mu
+            mu = a + (b * self.temperature) + (c * self.temperature**2)
+            coeffs = a, b, c
+
+        self._mu_state = {'method': method, 'coefficients': coeffs, 'limits': (tmin, tmax)}
+
+        return mu
