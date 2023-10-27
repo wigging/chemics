@@ -95,7 +95,7 @@ class Gas:
         --------
         >>> gas = cm.Gas('N2', 773)
         >>> gas.density()
-        0.4416
+        0.4416...
         """
         mw = self.molecular_weight / 1000  # convert g/mol to kg/mol
         r = 8.3145                         # ideal gas constant in (m^3⋅Pa)/(K⋅mol)
@@ -130,15 +130,15 @@ class Gas:
         --------
         >>> gas = cm.Gas('CBrClF2', 700)
         >>> gas.heat_capacity()
-        97.4982
+        97.4982...
 
         >>> gas = cm.Gas('C5H10O2', 850, cas_number='75-98-9')
         >>> gas.heat_capacity()
-        268.4920
+        268.4920...
 
         >>> gas = cm.Gas('NO2', 900)
         >>> gas.heat_capacity()
-        51.0686
+        51.0686...
 
         References
         ----------
@@ -205,11 +205,11 @@ class Gas:
         --------
         >>> gas = cm.Gas('N2', 773)
         >>> gas.thermal_conductivity()
-        0.0535
+        0.0535...
 
         >>> gas = cm.Gas('C18H38O', 920, cas_number='593-32-8')
         >>> gas.thermal_conductivity()
-        0.0417
+        0.0417...
 
         References
         ----------
@@ -286,23 +286,23 @@ class Gas:
         --------
         >>> gas = cm.Gas('CH4', 810)
         >>> gas.viscosity(method='yaws')
-        234.21
+        234.21...
 
         >>> gas = cm.Gas('C2Cl2F4', 900, cas_number='374-07-2')
         >>> gas.viscosity()
-        314.90
+        314.90...
 
         >>> gas = cm.Gas('H2', 404)
         >>> gas.viscosity()
-        113.18
+        113.18...
 
         >>> gas = cm.Gas('NH3', 850)
         >>> gas.viscosity(method='ludwig')
-        300.84
+        300.84...
 
         >>> gas = cm.Gas('C2H4O', 920, cas_number='75-07-0')
         >>> gas.viscosity(method='ludwig')
-        242.46
+        242.46...
 
         References
         ----------

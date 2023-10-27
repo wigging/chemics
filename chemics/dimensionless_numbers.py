@@ -23,7 +23,7 @@ def archimedes(dp, rhog, rhos, mu):
     Example
     -------
     >>> cm.archimedes(0.001, 910, 2500, 0.001307)
-    8309.1452
+    8309.1452...
 
     References
     ----------
@@ -58,7 +58,7 @@ def biot(h, d, k):
     Example
     -------
     >>> cm.biot(4.63, 0.001, 3.84)
-    0.0012057
+    0.0012057...
 
     References
     ----------
@@ -95,7 +95,7 @@ def peclet(ui, L, Dax):
     Example
     -------
     >>> cm.peclet(3.0e-3, 0.25, 4.7e-4)
-    1.5957
+    1.5957...
 
     References
     ----------
@@ -133,10 +133,10 @@ def prandtl(cp=None, mu=None, k=None, nu=None, alpha=None):
     Examples
     --------
     >>> cm.prandtl(cp=4188, mu=0.001307, k=0.5674)
-    9.647
+    9.647...
 
-    >>> prandtl(nu=1.5064e-5, alpha=2.1002e-5)
-    0.71726
+    >>> cm.prandtl(nu=1.5064e-5, alpha=2.1002e-5)
+    0.71726...
 
     Raises
     ------
@@ -185,7 +185,7 @@ def pyrolysis_one(k, kr, rho, cp, r):
     Example
     -------
     >>> cm.pyrolysis_one(k=0.12, kr=1.38556, rho=540, cp=3092.871049, r=0.0001847)
-    1.5198
+    1.52...
 
     References
     ----------
@@ -224,7 +224,7 @@ def pyrolysis_two(h, kr, rho, cp, r):
     Example
     -------
     >>> cm.pyrolysis_two(h=862.6129, kr=1.38556, rho=540, cp=3092.871049, r=0.0001847)
-    2.018038
+    2.018...
 
     References
     ----------
@@ -263,10 +263,10 @@ def reynolds(u, d, rho=None, mu=None, nu=None):
     Examples
     --------
     >>> cm.reynolds(2.6, 0.025, rho=910, mu=0.38)
-    155.65789
+    155.65789...
 
     >>> cm.reynolds(0.25, 0.102, nu=1.4e-6)
-    18214.2857
+    18214.2857...
 
     Raises
     ------
@@ -314,7 +314,7 @@ def schmidt(mu, rho, Dm):
     Example
     -------
     >>> cm.schmidt(8.90e-4, 997.07, 2.299e-9)
-    388.26
+    388.26...
 
     References
     ----------
@@ -351,7 +351,7 @@ def sherwood(k, d, Dm):
     Example
     -------
     >>> cm.sherwood(2.3e-4, 5.0e-6, 4.0e-9)
-    0.2875
+    0.2875...
 
     References
     ----------

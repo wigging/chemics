@@ -7,5 +7,6 @@ components of biomass can be estimated from the ultimate analysis using a
 characterization method developed by Debiagi, Pecchi, Gentile, Frassoldati,
 Cuoci, Faravelli, and Ranzi.
 
-.. automodule:: chemics.biomass_composition
-   :members:
+.. autofunction:: chemics.biocomp
+
+.. autofunction:: chemics.plot_biocomp

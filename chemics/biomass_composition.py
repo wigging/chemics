@@ -49,21 +49,23 @@ def biocomp(yc, yh, yo=None, yh2o=0, yash=0, alpha=0.6, beta=0.8, gamma=0.8,
     -------
     comp : dict
         Dictionary representing reference mixtures and biomass compositions on
-        the basis of mole fractions (x) and mass fractions (y).
+        the basis of mole fractions (x) and mass fractions (y). The
+        dictionary contains the following items for the reference mixtures
+        where each item represents the C, H, O mass fraction.
 
-        - `y_rm1` mass fractions [C, H, O] of reference mixture RM1
-        - `y_rm2` mass fractions [C, H, O] of reference mixture RM2
-        - `y_rm3` mass fractions [C, H, O] of reference mixture RM3
-        - `x_daf` mole fractions [cell, hemi, ligc, ligh, ligo, tann, tgl] of
-          biomass as dry ash-free basis
-        - `x_wet` mole fractions [cell, hemi, ligc, ligh, ligo, tann, tgl] of
-          biomass as wet basis
-        - `y_daf` mass fractions [cell, hemi, ligc, ligh, ligo, tann, tgl] of
-          biomass as dry ash-free basis
-        - `y_wet` mass fractions [cell, hemi, ligc, ligh, ligo, tann, tgl] of
-          biomass as wet basis
-        - `y_wetash` mass fractions [cell, hemi, ligc, ligh, ligo, tann, tgl]
-          of biomass as wet ash basis
+        - ``y_rm1`` reference mixture RM1
+        - ``y_rm2`` reference mixture RM2
+        - ``y_rm3`` reference mixture RM3
+
+        The dictionary also contains the following items for the biomass
+        composition where each item represents the CELL, HEMI, LIGC, LIGH,
+        LIGO, TANN, TGL mole or mass fraction.
+
+        - ``x_daf`` mole fractions as dry ash-free basis
+        - ``x_wet`` mole fractions as wet basis
+        - ``y_daf`` mass fractions as dry ash-free basis
+        - ``y_wet`` mass fractions as wet basis
+        - ``y_wetash`` mass fractions as wet + ash basis
 
     Raises
     ------
@@ -72,23 +74,24 @@ def biocomp(yc, yh, yo=None, yh2o=0, yash=0, alpha=0.6, beta=0.8, gamma=0.8,
 
     Examples
     --------
+    Use the carbon and hydrogen mass fractions of the biomass to calculate the
+    biomass composition.
+
     >>> yc = 0.534
     >>> yh = 0.06
-    >>> bc = biocomp(yc, yh)
-    >>> bc['y_daf']
-    array([0.2936, 0.1594, 0.0712, 0.2934, 0.1822, 0, 0])
+    >>> bc = cm.biocomp(yc, yh)
 
-    >>> yc = 0.500
-    >>> yh = 0.060
-    >>> yo = 0.440
-    >>> yash = 0.15
-    >>> biocomp(yc, yh, yo, yash=yash, printcomp=True)
-    basis    cell    hemi    ligc    ligh    ligo    tann    tgl
-    x_daf    0.5016  0.3344  0.0328  0.0614  0.0698  0.0000  0.0000
-    x_wet    0.5016  0.3344  0.0328  0.0614  0.0698  0.0000  0.0000
-    y_daf    0.4275  0.2322  0.0445  0.1409  0.1549  0.0000  0.0000
-    y_wet    0.4275  0.2322  0.0445  0.1409  0.1549  0.0000  0.0000
-    y_wetash 0.3634  0.1974  0.0378  0.1197  0.1317  0.0000  0.0000
+    The cellulose mass fraction on a dry ash-free basis.
+
+    >>> cell = bc['y_daf'][0]
+    >>> cell
+    0.293...
+
+    The hemicellulose mass fraction on a dry ash-free basis.
+
+    >>> hemi = bc['y_daf'][1]
+    >>> hemi
+    0.159...
 
     References
     ----------

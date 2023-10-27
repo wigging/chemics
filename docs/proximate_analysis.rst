@@ -6,5 +6,5 @@ Proximate analysis provides the percentage composition of a material in terms of
 Source code
 -----------
 
-.. automodule:: chemics.proximate_analysis
+.. autoclass:: chemics.Proximate
    :members:

@@ -41,6 +41,7 @@ release = '23.7'
 # extensions coming with Sphinx (named 'sphinx.ext.*') or your custom
 # ones.
 extensions = [
+    'sphinx.ext.doctest',
     'sphinx.ext.autodoc',
     'sphinx.ext.mathjax',
     'sphinx.ext.viewcode',
@@ -48,6 +49,10 @@ extensions = [
     'sphinx.ext.napoleon',
     'sphinx_rtd_theme',
 ]
+
+doctest_global_setup = '''
+import chemics as cm
+'''
 
 # Settings for napoleon extension to support NumPy docstrings
 napoleon_google_docstring = False

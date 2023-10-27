@@ -38,7 +38,7 @@ class Proximate:
     -------
     >>> prox = cm.Proximate([47.26, 40.05, 4.46, 8.23], 'ad')
     >>> prox.ar_basis
-    array([39.52, 33.49, 3.73, 23.24])
+    array([39.52..., 33.49...,  3.73..., 23.24...])
 
     References
     ----------

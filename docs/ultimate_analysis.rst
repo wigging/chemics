@@ -6,5 +6,5 @@ Ultimate analysis provides the percentage composition of a material in terms of 
 Source code
 -----------
 
-.. automodule:: chemics.ultimate_analysis
+.. autoclass:: chemics.Ultimate
    :members:

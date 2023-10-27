@@ -83,14 +83,14 @@ def molecular_weight(formula):
 
     Examples
     --------
-    >>> cm.mw('C')
-    12.011
+    >>> cm.molecular_weight('C')
+    12.011...
 
-    >>> cm.mw('CH4')
-    16.04
+    >>> cm.molecular_weight('CH4')
+    16.04...
 
-    >>> cm.mw('(NH4)2SO4')
-    132.13
+    >>> cm.molecular_weight('(NH4)2SO4')
+    132.13...
 
     References
     ----------

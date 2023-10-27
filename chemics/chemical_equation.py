@@ -44,31 +44,37 @@ class ChemicalEquation:
 
     Examples
     --------
-    >>> ce = ChemicalEquation('2 HCl + 2 Na -> 2 NaCl + H2')
+    >>> ce = cm.ChemicalEquation('2 HCl + 2 Na -> 2 NaCl + H2')
     >>> ce.balance
     True
 
+    >>> ce = cm.ChemicalEquation('2 HCl + 2 Na -> 2 NaCl + H2')
     >>> ce.rct_properties
                    HCl        Na
-    moles            2         2
+    moles          2.0       2.0
     species        HCl        Na
     molwt       36.458     22.99
     mass        72.916     45.98
     molfrac        0.5       0.5
     massfrac  0.613275  0.386725
 
+    >>> ce = cm.ChemicalEquation('2 HCl + 2 Na -> 2 NaCl + H2')
     >>> ce.rct_properties.loc['massfrac']
     HCl    0.613275
     Na     0.386725
+    ...
 
+    >>> ce = cm.ChemicalEquation('2 HCl + 2 Na -> 2 NaCl + H2')
     >>> ce.rct_elements
     {'H': 2.0, 'Cl': 2.0, 'Na': 2.0}
 
+    >>> ce = cm.ChemicalEquation('2 HCl + 2 Na -> 2 NaCl + H2')
     >>> ce.rct_moles
-    4.0
+    4.0...
 
+    >>> ce = cm.ChemicalEquation('2 HCl + 2 Na -> 2 NaCl + H2')
     >>> ce.rct_mass
-    118.896
+    118.896...
     """
 
     def __init__(self, eq, names=None):
@@ -126,9 +132,9 @@ class ChemicalEquation:
                 eq_species.append(sp)
 
             # masses and molecular weights for each item
-            mw = cm.mw(sp)
+            mw = cm.molecular_weight(sp)
             mass = mol * mw
-            eq_molwts.append(cm.mw(sp))
+            eq_molwts.append(cm.molecular_weight(sp))
             eq_masses.append(mass)
 
             # count elements from each chemical species

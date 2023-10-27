@@ -31,9 +31,9 @@ def massfrac_to_molefrac(y, mw):
     Example
     -------
     >>> y = [0.36, 0.16, 0.20, 0.28]
-    ... mw = [12.011, 1.008, 15.999, 14.007]
-    ... massfrac_to_molefrac(y, mw)
-    [0.136 0.718 0.057 0.09]
+    >>> mw = [12.011, 1.008, 15.999, 14.007]
+    >>> cm.massfrac_to_molefrac(y, mw)
+    array([0.135..., 0.717..., 0.056..., 0.090...])
     """
 
     # convert inputs to NumPy arrays
@@ -83,8 +83,8 @@ def molefrac_to_massfrac(x, mw):
     -------
     >>> x = [0.36, 0.16, 0.20, 0.28]
     >>> mw = [12.011, 1.008, 15.999, 14.007]
-    ... molefrac_to_massfrac(x, mw)
-    [0.373 0.014 0.276 0.338]
+    >>> cm.molefrac_to_massfrac(x, mw)
+    array([0.372..., 0.0138..., 0.275..., 0.337...])
     """
 
     # convert inputs to NumPy arrays
@@ -128,8 +128,8 @@ def slm_to_lpm(slm, pgas, tgas):
 
     Example
     -------
-    >>> slm_to_lpm(580, 150, 773)
-    1108.74
+    >>> cm.slm_to_lpm(580, 150, 773)
+    1108.74...
 
     References
     ----------

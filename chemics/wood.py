@@ -36,7 +36,7 @@ def cp_wood(x, tk):
     Example
     -------
     >>> cm.cp_wood(12, 340)
-    1.91
+    1.91...
 
     References
     ----------
@@ -106,7 +106,7 @@ def k_wood(gb, so, x):
     Example
     -------
     >>> cm.k_wood(0.54, 12.3, 10)
-    0.1567
+    0.1567...
 
     References
     ----------

@@ -61,11 +61,11 @@ class Liquid:
         --------
         >>> liquid = cm.Liquid('CBrF3')
         >>> liquid.cp_yaws(250)
-        107.2774
+        107.2774...
 
         >>> liquid = cm.Liquid('C38H76')
         >>> liquid.cp_yaws(400, cas='61828-17-9')
-        1307.0624
+        1307.0624...
 
         References
         ----------

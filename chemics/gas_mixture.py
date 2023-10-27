@@ -58,9 +58,9 @@ class GasMixture:
         --------
         >>> gas1 = cm.Gas('H2', 773)
         >>> gas2 = cm.Gas('N2', 773)
-        >>> mw_mixture = cm.GasMixture([gas1, gas2], [0.8, 0.2])
-        >>> mw_mixture
-        7.2156
+        >>> gas_mixture = cm.GasMixture([gas1, gas2], [0.8, 0.2])
+        >>> gas_mixture.molecular_weight()
+        7.2156...
         """
         mw_gases = self.molecular_weights
         x_gases = self.mole_fractions
@@ -104,13 +104,13 @@ class GasMixture:
         >>> gas2 = cm.Gas('N2', 773)
         >>> gas_mixture = cm.GasMixture([gas1, gas2], [0.85, 0.15])
         >>> gas_mixture.viscosity()
-        207.34
+        207.34...
 
         >>> gas1 = cm.Gas('H2', 773)
         >>> gas2 = cm.Gas('N2', 773)
         >>> gas_mixture = cm.GasMixture([gas1, gas2], [0.85, 0.15])
         >>> gas_mixture.viscosity(method='herning')
-        252.78
+        252.78...
 
         References
         ----------
