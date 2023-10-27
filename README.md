@@ -19,8 +19,8 @@ import chemics as cm
 
 gas = cm.Gas('N2')
 rho = gas.density(101325, 773)
-print(rho)
 
+print(rho)
 # This prints a value of 0.4416
 ```
 
