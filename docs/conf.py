@@ -14,7 +14,7 @@
 
 import os
 import sys
-import sphinx_rtd_theme
+
 sys.path.insert(0, os.path.abspath('..'))
 
 
@@ -41,6 +41,7 @@ release = '23.7'
 # extensions coming with Sphinx (named 'sphinx.ext.*') or your custom
 # ones.
 extensions = [
+    'matplotlib.sphinxext.plot_directive',
     'sphinx.ext.doctest',
     'sphinx.ext.autodoc',
     'sphinx.ext.mathjax',
@@ -50,7 +51,20 @@ extensions = [
     'sphinx_rtd_theme',
 ]
 
+# Settings for sphinx doctest extension
+# https://www.sphinx-doc.org/en/master/usage/extensions/doctest.html
 doctest_global_setup = '''
+import chemics as cm
+'''
+
+# Settings for matplotlib plot_directive extension
+# https://matplotlib.org/stable/api/sphinxext_plot_directive_api.html
+plot_include_source = True
+plot_html_show_source_link = False
+plot_html_show_formats = False
+plot_formats = ['pdf']
+plot_pre_code = '''
+import matplotlib.pyplot as plt
 import chemics as cm
 '''
 

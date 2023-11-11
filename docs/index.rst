@@ -60,15 +60,23 @@ This example uses the :code:`ChemicalEquation` class to get properties of the re
 
 See the `examples <https://github.com/wigging/chemics>`_ directory in the GitHub repository for more examples.
 
-Documentation
--------------
+.. toctree::
+   :maxdepth: 1
+   :caption: Examples
 
-Details about the functions available in the Chemics package are provided below.
-Equations and associated references used to develop the functions are also
-given.
+   examples/biomass_composition
+   examples/chemical_equation
+   examples/conversions
+   examples/dimensionless
+   examples/gas_properties
+   examples/gas_mixture
+   examples/analysis
+   examples/pyrolysis_number
+   examples/wood_properties
 
 .. toctree::
    :maxdepth: 1
+   :caption: API documentation
 
    atm_pressure
    atomic_elements
@@ -87,8 +95,7 @@ given.
 Contributing
 ------------
 
-See the CONTRIBUTING_ document on GitHub for guidelines on contributing to the
-Chemics package.
+See the CONTRIBUTING_ document on GitHub for guidelines on contributing to the Chemics package.
 
 Package index and modules
 -------------------------
