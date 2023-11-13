@@ -1,18 +1,12 @@
 Chemics
 =======
 
-The Chemics_ package is a collection of Python functions for performing
-calculations in the field of chemical engineering. Source code for the
-package is available on GitHub_ and contributions from the community are
-encouraged.
+The Chemics_ package is a collection of Python functions for performing calculations in the field of chemical engineering. Source code for the package is available on GitHub_ and contributions from the community are encouraged.
 
 Installation
 ------------
 
-If you don't have Python installed on your computer, the Anaconda_ or
-Miniconda_ distribution of Python is recommended for scientific computing.
-After setting up Python, the Chemics package can be downloaded and installed
-using the pip or conda package managers.
+If you don't have Python installed on your computer, the Anaconda_ or Miniconda_ distribution of Python is recommended for scientific computing. After setting up Python, the Chemics package can be downloaded and installed using the pip or conda package managers.
 
 Install Chemics using the pip package manager:
 
@@ -78,19 +72,19 @@ See the `examples <https://github.com/wigging/chemics>`_ directory in the GitHub
    :maxdepth: 1
    :caption: API documentation
 
-   atm_pressure
-   atomic_elements
-   biomass_composition
-   chemical_equation
-   conversions
-   dimensionless_numbers
-   gas
-   gas_mixture
-   liquid
-   molecular_weight
-   proximate_analysis
-   ultimate_analysis
-   wood
+   api/atm_pressure
+   api/atomic_elements
+   api/biomass_composition
+   api/chemical_equation
+   api/conversions
+   api/dimensionless_numbers
+   api/gas
+   api/gas_mixture
+   api/liquid
+   api/molecular_weight
+   api/proximate_analysis
+   api/ultimate_analysis
+   api/wood
 
 Contributing
 ------------
