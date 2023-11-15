@@ -1,0 +1,20 @@
+[build-system]
+requires = ["setuptools"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "chemics"
+version = "23.11"
+authors = [{name = "Gavin Wiggins"}]
+description = "A Python package for chemical engineering"
+readme = "README.md"
+dependencies = ["matplotlib", "numpy", "pandas", "scipy"]
+classifiers = [
+    "Programming Language :: Python :: 3",
+    "License :: OSI Approved :: MIT License",
+    "Operating System :: OS Independent"
+]
+license = "MIT"
+
+[project.urls]
+"Homepage" = "https://github.com/wigging/chemics"
