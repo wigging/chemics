@@ -1,6 +1,6 @@
 [build-system]
-requires = ["setuptools"]
-build-backend = "setuptools.build_meta"
+requires = ["hatchling"]
+build-backend = "hatchling.build"
 
 [project]
 name = "chemics"
@@ -9,12 +9,12 @@ authors = [{name = "Gavin Wiggins"}]
 description = "A Python package for chemical engineering"
 readme = "README.md"
 dependencies = ["matplotlib", "numpy", "pandas", "scipy"]
+license = "MIT"
 classifiers = [
     "Programming Language :: Python :: 3",
     "License :: OSI Approved :: MIT License",
     "Operating System :: OS Independent"
 ]
-license = "MIT"
 
 [project.urls]
 "Homepage" = "https://github.com/wigging/chemics"

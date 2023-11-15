@@ -1,0 +1,25 @@
+# Use this file to create a conda environment for developing the chemics
+# package. See the comments below for some useful conda commands.
+#
+# Create the environment ....... conda env create --file environment.yml
+# Activate the environment ..... conda activate chemics
+# Deactivate the environment ... conda deactivate
+# Remove the environment ....... conda env remove --name chemics
+
+name: chemics
+
+dependencies:
+  - python=3.10
+  - flake8
+  - ipython
+  - matplotlib
+  - numpy
+  - pandas
+  - pytest
+  - scipy
+  - sphinx
+  - pip
+  - pip:
+    - sphinx-rtd-theme
+    - ipdb
+    - -e .
