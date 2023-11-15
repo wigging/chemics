@@ -2,6 +2,27 @@
 
 Version numbers use calendar versioning based on `YY.MM.MICRO`. See the [CalVer](https://calver.org) website for more information about this versioning convention. The format of this changelog follows the approach outlined on the [Keep a Changelog](https://keepachangelog.com) website.
 
+## 23.11
+
+#### Added
+
+- A pyproject.toml file for package installation
+- Source directory for src layout
+- Conda environment.yml for developing in a conda environment
+- A benchmarks file for methods in the `Gas` class
+- GitHub workflow to run tests
+- Doctest and plot support for Sphinx documentation
+
+#### Changed
+
+- Moved all examples into documentation
+- Change `pyroI` and `pyroII` to `pyrolysis_one` and `pyrolysis_two` functions
+- Refactor `Gas` and `GasMixture` classes
+
+#### Removed
+
+- Unused requirements file for pip
+
 ## 23.7
 
 #### Added
