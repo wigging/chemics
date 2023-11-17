@@ -41,3 +41,5 @@ __all__ = [
     'schmidt', 'sherwood', 'flow_regime', 'Gas', 'GasMixture', 'Liquid', 'molecular_weight',
     'Proximate', 'Ultimate', 'cp_wood', 'k_wood'
 ]
+
+__version__ = '23.11'

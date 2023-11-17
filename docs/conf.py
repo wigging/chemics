@@ -13,6 +13,7 @@
 
 import os
 import sys
+import chemics
 
 sys.path.insert(0, os.path.abspath('..'))
 
@@ -24,11 +25,10 @@ copyright = '2023, Gavin Wiggins'
 author = 'Gavin Wiggins'
 
 # The short X.Y version
-version = '23.11'
+version = chemics.__version__
 
 # The full version, including alpha/beta/rc tags
-release = '23.11'
-
+release = chemics.__version__
 
 # General configuration
 # ----------------------------------------------------------------------------
