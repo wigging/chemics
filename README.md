@@ -4,7 +4,7 @@ Chemics is a Python package for chemistry and chemical engineering applications.
 
 ## Installation
 
-If you don't have Python installed on your computer, the [Anaconda](https://www.anaconda.com) or [Miniconda](https://conda.io/miniconda.html) distribution of Python is recommended for scientific computing. After setting up Python, the chemics package can be downloaded and installed using the pip package manager.
+If you don't have Python installed on your computer, the [Anaconda](https://www.anaconda.com) or [Miniconda](https://conda.io/miniconda.html) distribution of Python is recommended for scientific computing. After setting up Python, the Chemics package can be downloaded and installed using the pip package manager.
 
 ```bash
 $ pip install chemics
@@ -12,7 +12,7 @@ $ pip install chemics
 
 ## Usage
 
-The example below imports the chemics package and creates a `Gas` class to calculate the density of nitrogen gas at a pressure of 101,325 Pa and 773 K.
+The example below imports the Chemics package and creates a `Gas` class to calculate the density of nitrogen gas at a pressure of 101,325 Pa and 773 K.
 
 ```python
 import chemics as cm
@@ -31,11 +31,9 @@ import chemics as cm
 
 ce = cm.ChemicalEquation('2 HCl + 2 Na -> 2 NaCl + H2')
 ce.balance
-
 # Returns True for balanced equation
 
 ce.rct_properties
-
 # Returns a dataframe of the reactant properties
 #                HCl        Na
 # moles            2         2
@@ -46,11 +44,11 @@ ce.rct_properties
 # massfrac  0.613275  0.386725
 ```
 
-More examples are available in the `examples` directory and in the documentation.
+More examples are available in the documentation.
 
 ## Documentation
 
-Documentation for the chemics package is available at [chemics.readthedocs.io](https://chemics.readthedocs.io).
+Documentation for the Chemics package is available at [chemics.readthedocs.io](https://chemics.readthedocs.io).
 
 ## Contributing
 

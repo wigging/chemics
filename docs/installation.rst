@@ -1,7 +1,7 @@
 Installation
 ============
 
-If you don't have Python installed on your computer, the `Anaconda <https://www.anaconda.com>`_ or `Miniconda <https://conda.io/miniconda.html>`_ distribution of Python is recommended for scientific computing. After setting up Python, the Chemics package can be downloaded and installed using the pip or conda package managers.
+If you don't have Python installed on your computer, the `Anaconda <https://www.anaconda.com>`_ or `Miniconda <https://conda.io/miniconda.html>`_ distribution of Python is recommended for scientific computing. After setting up Python, the Chemics package can be downloaded and installed using the pip package manager.
 
 Install Chemics using the pip package manager:
 

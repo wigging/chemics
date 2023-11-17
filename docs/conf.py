@@ -1,12 +1,11 @@
-# -*- coding: utf-8 -*-
-#
 # Configuration file for the Sphinx documentation builder.
 #
 # This file does only contain a selection of the most common options. For a
 # full list see the documentation:
 # http://www.sphinx-doc.org/en/stable/config
 
-# -- Path setup --------------------------------------------------------------
+# Setup path
+# ----------------------------------------------------------------------------
 
 # If extensions (or modules to document with autodoc) are in another directory,
 # add these directories to sys.path here. If the directory is relative to the
@@ -17,8 +16,8 @@ import sys
 
 sys.path.insert(0, os.path.abspath('..'))
 
-
-# -- Project information -----------------------------------------------------
+# Project information
+# ----------------------------------------------------------------------------
 
 project = 'Chemics'
 copyright = '2023, Gavin Wiggins'
@@ -31,7 +30,8 @@ version = '23.11'
 release = '23.11'
 
 
-# -- General configuration ---------------------------------------------------
+# General configuration
+# ----------------------------------------------------------------------------
 
 # If your documentation needs a minimal Sphinx version, state it here.
 #
@@ -114,7 +114,8 @@ def setup(app):
     app.add_css_file('custom.css')
 
 
-# -- Options for HTML output -------------------------------------------------
+# Options for HTML output
+# ----------------------------------------------------------------------------
 
 # The theme to use for HTML and HTML Help pages.  See the documentation for
 # a list of builtin themes.
@@ -152,14 +153,14 @@ html_show_sourcelink = False
 #
 # html_sidebars = {}
 
-
-# -- Options for HTMLHelp output ---------------------------------------------
+# Options for HTMLHelp output
+# ----------------------------------------------------------------------------
 
 # Output file base name for HTML help builder.
 htmlhelp_basename = 'Chemicsdoc'
 
-
-# -- Options for LaTeX output ------------------------------------------------
+# Options for LaTeX output
+# ----------------------------------------------------------------------------
 
 latex_elements = {
     # The paper size ('letterpaper' or 'a4paper').
@@ -187,8 +188,8 @@ latex_documents = [
      'Gavin Wiggins', 'manual'),
 ]
 
-
-# -- Options for manual page output ------------------------------------------
+# Options for manual page output
+# ----------------------------------------------------------------------------
 
 # One entry per manual page. List of tuples
 # (source start file, name, description, authors, manual section).
@@ -197,8 +198,8 @@ man_pages = [
      [author], 1)
 ]
 
-
-# -- Options for Texinfo output ----------------------------------------------
+# Options for Texinfo output
+# ----------------------------------------------------------------------------
 
 # Grouping the document tree into Texinfo files. List of tuples
 # (source start file, target name, title, author,
@@ -208,6 +209,3 @@ texinfo_documents = [
      author, 'Chemics', 'One line description of project.',
      'Miscellaneous'),
 ]
-
-
-# -- Extension configuration -------------------------------------------------
