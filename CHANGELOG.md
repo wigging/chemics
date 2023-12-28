@@ -2,6 +2,12 @@
 
 Version numbers use calendar versioning based on `YY.MM.MICRO`. See the [CalVer](https://calver.org) website for more information about this versioning convention. The format of this changelog follows the approach outlined on the [Keep a Changelog](https://keepachangelog.com) website.
 
+## 23.12
+
+#### Changed
+- Changed the `balance` attribute of ChemicalEquation to use a method instead `is_balanced`
+- Refactored tests and documentation to mention `is_balanced` instead of `balance`
+
 ## 23.11
 
 #### Added
