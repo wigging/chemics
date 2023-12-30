@@ -43,7 +43,7 @@ class ChemicalEquation:
     Examples
     --------
     >>> ce = cm.ChemicalEquation('2 HCl + 2 Na -> 2 NaCl + H2')
-    >>> ce.is_balanced
+    >>> ce.is_balanced()
     True
 
     >>> ce = cm.ChemicalEquation('2 HCl + 2 Na -> 2 NaCl + H2')
