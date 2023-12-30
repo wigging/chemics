@@ -8,7 +8,7 @@ The ``ChemicalEquation`` class provides product and reactant properties from an 
    >>> eq = cm.ChemicalEquation('2 HCl + 2 Na -> 2 NaCl + H2')
 
    # Check if atomic elements of the reactants and products are balanced
-   >>> eq.balance
+   >>> eq.is_balanced()
    True
 
    # Total number of atomic elements for each product

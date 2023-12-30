@@ -39,13 +39,11 @@ class ChemicalEquation:
         Total number of moles on product side of the equation.
     prod_mass : float
         Total mass of the products.
-    balance : bool
-        Balance between atomic elements in reactants and products.
 
     Examples
     --------
     >>> ce = cm.ChemicalEquation('2 HCl + 2 Na -> 2 NaCl + H2')
-    >>> ce.balance
+    >>> ce.is_balanced()
     True
 
     >>> ce = cm.ChemicalEquation('2 HCl + 2 Na -> 2 NaCl + H2')
@@ -83,7 +81,6 @@ class ChemicalEquation:
         self._parse_equation()
         self._assign_rct_attrs()
         self._assign_prod_attrs()
-        self._check_balance()
 
     def _parse_equation(self):
         """
@@ -194,17 +191,17 @@ class ChemicalEquation:
         self.prod_moles = sum_moles
         self.prod_mass = sum_masses
 
-    def _check_balance(self):
+    def is_balanced(self) -> bool:
         """
         Check balance of atomic elements in reactants or products.
         """
         tol = 1e-4
-        self.balance = True
 
         if self.rct_elements == self.prod_elements:
-            return
+            return True
 
         for x, y in zip(self.rct_elements.values(), self.prod_elements.values()):
             if abs(x - y) > tol:
-                self.balance = False
-                break
+                return False
+        
+        return True

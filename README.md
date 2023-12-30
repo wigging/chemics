@@ -30,7 +30,7 @@ This example uses the `ChemicalEquation` class to get properties of the reactant
 import chemics as cm
 
 ce = cm.ChemicalEquation('2 HCl + 2 Na -> 2 NaCl + H2')
-ce.balance
+ce.is_balanced()
 # Returns True for balanced equation
 
 ce.rct_properties

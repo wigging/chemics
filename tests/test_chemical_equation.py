@@ -13,7 +13,7 @@ def test_eq1():
     eq = '2 HCl + 2 Na -> 2 NaCl + H2'
     ce = cm.ChemicalEquation(eq)
     assert ce.names is None
-    assert ce.balance is True
+    assert ce.is_balanced() is True
     assert ce.rct_properties['HCl']['moles'] == approx(2)
     assert ce.rct_properties['HCl']['species'] == 'HCl'
     assert ce.rct_properties['HCl']['molwt'] == approx(36.458)
@@ -29,7 +29,7 @@ def test_eq2():
     eq = '5 NaCl + 3 H2O -> CH4 + 2.2 CHAR + CH2OHCHO + GCO2'
     names = {'CHAR': 'C', 'GCO2': 'CO2'}
     ce = cm.ChemicalEquation(eq, names)
-    assert ce.balance is False
+    assert ce.is_balanced() is False
     assert ce.prod_properties['GCO2']['moles'] == approx(1)
     assert ce.prod_properties['GCO2']['species'] == 'CO2'
     assert ce.prod_properties['GCO2']['molwt'] == approx(44.009)
