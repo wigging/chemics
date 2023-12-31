@@ -32,6 +32,6 @@ Don't forget to edit the changelog based on your contributions. Follow the style
 
 New source code should be included in the [Sphinx documentation](http://www.sphinx-doc.org/en/stable/) located in the `docs/` folder.
 
-## Creating a Pull Request
+## Creating a pull request
 
-All Pull Requests should be submitted to the `dev` branch; not to the `main` branch. If a `dev` branch does not exist in the repository, rename your branch to `dev` then create the Pull Request. The `dev` branch will be merged with the `main` branch when a new version is ready to be released.
+All pull requests should be submitted to the `dev` branch; not to the `main` branch. The `dev` branch will be merged with the `main` branch when a new version of Chemics is ready to be released.
