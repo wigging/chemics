@@ -10,7 +10,6 @@ name: chemics
 
 dependencies:
   - python=3.10
-  - flake8
   - ipython
   - matplotlib
   - numpy
@@ -20,6 +19,7 @@ dependencies:
   - sphinx
   - pip
   - pip:
-    - sphinx-rtd-theme
     - ipdb
-    - -e .
+    - sphinx-rtd-theme
+    - ruff
+    - --editable .
