@@ -1,15 +1,26 @@
 """
-Use the `biocomp()` function to calculate biomass composition. Use the
-`plot_biocomp()` function to create a Matplotlib figure of the biomass
-composition results.
+Functions for biomass composition.
 """
 
 import numpy as np
 
 
-def biocomp(yc, yh, yo=None, yh2o=0, yash=0, alpha=0.6, beta=0.8, gamma=0.8,
-            delta=1, epsilon=1, printcomp=False):
+def biocomp(
+    yc,
+    yh,
+    yo=None,
+    yh2o=0,
+    yash=0,
+    alpha=0.6,
+    beta=0.8,
+    gamma=0.8,
+    delta=1,
+    epsilon=1,
+    printcomp=False,
+):
     """
+    Biomass composition.
+
     Determine bimoass composition from ultimate analysis mass fractions of C,
     H, and O. Composition returned as cellulose, hemicellulose, lignins, and
     extractives based on method discussed in the Debiagi 2015 paper [1]_.
@@ -53,19 +64,19 @@ def biocomp(yc, yh, yo=None, yh2o=0, yash=0, alpha=0.6, beta=0.8, gamma=0.8,
         dictionary contains the following items for the reference mixtures
         where each item represents the C, H, O mass fraction.
 
-        - ``y_rm1`` reference mixture RM1
-        - ``y_rm2`` reference mixture RM2
-        - ``y_rm3`` reference mixture RM3
+        - `y_rm1` reference mixture RM1
+        - `y_rm2` reference mixture RM2
+        - `y_rm3` reference mixture RM3
 
         The dictionary also contains the following items for the biomass
         composition where each item represents the CELL, HEMI, LIGC, LIGH,
         LIGO, TANN, TGL mole or mass fraction.
 
-        - ``x_daf`` mole fractions as dry ash-free basis
-        - ``x_wet`` mole fractions as wet basis
-        - ``y_daf`` mass fractions as dry ash-free basis
-        - ``y_wet`` mass fractions as wet basis
-        - ``y_wetash`` mass fractions as wet + ash basis
+        - `x_daf` mole fractions as dry ash-free basis
+        - `x_wet` mole fractions as wet basis
+        - `y_daf` mass fractions as dry ash-free basis
+        - `y_wet` mass fractions as wet basis
+        - `y_wetash` mass fractions as wet + ash basis
 
     Raises
     ------
@@ -100,7 +111,6 @@ def biocomp(yc, yh, yo=None, yh2o=0, yash=0, alpha=0.6, beta=0.8, gamma=0.8,
        Extractives Extend the Applicability of Multistep Kinetic Scheme of Biomass
        Pyrolysis. Energy and Fuels, vol. 29, no. 10, pp. 6544-6555, 2015.
     """
-
     # Determine oxygen mass fraction by difference if not explicitly given
     if yo is None:
         yo = 1 - yc - yh
@@ -109,7 +119,7 @@ def biocomp(yc, yh, yo=None, yh2o=0, yash=0, alpha=0.6, beta=0.8, gamma=0.8,
     sumy = yc + yh + yo
     tol = 1e-4
     if abs(sumy - 1.0) > tol:
-        raise ValueError('Sum of mass fractions must equal one.')
+        raise ValueError("Sum of mass fractions must equal one.")
 
     # Cellulose, hemicellulose, and lignins as arrays of [C, H, O]
     # See Figure 1 in reference for these formulas
@@ -136,8 +146,16 @@ def biocomp(yc, yh, yo=None, yh2o=0, yash=0, alpha=0.6, beta=0.8, gamma=0.8,
 
     # Reference mixture where rm = [C, H, O]
     rm1 = alpha * cell + (1 - alpha) * hemi
-    rm2 = beta * delta * ligh + (1 - beta) * delta * ligc + (1 - beta * delta - (1 - beta) * delta) * tgl
-    rm3 = gamma * epsilon * ligo + (1 - gamma) * epsilon * ligc + (1 - gamma * epsilon - (1 - gamma) * epsilon) * tann
+    rm2 = (
+        beta * delta * ligh
+        + (1 - beta) * delta * ligc
+        + (1 - beta * delta - (1 - beta) * delta) * tgl
+    )
+    rm3 = (
+        gamma * epsilon * ligo
+        + (1 - gamma) * epsilon * ligc
+        + (1 - gamma * epsilon - (1 - gamma) * epsilon) * tann
+    )
 
     # Molecular weight of reference mixture where C, H, O given as 12, 1, 16
     mw_rm1 = sum(rm1 * [12, 1, 16])
@@ -198,34 +216,38 @@ def biocomp(yc, yh, yo=None, yh2o=0, yash=0, alpha=0.6, beta=0.8, gamma=0.8,
     # Mole fraction as wet basis for biomass components where
     # x_wet = [cell, hemi, ligc, ligh, ligo, tann, tgl]
     ywet_yh2o = np.concatenate((y_wet, [yh2o]))
-    sum_xmw = sum(ywet_yh2o / [mw_cell, mw_hemi, mw_ligc, mw_ligh, mw_ligo, mw_tann, mw_tgl, mw_h2o])
+    sum_xmw = sum(
+        ywet_yh2o / [mw_cell, mw_hemi, mw_ligc, mw_ligh, mw_ligo, mw_tann, mw_tgl, mw_h2o]
+    )
     x_wet = (y_wet / [mw_cell, mw_hemi, mw_ligc, mw_ligh, mw_ligo, mw_tann, mw_tgl]) / sum_xmw
 
     comp = {
-        'y_rm1': y_rm1,
-        'y_rm2': y_rm2,
-        'y_rm3': y_rm3,
-        'x_daf': x_daf,
-        'x_wet': x_wet,
-        'y_daf': y_daf,
-        'y_wet': y_wet,
-        'y_wetash': y_wetash
+        "y_rm1": y_rm1,
+        "y_rm2": y_rm2,
+        "y_rm3": y_rm3,
+        "x_daf": x_daf,
+        "x_wet": x_wet,
+        "y_daf": y_daf,
+        "y_wet": y_wet,
+        "y_wetash": y_wetash,
     }
 
     # Print biomass composition results
     if printcomp:
-        print('basis\t cell\t hemi\t ligc\t ligh\t ligo\t tann\t tgl')
-        print('x_daf\t', '  '.join(f'{x:.4f}' for x in x_daf))
-        print('x_wet\t', '  '.join(f'{x:.4f}' for x in x_wet))
-        print('y_daf\t', '  '.join(f'{x:.4f}' for x in y_daf))
-        print('y_wet\t', '  '.join(f'{x:.4f}' for x in y_wet))
-        print('y_wetash', '  '.join(f'{x:.4f}' for x in y_wetash))
+        print("basis\t cell\t hemi\t ligc\t ligh\t ligo\t tann\t tgl")
+        print("x_daf\t", "  ".join(f"{x:.4f}" for x in x_daf))
+        print("x_wet\t", "  ".join(f"{x:.4f}" for x in x_wet))
+        print("y_daf\t", "  ".join(f"{x:.4f}" for x in y_daf))
+        print("y_wet\t", "  ".join(f"{x:.4f}" for x in y_wet))
+        print("y_wetash", "  ".join(f"{x:.4f}" for x in y_wetash))
 
     return comp
 
 
 def plot_biocomp(ax, yc, yh, y_rm1, y_rm2, y_rm3):
     """
+    Plot biomass composition.
+
     Plot characterization of biomass sample and calculated reference mixtures
     as mass fractions, dry ash-free basis.
 
@@ -249,48 +271,47 @@ def plot_biocomp(ax, yc, yh, y_rm1, y_rm2, y_rm3):
     ax : Axes
         The Matplotlib axes for the plot figure
     """
+    ax.plot(yc, yh, "^", label="biomass")
 
-    ax.plot(yc, yh, '^', label='biomass')
+    ax.plot(0.4444, 0.0617, "o")
+    ax.annotate("cell", xy=(0.4444, 0.0617), xytext=(-10, 6), textcoords="offset points")
 
-    ax.plot(0.4444, 0.0617, 'o')
-    ax.annotate('cell', xy=(0.4444, 0.0617), xytext=(-10, 6), textcoords='offset points')
+    ax.plot(0.4545, 0.0606, "o")
+    ax.annotate("hemi", xy=(0.4545, 0.0606), xytext=(-10, -12), textcoords="offset points")
 
-    ax.plot(0.4545, 0.0606, 'o')
-    ax.annotate('hemi', xy=(0.4545, 0.0606), xytext=(-10, -12), textcoords='offset points')
+    ax.plot(0.6977, 0.0543, "o")
+    ax.annotate("ligc", xy=(0.6977, 0.0543), xytext=(-10, -12), textcoords="offset points")
 
-    ax.plot(0.6977, 0.0543, 'o')
-    ax.annotate('ligc', xy=(0.6977, 0.0543), xytext=(-10, -12), textcoords='offset points')
+    ax.plot(0.6055, 0.0642, "o")
+    ax.annotate("ligh", xy=(0.6055, 0.0642), xytext=(-10, 6), textcoords="offset points")
 
-    ax.plot(0.6055, 0.0642, 'o')
-    ax.annotate('ligh', xy=(0.6055, 0.0642), xytext=(-10, 6), textcoords='offset points')
+    ax.plot(0.5687, 0.0521, "o")
+    ax.annotate("ligo", xy=(0.5687, 0.0521), xytext=(-10, -12), textcoords="offset points")
 
-    ax.plot(0.5687, 0.0521, 'o')
-    ax.annotate('ligo', xy=(0.5687, 0.0521), xytext=(-10, -12), textcoords='offset points')
+    ax.plot(0.5921, 0.0395, "o")
+    ax.annotate("tann", xy=(0.5921, 0.0395), xytext=(-10, -12), textcoords="offset points")
 
-    ax.plot(0.5921, 0.0395, 'o')
-    ax.annotate('tann', xy=(0.5921, 0.0395), xytext=(-10, -12), textcoords='offset points')
-
-    ax.plot(0.7634, 0.1116, 'o')
-    ax.annotate('tgl', xy=(0.7634, 0.1116), xytext=(-6, -12), textcoords='offset points')
+    ax.plot(0.7634, 0.1116, "o")
+    ax.annotate("tgl", xy=(0.7634, 0.1116), xytext=(-6, -12), textcoords="offset points")
 
     x = 0.4444, 0.5921, 0.6977, 0.7634
     y = 0.0617, 0.0395, 0.0543, 0.1116
-    ax.fill(x, y, '0.8', alpha=0.5)
+    ax.fill(x, y, "0.8", alpha=0.5)
 
-    ax.plot(y_rm1[0], y_rm1[1], 's', label='rm1')
-    ax.plot(y_rm2[0], y_rm2[1], 's', label='rm2')
-    ax.plot(y_rm3[0], y_rm3[1], 's', label='rm3')
+    ax.plot(y_rm1[0], y_rm1[1], "s", label="rm1")
+    ax.plot(y_rm2[0], y_rm2[1], "s", label="rm2")
+    ax.plot(y_rm3[0], y_rm3[1], "s", label="rm3")
 
     x = y_rm1[0], y_rm2[0], y_rm3[0], y_rm1[0]
     y = y_rm1[1], y_rm2[1], y_rm3[1], y_rm1[1]
-    ax.plot(x, y, 'k:')
+    ax.plot(x, y, "k:")
 
-    ax.grid(color='0.9')
+    ax.grid(color="0.9")
     ax.set_axisbelow(True)
     ax.set_frame_on(False)
-    ax.set_xlabel('Carbon mass fraction, daf basis [-]')
-    ax.set_ylabel('Hydrogen mass fraction, daf basis [-]')
-    ax.tick_params(color='0.9')
+    ax.set_xlabel("Carbon mass fraction, daf basis [-]")
+    ax.set_ylabel("Hydrogen mass fraction, daf basis [-]")
+    ax.tick_params(color="0.9")
     ax.legend(frameon=False)
 
     return ax

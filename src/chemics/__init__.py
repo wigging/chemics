@@ -1,3 +1,7 @@
+"""
+Chemics package for chemical engineering.
+"""
+
 from .atm_pressure import patm
 from .atomic_elements import atomic_elements
 
@@ -35,11 +39,32 @@ from .wood import cp_wood
 from .wood import k_wood
 
 __all__ = [
-    'patm', 'atomic_elements', 'biocomp', 'plot_biocomp', 'ChemicalEquation',
-    'slm_to_lpm', 'massfrac_to_molefrac', 'molefrac_to_massfrac', 'archimedes',
-    'biot', 'peclet', 'prandtl', 'pyrolysis_one', 'pyrolysis_two', 'reynolds',
-    'schmidt', 'sherwood', 'flow_regime', 'Gas', 'GasMixture', 'Liquid', 'molecular_weight',
-    'Proximate', 'Ultimate', 'cp_wood', 'k_wood'
+    "patm",
+    "atomic_elements",
+    "biocomp",
+    "plot_biocomp",
+    "ChemicalEquation",
+    "slm_to_lpm",
+    "massfrac_to_molefrac",
+    "molefrac_to_massfrac",
+    "archimedes",
+    "biot",
+    "peclet",
+    "prandtl",
+    "pyrolysis_one",
+    "pyrolysis_two",
+    "reynolds",
+    "schmidt",
+    "sherwood",
+    "flow_regime",
+    "Gas",
+    "GasMixture",
+    "Liquid",
+    "molecular_weight",
+    "Proximate",
+    "Ultimate",
+    "cp_wood",
+    "k_wood",
 ]
 
-__version__ = '23.11'
+__version__ = "23.11"

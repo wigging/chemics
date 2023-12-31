@@ -1,8 +1,14 @@
+"""
+Class for ultimate analysis.
+"""
+
 import numpy as np
 
 
 class Ultimate:
     """
+    Ultimate analysis.
+
     Ultimate analysis values expressed as different bases. Such bases are
     as-determined (ad), as-received (ar), dry (d), and dry ash-free (daf).
 
@@ -55,29 +61,34 @@ class Ultimate:
         self.ADL = ADL
         self.HO = HO
 
-        if basis == 'ad':
+        if basis == "ad":
             self.ad_basis = np.array(vals)
             self._convert_from_ad()
-        elif basis == 'ar':
+        elif basis == "ar":
             self.ar_basis = np.array(vals)
             self._convert_from_ar()
         else:
             raise ValueError("Basis must be 'ad' or 'ar'")
 
     def __str__(self):
+        """
+        Return string representation.
+        """
         ad = self.ad_basis
         ar = self.ar_basis
         d = self.d_basis
         daf = self.daf_basis
-        s = '            ad        ar        d        daf\n' \
-            f'C    {ad[0]:>10.2f}{ar[0]:>10.2f}{d[0]:>10.2f}{daf[0]:>10.2f}\n' \
-            f'H    {ad[1]:>10.2f}{ar[1]:>10.2f}{d[1]:>10.2f}{daf[1]:>10.2f}\n' \
-            f'O    {ad[2]:>10.2f}{ar[2]:>10.2f}{d[2]:>10.2f}{daf[2]:>10.2f}\n' \
-            f'N    {ad[3]:>10.2f}{ar[3]:>10.2f}{d[3]:>10.2f}{daf[3]:>10.2f}\n' \
-            f'S    {ad[4]:>10.2f}{ar[4]:>10.2f}{d[4]:>10.2f}{daf[4]:>10.2f}\n' \
-            f'ash  {ad[5]:>10.2f}{ar[5]:>10.2f}{d[5]:>10.2f}{"-":>10}\n' \
-            f'moisture {ad[6]:>6.2f}{ar[6]:>10.2f}{"-":>10}{"-":>10}\n' \
+        s = (
+            '            ad        ar        d        daf\n'
+            f'C    {ad[0]:>10.2f}{ar[0]:>10.2f}{d[0]:>10.2f}{daf[0]:>10.2f}\n'
+            f'H    {ad[1]:>10.2f}{ar[1]:>10.2f}{d[1]:>10.2f}{daf[1]:>10.2f}\n'
+            f'O    {ad[2]:>10.2f}{ar[2]:>10.2f}{d[2]:>10.2f}{daf[2]:>10.2f}\n'
+            f'N    {ad[3]:>10.2f}{ar[3]:>10.2f}{d[3]:>10.2f}{daf[3]:>10.2f}\n'
+            f'S    {ad[4]:>10.2f}{ar[4]:>10.2f}{d[4]:>10.2f}{daf[4]:>10.2f}\n'
+            f'ash  {ad[5]:>10.2f}{ar[5]:>10.2f}{d[5]:>10.2f}{"-":>10}\n'
+            f'moisture {ad[6]:>6.2f}{ar[6]:>10.2f}{"-":>10}{"-":>10}\n'
             f'total {sum(ad):>9.2f}{sum(ar):>10.2f}{sum(d):>10.2f}{sum(daf):>10.2f}'
+        )
         return s
 
     def _convert_from_ad(self):

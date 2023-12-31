@@ -1,9 +1,17 @@
+"""
+Functions for wood properties.
+"""
+
 
 def cp_wood(x, tk):
-    """
+    r"""
+    Wood heat capacity.
+
     Heat capacity of wood based on moisture content and temperature
 
-    .. math:: c_{p,x} = \\left(c_{p0} + c_{pw} \\frac{x}{100}\\right) / \\left(1 + \\frac{x}{100}\\right) + A_c
+    .. math::
+
+       c_{p,x} = \left(c_{p0} + c_{pw} \frac{x}{100}\right) / \left(1 + \frac{x}{100}\right) + A_c
 
     where :math:`c_{p,x}` is heat capacity of wet wood [kJ/(kg K)],
     :math:`c_{p0}` is heat capacity of dry wood [kJ/(kg K)], :math:`c_{pw}` is
@@ -13,13 +21,14 @@ def cp_wood(x, tk):
 
     The :math:`c_{p0}` term is determined from
 
-    .. math:: c_{p0} = 0.1031 + 0.003867\\,T
+    .. math:: c_{p0} = 0.1031 + 0.003867\,T
 
     where :math:`T` is temperature in Kelvin. The :math:`A_c` term is calculated from
 
     .. math:: A_c = x (b_1 + b_2 T + b_3 x)
 
-    with :math:`b_1 = -0.06191`, :math:`b_2 = 2.36e\\times10^{-4}`, and :math:`b_3 = -1.33\\times10^{-4}`.
+    with :math:`b_1 = -0.06191`, :math:`b_2 = 2.36e\times10^{-4}`,
+    and :math:`b_3 = -1.33\times10^{-4}`.
 
     Parameters
     ----------
@@ -44,7 +53,6 @@ def cp_wood(x, tk):
        Physical Properties of Wood. Chapter 4 in Wood Handbook, pp. 1-19,
        2010.
     """
-
     cpw = 4.18  # heat capacity of water, kJ/(kg K)
 
     # coefficients for adjustment factor Ac
@@ -65,7 +73,9 @@ def cp_wood(x, tk):
 
 
 def k_wood(gb, so, x):
-    """
+    r"""
+    Wood thermal conductivity.
+
     Thermal conductivity of wood based on moisture content, volumetric
     shrinkage, and basic specific gravity
 
@@ -77,14 +87,14 @@ def k_wood(gb, so, x):
 
     The :math:`G_x` term is determined from
 
-    .. math:: G_x = \\frac{G_b}{1 - S_x / 100}
+    .. math:: G_x = \frac{G_b}{1 - S_x / 100}
 
     where :math:`G_b` is basic specific gravity [-] and :math:`S_x` is
     volumetric shrinkage [%] from green condition to moisture content :math:`x`.
 
     The :math:`S_x` term is calculated from
 
-    .. math:: S_x = S_o \\left(1 - \\frac{x}{MC_{fs}} \\right)
+    .. math:: S_x = S_o \left(1 - \frac{x}{MC_{fs}} \right)
 
     where :math:`S_o` is volumetric shrinkage [%] from Table 4-3 [2]_ and :math:`MC_{fs}`
     is the fiber saturation point assumed to be 30% moisture content.
@@ -114,8 +124,7 @@ def k_wood(gb, so, x):
        Physical Properties of Wood. Chapter 4 in Wood Handbook, pp. 1-19,
        2010.
     """
-
-    mcfs = 30   # fiber staturation point estimate [%]
+    mcfs = 30  # fiber staturation point estimate [%]
 
     # shrinkage from green to final moisture content, Eq. 4-7 [%]
     sx = so * (1 - x / mcfs)

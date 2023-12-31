@@ -21,3 +21,13 @@ classifiers = [
 
 [tool.hatch.version]
 path = "src/chemics/__init__.py"
+
+[tool.ruff]
+line-length = 100
+
+[tool.ruff.lint]
+extend-select = ["E501", "D"]
+ignore = ["D200", "D212"]
+
+[tool.ruff.lint.pydocstyle]
+convention = "numpy"

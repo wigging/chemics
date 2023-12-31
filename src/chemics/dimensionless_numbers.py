@@ -1,17 +1,22 @@
+"""
+Functions for dimensionless numbers.
+"""
+
+
 def archimedes(dp, rhog, rhos, mu):
-    """
+    r"""
     Calculate the dimensionless Archimedes number.
 
-    .. math:: Ar = \\frac{d_p^3 \\rho_g (\\rho_s - \\rho_g) g}{\\mu^2}
+    .. math:: Ar = \frac{d_p^3 \rho_g (\rho_s - \rho_g) g}{\mu^2}
 
     Parameters
     ----------
     dp : float
         Particle diameter in meters
     rhog : float
-        Gas density in kg/m\\ :sup:`3`
+        Gas density in kg/m\ :sup:`3`
     rhos : float
-        Solid density in kg/m\\ :sup:`3`
+        Solid density in kg/m\ :sup:`3`
     mu : float
         Dynamic viscosity in kg/(m⋅s)
 
@@ -30,21 +35,21 @@ def archimedes(dp, rhog, rhos, mu):
     Daizo Kunii and Octave Levenspiel. Fluidization Engineering.
     Butterworth-Heinemann, 2nd edition, 1991.
     """
-    g = 9.81    # gravity acceleration in m/s²
+    g = 9.81  # gravity acceleration in m/s²
     ar = (dp**3 * rhog * (rhos - rhog) * g) / (mu**2)
     return ar
 
 
 def biot(h, d, k):
-    """
+    r"""
     Calculate the dimensionless Biot number.
 
-    .. math:: Bi = \\frac{h\\, d}{k}
+    .. math:: Bi = \frac{h\, d}{k}
 
     Parameters
     ----------
     h : float
-        Convective heat transfer coefficient in W/(m\\ :sup:`2`\\ ⋅K)
+        Convective heat transfer coefficient in W/(m\ :sup:`2`\ ⋅K)
     d : float
         Characteristic length or dimension in meters
     k : float
@@ -70,13 +75,13 @@ def biot(h, d, k):
 
 
 def peclet(ui, L, Dax):
-    """
+    r"""
     Calculate the dimensionless Peclet number for mass transfer.
 
     The Peclet number is defined as the ratio between the bulk mass transport
     (convection) and the molecular diffusion.
 
-    .. math:: Pe = \\frac{u_i L}{D_{ax}}
+    .. math:: Pe = \frac{u_i L}{D_{ax}}
 
     Parameters
     ----------
@@ -85,7 +90,7 @@ def peclet(ui, L, Dax):
     L : float
         Length or characteristic dimension in meters
     Dax : float
-        Axial dispersion coefficient in m\\ :sup:`2`\\ /s
+        Axial dispersion coefficient in m\ :sup:`2`\ /s
 
     Returns
     -------
@@ -107,10 +112,10 @@ def peclet(ui, L, Dax):
 
 
 def prandtl(cp=None, mu=None, k=None, nu=None, alpha=None):
-    """
+    r"""
     Calculate the dimensionless Prandtl number for a fluid or gas.
 
-    .. math:: Pr = \\frac{c_p \\mu}{k} = \\frac{\\nu}{\\alpha}
+    .. math:: Pr = \frac{c_p \mu}{k} = \frac{\nu}{\alpha}
 
     Parameters
     ----------
@@ -121,9 +126,9 @@ def prandtl(cp=None, mu=None, k=None, nu=None, alpha=None):
     k : float
         Thermal conductivity in W/(m⋅K)
     nu : float, optional
-        Kinematic viscosity in m\\ :sup:`2`\\ /s
+        Kinematic viscosity in m\ :sup:`2`\ /s
     alpha : float, optional
-        Thermal diffusivity in m\\ :sup:`2`\\ /s
+        Thermal diffusivity in m\ :sup:`2`\ /s
 
     Returns
     -------
@@ -153,16 +158,16 @@ def prandtl(cp=None, mu=None, k=None, nu=None, alpha=None):
     elif nu and alpha:
         pr = nu / alpha
     else:
-        raise ValueError('Must provide (cp, mu, k) or (nu, alpha)')
+        raise ValueError("Must provide (cp, mu, k) or (nu, alpha)")
 
     return pr
 
 
 def pyrolysis_one(k, kr, rho, cp, r):
-    """
+    r"""
     Calculate the pyrolysis number Py I for a biomass particle.
 
-    .. math:: Py^I = \\frac{k}{\\rho\\,C_p\\,R^2\\,K}
+    .. math:: Py^I = \frac{k}{\rho\,C_p\,R^2\,K}
 
     Parameters
     ----------
@@ -171,7 +176,7 @@ def pyrolysis_one(k, kr, rho, cp, r):
     kr : float
         Rate constant in 1/s
     rho : float
-        Density of the biomass particle in kg/m\\ :sup:`3`
+        Density of the biomass particle in kg/m\ :sup:`3`
     cp : float
         Heat capacity of the biomass particle in J/(kg⋅K)
     r : float
@@ -198,19 +203,19 @@ def pyrolysis_one(k, kr, rho, cp, r):
 
 
 def pyrolysis_two(h, kr, rho, cp, r):
-    """
+    r"""
     Calculate the pyrolysis number Py II for a biomass particle.
 
-    .. math:: Py^{II} = \\frac{h}{\\rho\\,C_p\\,R\\,K}
+    .. math:: Py^{II} = \frac{h}{\rho\,C_p\,R\,K}
 
     Parameters
     ----------
     h : float
-        Convective heat transfer coefficient in W/m\\ :sup:`2`\\ K
+        Convective heat transfer coefficient in W/m\ :sup:`2`\ K
     kr : float
         Rate constant in 1/s
     rho : float
-        Density of the biomass particle in kg/m\\ :sup:`3`
+        Density of the biomass particle in kg/m\ :sup:`3`
     cp : float
         Heat capacity of the biomass particle in J/(kg⋅K)
     r : float
@@ -237,10 +242,10 @@ def pyrolysis_two(h, kr, rho, cp, r):
 
 
 def reynolds(u, d, rho=None, mu=None, nu=None):
-    """
+    r"""
     Calculate the dimensionless Reynolds number for a fluid or gas flow.
 
-    .. math:: Re = \\frac{\\rho\\, u\\, d}{\\mu} = \\frac{u\\, d}{\\nu}
+    .. math:: Re = \frac{\rho\, u\, d}{\mu} = \frac{u\, d}{\nu}
 
     Parameters
     ----------
@@ -249,11 +254,11 @@ def reynolds(u, d, rho=None, mu=None, nu=None):
     d : float
         Characteristic length or dimension in meters
     rho : float, optional
-        Density of the fluid or gas in kg/m\\ :sup:`3`
+        Density of the fluid or gas in kg/m\ :sup:`3`
     mu : float, optional
         Dynamic viscosity of the fluid or gas in kg/(m⋅s)
     nu : float, optional
-        Kinematic viscosity of the fluid or gas in m\\ :sup:`2`\\ /s
+        Kinematic viscosity of the fluid or gas in m\ :sup:`2`\ /s
 
     Returns
     -------
@@ -283,28 +288,28 @@ def reynolds(u, d, rho=None, mu=None, nu=None):
     elif nu and not rho and not mu:
         re = (u * d) / nu
     else:
-        raise ValueError('Must provide (u, d, rho, mu) or (u, d, nu)')
+        raise ValueError("Must provide (u, d, rho, mu) or (u, d, nu)")
 
     return re
 
 
 def schmidt(mu, rho, Dm):
-    """
+    r"""
     Calculate the dimensionless Schmidt number.
 
     The Schmidt number represents the ratio between momentum diffusivity
     (kinematic viscosity) and mass diffusivity.
 
-    .. math:: Sc = \\frac{\\mu}{\\rho D_m}
+    .. math:: Sc = \frac{\mu}{\rho D_m}
 
     Parameters
     ----------
     mu : float
         Viscosity of the fluid flowing through the packed bed in Pa⋅s
     rho : float
-        Density of the fluid flowing through the packed bed in kg/m\\ :sup:`3`
+        Density of the fluid flowing through the packed bed in kg/m\ :sup:`3`
     Dm : float
-        Molecular diffusion coefficient in m\\ :sup:`2`\\ /s
+        Molecular diffusion coefficient in m\ :sup:`2`\ /s
 
     Returns
     -------
@@ -326,13 +331,13 @@ def schmidt(mu, rho, Dm):
 
 
 def sherwood(k, d, Dm):
-    """
+    r"""
     Calculate the dimensionless Sherwood number.
 
     The Sherwood number represents the ratio between the convective mass
     transfer and the rate of diffusive mass transport.
 
-    .. math:: Sh = \\frac{k d}{D_m}
+    .. math:: Sh = \frac{k d}{D_m}
 
     Parameters
     ----------
@@ -341,7 +346,7 @@ def sherwood(k, d, Dm):
     d : float
         Particle diameter or characteristic length in meters
     Dm : float
-        Molecular diffusion coefficient in m\\ :sup:`2`\\ /s
+        Molecular diffusion coefficient in m\ :sup:`2`\ /s
 
     Returns
     -------
@@ -363,7 +368,9 @@ def sherwood(k, d, Dm):
 
 
 def flow_regime(Re=None, u=None, d=None, rho=None, mu=None, nu=None):
-    """
+    r"""
+    Flow regime.
+
     Determine flow regime (laminar, transitional or turbulent) considering the
     Reynolds number boundaries for the case of a straight, non-smooth pipe.
 
@@ -380,11 +387,11 @@ def flow_regime(Re=None, u=None, d=None, rho=None, mu=None, nu=None):
     d : float, optional
         Characteristic length or dimension in meters
     rho : float, optional
-        Density of the fluid or gas in kg/m\\ :sup:`3`
+        Density of the fluid or gas in kg/m\ :sup:`3`
     mu : float, optional
         Dynamic viscosity of the fluid or gas in kg/(m⋅s)
     nu : float, optional
-        Kinematic viscosity of the fluid or gas in m\\ :sup:`2`\\ /s
+        Kinematic viscosity of the fluid or gas in m\ :sup:`2`\ /s
 
     Returns
     -------
@@ -416,14 +423,14 @@ def flow_regime(Re=None, u=None, d=None, rho=None, mu=None, nu=None):
         if (rho and mu and not nu) or (nu and not rho and not mu):
             Re = reynolds(u, d, rho=rho, mu=mu, nu=nu)
         else:
-            raise ValueError(
-                'Must provide Re or (u, d, rho, mu) or (u, d, nu)'
-            )
+            raise ValueError("Must provide Re or (u, d, rho, mu) or (u, d, nu)")
     if Re < 2100:
-        regime = 'laminar'
+        regime = "laminar"
     elif 2100 <= Re <= 4000:
-        regime = 'transitional'
+        regime = "transitional"
     elif Re > 4000:
-        regime = 'turbulent'
+        regime = "turbulent"
+    else:
+        regime = ""
 
     return regime

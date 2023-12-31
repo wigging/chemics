@@ -1,9 +1,15 @@
+"""
+Function to calculate molecular weight.
+"""
+
 import re
 from .atomic_elements import atomic_elements
 
 
 def _find_end(tokens):
     """
+    Find tokens.
+
     Find index of closing parenthesis. Based on function from Rhomboid at
     https://gist.github.com/Rhomboid/5994999.
 
@@ -20,18 +26,20 @@ def _find_end(tokens):
     count = 0
 
     for idx, t in enumerate(tokens):
-        if t == ')':
+        if t == ")":
             count -= 1
             if count == 0:
                 return idx
-        elif t == '(':
+        elif t == "(":
             count += 1
 
-    raise ValueError('Unmatched parentheses')
+    raise ValueError("Unmatched parentheses")
 
 
 def _parse(tokens, stack):
     """
+    Parse items.
+
     Parse items in formula list. Get atomic weight of each item or multiply by
     number of elements. Final value is molecular weight of the formula. Based
     on function from Rhomboid at https://gist.github.com/Rhomboid/5994999.
@@ -54,12 +62,12 @@ def _parse(tokens, stack):
 
     t = tokens[0]
 
-    if t == '(':
+    if t == "(":
         end = _find_end(tokens)
         stack.append(_parse(tokens[1:end], []))
-        return _parse(tokens[end + 1:], stack)
+        return _parse(tokens[end + 1 :], stack)
     elif t in atomic_elements:
-        stack.append(atomic_elements[t]['atomic_weight'])
+        stack.append(atomic_elements[t]["atomic_weight"])
     elif t.isdigit():
         stack[-1] *= int(t)
 
@@ -68,6 +76,8 @@ def _parse(tokens, stack):
 
 def molecular_weight(formula):
     """
+    Molecular weight.
+
     Tokenize a molecular formula to determine total molecular weight.
     Calculation is based on atomic weight values from IUPAC [1]_.
 
@@ -98,6 +108,6 @@ def molecular_weight(formula):
        and Applied Chemistry, 2016.
        https://iupac.org/what-we-do/periodic-table-of-elements/.
     """
-    tokens = re.findall(r'[A-Z][a-z]*|\d+|\(|\)', formula)
+    tokens = re.findall(r"[A-Z][a-z]*|\d+|\(|\)", formula)
     molecular_weight = _parse(tokens, [])
     return molecular_weight

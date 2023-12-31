@@ -1,3 +1,7 @@
+"""
+Class for gas properties.
+"""
+
 import pandas as pd
 from pathlib import Path
 
@@ -11,7 +15,7 @@ def _check_temperature(formula, temperature, limits):
     tmin = limits[0]
     tmax = limits[1]
     if temperature < tmin or temperature > tmax:
-        msg = f'Temperature {temperature} K is out of range {tmin}-{tmax} K for {formula} gas'
+        msg = f"Temperature {temperature} K is out of range {tmin}-{tmax} K for {formula} gas"
         raise ValueError(msg)
 
 
@@ -25,14 +29,14 @@ def _get_row(csv_file, formula, cas_number):
     if cas_number:
         row = df.query(f"CAS == '{cas_number}'")
         if len(row) == 0:
-            raise ValueError(f'CAS number {cas_number} not found')
+            raise ValueError(f"CAS number {cas_number} not found")
     else:
         row = df.query(f"Formula == '{formula}'")
         if len(row) > 1:
-            raise ValueError(f'Multiple substances available for {formula}. '
-                             'Include CAS number with input parameters.')
+            m = f"Multiple substances available for {formula}. Include CAS number too."
+            raise ValueError(m)
         elif len(row) == 0:
-            raise ValueError(f'Formula {formula} not found')
+            raise ValueError(f"Formula {formula} not found")
 
     return row
 
@@ -77,19 +81,21 @@ class Gas:
         # The state is checked for subsequent runs to avoid lookup time
         # Expects a dictionary such as
         # state = {'method': 'yaws', 'coefficients': (1, 2, 3), 'limits': (200, 6000)}
-        self._cp_state = {'method': None, 'coefficients': None, 'limits': None}
-        self._k_state = {'method': None, 'coefficients': None, 'limits': None}
-        self._mu_state = {'method': None, 'coefficients': None, 'limits': None}
+        self._cp_state = {"method": None, "coefficients": None, "limits": None}
+        self._k_state = {"method": None, "coefficients": None, "limits": None}
+        self._mu_state = {"method": None, "coefficients": None, "limits": None}
 
     def density(self):
-        """
+        r"""
+        Gas density.
+
         Calculate gas density using the molecular weight, pressure, and
         temperature of the gas.
 
         Returns
         -------
         rho : float
-            Density of the gas in kg/m\\ :sup:`3`.
+            Density of the gas in kg/m\ :sup:`3`.
 
         Examples
         --------
@@ -98,17 +104,19 @@ class Gas:
         0.4416...
         """
         mw = self.molecular_weight / 1000  # convert g/mol to kg/mol
-        r = 8.3145                         # ideal gas constant in (m^3⋅Pa)/(K⋅mol)
+        r = 8.3145  # ideal gas constant in (m^3⋅Pa)/(K⋅mol)
         rho = (self.pressure * mw) / (r * self.temperature)
         return rho
 
     def heat_capacity(self):
-        """
+        r"""
+        Gas heat capacity.
+
         Calculate gas heat capacity as a function of temperature using Yaws'
         coefficients [1]_. The CAS (Chemical Abstracts Service) number may be
         required for some species.
 
-        .. math:: C_p = A + B\\,T + C\\,T^2 + D\\,T^3 + E\\,T^4 + F\\,T^5 + G\\,T^6
+        .. math:: C_p = A + B\,T + C\,T^2 + D\,T^3 + E\,T^4 + F\,T^5 + G\,T^6
 
         Raises
         ------
@@ -146,41 +154,60 @@ class Gas:
            Critical Property Data for Chemical Engineers and Chemists. Published
            by Knovel, 2014.
         """
-
         # Use coefficients if already set from a previous run
         # This avoids lookup time when method is called multiple times
 
-        if self._cp_state['method'] == 'yaws':
-            _check_temperature(self.formula, self.temperature, self._cp_state['limits'])
-            a, b, c, d, e, f, g = self._cp_state['coefficients']
-            cp = (a + (b * self.temperature) + (c * self.temperature**2) + (d * self.temperature**3)
-                  + (e * self.temperature**4) + (f * self.temperature**5) + (g * self.temperature**6))
+        if self._cp_state["method"] == "yaws":
+            _check_temperature(self.formula, self.temperature, self._cp_state["limits"])
+            a, b, c, d, e, f, g = self._cp_state["coefficients"]
+            cp = (
+                a
+                + (b * self.temperature)
+                + (c * self.temperature**2)
+                + (d * self.temperature**3)
+                + (e * self.temperature**4)
+                + (f * self.temperature**5)
+                + (g * self.temperature**6)
+            )
             return cp
 
         # Lookup coefficients then calculate heat capacity
 
-        row = _get_row('data/gas-cp-yaws.csv', self.formula, self.cas_number)
+        row = _get_row("data/gas-cp-yaws.csv", self.formula, self.cas_number)
 
-        tmin = row['Tmin'].iloc[0]
-        tmax = row['Tmax'].iloc[0]
+        tmin = row["Tmin"].iloc[0]
+        tmax = row["Tmax"].iloc[0]
         _check_temperature(self.formula, self.temperature, (tmin, tmax))
 
-        a = row['A'].iloc[0]
-        b = row['B'].iloc[0]
-        c = row['C'].iloc[0]
-        d = row['D'].iloc[0]
-        e = row['E'].iloc[0]
-        f = row['F'].iloc[0]
-        g = row['G'].iloc[0]
-        cp = (a + (b * self.temperature) + (c * self.temperature**2) + (d * self.temperature**3)
-              + (e * self.temperature**4) + (f * self.temperature**5) + (g * self.temperature**6))
+        a = row["A"].iloc[0]
+        b = row["B"].iloc[0]
+        c = row["C"].iloc[0]
+        d = row["D"].iloc[0]
+        e = row["E"].iloc[0]
+        f = row["F"].iloc[0]
+        g = row["G"].iloc[0]
+        cp = (
+            a
+            + (b * self.temperature)
+            + (c * self.temperature**2)
+            + (d * self.temperature**3)
+            + (e * self.temperature**4)
+            + (f * self.temperature**5)
+            + (g * self.temperature**6)
+        )
 
-        self._cp_state = {'method': 'yaws', 'coefficients': (a, b, c, d, e, f, g), 'limits': (tmin, tmax)}
+        self._cp_state = {
+            "method": "yaws",
+            "coefficients": (a, b, c, d, e, f, g),
+            "limits": (tmin, tmax),
+        }
 
         return cp
 
     def thermal_conductivity(self):
         """
+        Gas thermal conductivity.
+
         Calculate gas thermal conductivity as a function of temperature using
         Yaws' coefficients [2]_. The CAS (Chemical Abstracts Service) number
         may be required for some species.
@@ -217,36 +244,37 @@ class Gas:
            Critical Property Data for Chemical Engineers and Chemists. Published
            by Knovel, 2014.
         """
-
         # Use coefficients if already set from a previous run
         # This avoids lookup time when method is called multiple times
 
-        if self._k_state['method'] == 'yaws':
-            _check_temperature(self.formula, self.temperature, self._k_state['limits'])
-            a, b, c, d = self._k_state['coefficients']
+        if self._k_state["method"] == "yaws":
+            _check_temperature(self.formula, self.temperature, self._k_state["limits"])
+            a, b, c, d = self._k_state["coefficients"]
             k = a + (b * self.temperature) + (c * self.temperature**2) + (d * self.temperature**3)
             return k
 
         # Lookup coefficients then calculate thermal conductivity
 
-        row = _get_row('data/gas-k-yaws.csv', self.formula, self.cas_number)
+        row = _get_row("data/gas-k-yaws.csv", self.formula, self.cas_number)
 
-        tmin = row['Tmin'].iloc[0]
-        tmax = row['Tmax'].iloc[0]
+        tmin = row["Tmin"].iloc[0]
+        tmax = row["Tmax"].iloc[0]
         _check_temperature(self.formula, self.temperature, (tmin, tmax))
 
-        a = row['A'].iloc[0]
-        b = row['B'].iloc[0]
-        c = row['C'].iloc[0]
-        d = row['D'].iloc[0]
+        a = row["A"].iloc[0]
+        b = row["B"].iloc[0]
+        c = row["C"].iloc[0]
+        d = row["D"].iloc[0]
         k = a + (b * self.temperature) + (c * self.temperature**2) + (d * self.temperature**3)
 
-        self._k_state = {'method': 'yaws', 'coefficients': (a, b, c, d), 'limits': (tmin, tmax)}
+        self._k_state = {"method": "yaws", "coefficients": (a, b, c, d), "limits": (tmin, tmax)}
 
         return k
 
-    def viscosity(self, method='yaws'):
-        """
+    def viscosity(self, method="yaws"):
+        r"""
+        Gas viscosity.
+
         Calculate gas viscosity as a function of temperature using Ludwig's
         coefficients [3]_ or Yaws' coefficients [4]_. The CAS
         (Chemical Abstracts Service) number may be required for some
@@ -254,11 +282,11 @@ class Gas:
 
         The Ludwig coefficients are used with the following correlation
 
-        .. math:: \\mu = A + B\\,T + C\\,T^2
+        .. math:: \mu = A + B\,T + C\,T^2
 
         The Yaws coefficients are used with the following correlation
 
-        .. math:: \\mu = A + B\\,T + C\\,T^2 + D\\,T^3
+        .. math:: \mu = A + B\,T + C\,T^2 + D\,T^3
 
         Parameters
         ----------
@@ -313,49 +341,48 @@ class Gas:
            Property Data for Chemical Engineers and Chemists. Published by Knovel,
            2014.
         """
-
         # Use coefficients if already set from a previous run
         # This avoids lookup time when method is called multiple times
 
-        if self._mu_state['method'] == 'yaws':
-            _check_temperature(self.formula, self.temperature, self._mu_state['limits'])
-            a, b, c, d = self._mu_state['coefficients']
+        if self._mu_state["method"] == "yaws":
+            _check_temperature(self.formula, self.temperature, self._mu_state["limits"])
+            a, b, c, d = self._mu_state["coefficients"]
             mu = a + (b * self.temperature) + (c * self.temperature**2) + (d * self.temperature**3)
             return mu
 
-        if self._mu_state['method'] == 'ludwig':
-            _check_temperature(self.formula, self.temperature, self._mu_state['limits'])
-            a, b, c = self._mu_state['coefficients']
+        if self._mu_state["method"] == "ludwig":
+            _check_temperature(self.formula, self.temperature, self._mu_state["limits"])
+            a, b, c = self._mu_state["coefficients"]
             mu = a + (b * self.temperature) + (c * self.temperature**2)
             return mu
 
         # Lookup coefficients then calculate viscosity
 
-        if method == 'yaws':
-            row = _get_row('data/gas-viscosity-yaws.csv', self.formula, self.cas_number)
-        elif method == 'ludwig':
-            row = _get_row('data/gas-viscosity-ludwig.csv', self.formula, self.cas_number)
+        if method == "yaws":
+            row = _get_row("data/gas-viscosity-yaws.csv", self.formula, self.cas_number)
+        elif method == "ludwig":
+            row = _get_row("data/gas-viscosity-ludwig.csv", self.formula, self.cas_number)
         else:
-            raise ValueError('Method not available. Choose yaws or ludwig.')
+            raise ValueError("Method not available. Choose yaws or ludwig.")
 
-        tmin = row['Tmin'].iloc[0]
-        tmax = row['Tmax'].iloc[0]
+        tmin = row["Tmin"].iloc[0]
+        tmax = row["Tmax"].iloc[0]
         _check_temperature(self.formula, self.temperature, (tmin, tmax))
 
-        if method == 'yaws':
-            a = row['A'].iloc[0]
-            b = row['B'].iloc[0]
-            c = row['C'].iloc[0]
-            d = row['D'].iloc[0]
+        if method == "yaws":
+            a = row["A"].iloc[0]
+            b = row["B"].iloc[0]
+            c = row["C"].iloc[0]
+            d = row["D"].iloc[0]
             mu = a + b * self.temperature + c * (self.temperature**2) + d * (self.temperature**3)
             coeffs = a, b, c, d
-        elif method == 'ludwig':
-            a = row['A'].iloc[0]
-            b = row['B'].iloc[0]
-            c = row['C'].iloc[0]
+        elif method == "ludwig":
+            a = row["A"].iloc[0]
+            b = row["B"].iloc[0]
+            c = row["C"].iloc[0]
             mu = a + (b * self.temperature) + (c * self.temperature**2)
             coeffs = a, b, c
 
-        self._mu_state = {'method': method, 'coefficients': coeffs, 'limits': (tmin, tmax)}
+        self._mu_state = {"method": method, "coefficients": coeffs, "limits": (tmin, tmax)}
 
         return mu

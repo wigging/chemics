@@ -1,3 +1,7 @@
+"""
+Class for gas mixture properties.
+"""
+
 import numpy as np
 
 
@@ -26,10 +30,10 @@ class GasMixture:
     ValueError
         If sum of mole fractions does not equal 1.
     """
-    def __init__(self, gases, mole_fractions):
 
+    def __init__(self, gases, mole_fractions):
         if not np.isclose(sum(mole_fractions), 1.0):
-            raise ValueError('Sum of mole fractions must be 1')
+            raise ValueError("Sum of mole fractions must be 1")
 
         n = len(gases)
         molecular_weights = np.zeros(n)
@@ -67,23 +71,27 @@ class GasMixture:
         mw_mixture = np.average(mw_gases, weights=x_gases)
         return mw_mixture
 
-    def viscosity(self, method='graham'):
-        """
+    def viscosity(self, method="graham"):
+        r"""
+        Gas mixture viscosity.
+
         Calculate viscosity of the gas mixture using Graham's method [1]_ or
         the Herning and Zipperer method [2]_. For the Graham method, Equation
         1 from the Davidson report [3]_ is used
 
-        .. math:: \\mu_{mix} = \\sum (x_i \\cdot \\mu_i)
+        .. math:: \mu_{mix} = \sum (x_i \cdot \mu_i)
 
-        where :math:`\\mu_{mix}` is viscosity of the gas mixture, :math:`x_i`
-        is mole fraction [-] of each component, and :math:`\\mu_i` is gas
+        where :math:`\mu_{mix}` is viscosity of the gas mixture, :math:`x_i`
+        is mole fraction [-] of each component, and :math:`\mu_i` is gas
         viscosity of each component. For the Herning and Zipperer method,
         Equation 1 from the Davidson report is used
 
-        .. math:: \\mu_{mix} = \\frac{\\sum (\\mu_i \\cdot x_i \\cdot \\sqrt{MW_i})}{\\sum (x_i \\cdot \\sqrt{MW_i})}
+        .. math::
 
-        where :math:`\\mu_{mix}` is viscosity of the gas mixture, :math:`x_i`
-        is mole fraction [-] of each component, :math:`\\mu_i` is gas
+           \mu_{mix} = \frac{\sum (\mu_i \cdot x_i \cdot \sqrt{MW_i})}{\sum (x_i \cdot \sqrt{MW_i})}
+
+        where :math:`\mu_{mix}` is viscosity of the gas mixture, :math:`x_i`
+        is mole fraction [-] of each component, :math:`\mu_i` is gas
         viscosity of each component, and :math:`MW_i` is the molecular
         weight [g/mol] of each gas component.
 
@@ -127,11 +135,13 @@ class GasMixture:
         mu_gases = self.viscosities
         x_gases = self.mole_fractions
 
-        if method == 'graham':
+        if method == "graham":
             mu_mixture = np.sum(mu_gases * x_gases)
-        elif method == 'herning':
-            mu_mixture = np.sum(mu_gases * x_gases * np.sqrt(mw_gases)) / np.sum(x_gases * np.sqrt(mw_gases))
+        elif method == "herning":
+            mu_mixture = np.sum(mu_gases * x_gases * np.sqrt(mw_gases)) / np.sum(
+                x_gases * np.sqrt(mw_gases)
+            )
         else:
-            raise ValueError('Method not available. Choose graham or herning.')
+            raise ValueError("Method not available. Choose graham or herning.")
 
         return mu_mixture

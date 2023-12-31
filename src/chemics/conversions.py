@@ -1,16 +1,19 @@
+"""
+Functions for unit conversions.
+"""
+
 import numpy as np
 
 
 def massfrac_to_molefrac(y, mw):
-    """
-    Convert from mass fractions to mole fractions. Calculation assumes a total
-    mass of 100 g.
+    r"""
+    Convert mass fraction to mole fraction. Assumes a total mass of 100 grams.
 
     .. math::
 
-       m_i = y_i \\times 100
+       m_i = y_i \times 100
 
-       x_i = \\frac{\\frac{m_i}{MW_i}}{\\sum\\frac{m_i}{MW_i}}
+       x_i = \frac{\frac{m_i}{MW_i}}{\sum\frac{m_i}{MW_i}}
 
     where :math:`m` is mass [g], :math:`y` is mass fraction [-], :math:`x` is
     mole fraction [-], and :math:`MW` is molecular weight [g/mol] of each
@@ -35,13 +38,12 @@ def massfrac_to_molefrac(y, mw):
     >>> cm.massfrac_to_molefrac(y, mw)
     array([0.135..., 0.717..., 0.056..., 0.090...])
     """
-
     # convert inputs to NumPy arrays
     y = np.asarray(y)
     mw = np.asarray(mw)
 
     if not np.isclose(y.sum(), 1.0):
-        raise ValueError('Sum of mass fractions must be 1.0')
+        raise ValueError("Sum of mass fractions must be 1.0")
 
     # mass of each component assuming 100 total grams [g]
     m = y * 100
@@ -53,15 +55,14 @@ def massfrac_to_molefrac(y, mw):
 
 
 def molefrac_to_massfrac(x, mw):
-    """
-    Convert from mole fractions to mass fractions. Calculation assumes total
-    moles is 100.
+    r"""
+    Convert mole fraction to mass fraction. Assumes total moles is 100.
 
     .. math::
 
-       n_i &= x_i \\times 100
+       n_i &= x_i \times 100
 
-       y_i &= \\frac{n_i\\, MW_i}{\\sum n_i\\, MW_i}
+       y_i &= \frac{n_i\, MW_i}{\sum n_i\, MW_i}
 
     where :math:`n` is moles [mol], :math:`x` is mole fraction [-], :math:`y`
     is mass fraction [-], and :math:`MW` is molecular weight [g/mol] of each
@@ -86,13 +87,12 @@ def molefrac_to_massfrac(x, mw):
     >>> cm.molefrac_to_massfrac(x, mw)
     array([0.372..., 0.0138..., 0.275..., 0.337...])
     """
-
     # convert inputs to NumPy arrays
     x = np.asarray(x)
     mw = np.asarray(mw)
 
     if not np.isclose(x.sum(), 1.0):
-        raise ValueError('Sum of mole fractions must be 1.0')
+        raise ValueError("Sum of mole fractions must be 1.0")
 
     # moles of each component assuming 100 total moles [mol]
     n = x * 100
@@ -104,13 +104,15 @@ def molefrac_to_massfrac(x, mw):
 
 
 def slm_to_lpm(slm, pgas, tgas):
-    """
+    r"""
+    Convert volumetric gas flow.
+
     Convert volumetric gas flow from standard liters per minute (SLM or SLPM)
-    to liters per minute (LPM) where STP defined as 273.25 K and 101,325 Pa.
+    to liters per minute (LPM) where STP is defined as 273.25 K and 101,325 Pa.
 
     .. math::
 
-       1 LPM = 1 SLPM \\times \\frac{T_{gas}}{273.15\\,K} \\times \\frac{14.696\\,psi}{P_{gas}}
+       1\; LPM = 1\; SLPM \times \frac{T_{gas}}{273.15\,K} \times \frac{14.696\,psi}{P_{gas}}
 
     Parameters
     ----------
@@ -137,7 +139,6 @@ def slm_to_lpm(slm, pgas, tgas):
     In Wikipedia online. Retrieved from
     https://en.wikipedia.org/wiki/Standard_litre_per_minute
     """
-
     # equation requires gas pressure as psi so convert kPa to psi
     pgas_psi = pgas * 0.1450377
     lpm = slm * (tgas / 273.15) * (14.696 / pgas_psi)

@@ -1,3 +1,7 @@
+"""
+Class for chemical equation properties.
+"""
+
 import chemics as cm
 import pandas as pd
 import re
@@ -86,10 +90,10 @@ class ChemicalEquation:
         """
         Split chemical equation into reactants and products.
         """
-        rct_split = self.eq.split(' -> ')[0].split(' + ')
+        rct_split = self.eq.split(" -> ")[0].split(" + ")
         self._rct_items = rct_split
 
-        prod_split = self.eq.split(' -> ')[1].split(' + ')
+        prod_split = self.eq.split(" -> ")[1].split(" + ")
         self._prod_items = prod_split
 
     def _eq_properties(self, eq_items):
@@ -104,7 +108,6 @@ class ChemicalEquation:
         eq_elements = Counter()
 
         for item in eq_items:
-
             # number of moles and name for each item
             if item[0].isdigit():
                 item = item.split()
@@ -135,12 +138,12 @@ class ChemicalEquation:
             eq_masses.append(mass)
 
             # count elements from each chemical species
-            rex = re.findall('([A-Z][a-z]?)([0-9]*)', sp)
+            rex = re.findall("([A-Z][a-z]?)([0-9]*)", sp)
 
             for r in rex:
                 element = r[0]
 
-                if r[1] == '':
+                if r[1] == "":
                     atoms = 1.0
                 else:
                     atoms = float(r[1])
@@ -159,15 +162,15 @@ class ChemicalEquation:
 
         # dataframe for properties
         cols = eq_names
-        idx = ['moles', 'species', 'molwt', 'mass', 'molfrac', 'massfrac']
+        idx = ["moles", "species", "molwt", "mass", "molfrac", "massfrac"]
 
         df = pd.DataFrame(columns=cols, index=idx)
-        df.loc['moles'] = eq_moles
-        df.loc['species'] = eq_species
-        df.loc['molwt'] = eq_molwts
-        df.loc['mass'] = eq_masses
-        df.loc['molfrac'] = eq_mol_fracs
-        df.loc['massfrac'] = eq_mass_fracs
+        df.loc["moles"] = eq_moles
+        df.loc["species"] = eq_species
+        df.loc["molwt"] = eq_molwts
+        df.loc["mass"] = eq_masses
+        df.loc["molfrac"] = eq_mol_fracs
+        df.loc["massfrac"] = eq_mass_fracs
 
         return df, dict(eq_elements), eq_sum_moles, eq_sum_masses
 
@@ -203,5 +206,5 @@ class ChemicalEquation:
         for x, y in zip(self.rct_elements.values(), self.prod_elements.values()):
             if abs(x - y) > tol:
                 return False
-        
+
         return True

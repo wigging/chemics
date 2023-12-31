@@ -1,8 +1,14 @@
+"""
+Function for atmospheric pressure.
+"""
+
 import numpy as np
 
 
 def patm(alt):
     """
+    Calculate atmospheric pressure.
+
     Determine atmospheric pressure at altitudes up to 51 km. Based on article
     by Roland Stull [#stull]_.
 
@@ -21,11 +27,11 @@ def patm(alt):
     .. [#stull] Practical Meteorology: An Algebra-based Survey of Atmospheric
        Science by Roland Stull.
     """
-    alt = alt/1000              # convert altitude from meters to kilometers
-    Ro = 6356.766               # average radius of the Earth, km
-    H = (Ro * alt)/(Ro + alt)   # geopotential height, km
+    alt = alt / 1000  # convert altitude from meters to kilometers
+    Ro = 6356.766  # average radius of the Earth, km
+    H = (Ro * alt) / (Ro + alt)  # geopotential height, km
 
-    Patm = None     # initiate pressure variable
+    Patm = None  # initiate pressure variable
 
     if H <= 11:
         T = 288.15 - (6.5 * H)
@@ -43,7 +49,7 @@ def patm(alt):
         T = 270.65
         Patm = 110.9 * np.exp(-0.1262 * (H - 47))
     else:
-        raise ValueError('geopotential height must be less than 51 km')
+        raise ValueError("geopotential height must be less than 51 km")
 
     # return atmospheric pressure at altitude, Pa
     return Patm

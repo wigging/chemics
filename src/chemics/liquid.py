@@ -1,3 +1,7 @@
+"""
+Class for liquid properties.
+"""
+
 import pandas as pd
 from pathlib import Path
 
@@ -23,12 +27,14 @@ class Liquid:
         self.formula = formula
 
     def cp_yaws(self, temp, cas=None, disp=False):
-        """
+        r"""
+        Liquid heat capacity.
+
         Liquid heat capacity as a function of temperature using Yaws' coefficients
         [1]_. The CAS(Chemical Abstracts Service) number may be required for some
         species.
 
-        .. math:: C_p = A + B\\,T + C\\,T^2 + D\\,T^3 + E\\,T^4
+        .. math:: C_p = A + B\,T + C\,T^2 + D\,T^3 + E\,T^4
 
         Parameters
         ----------
@@ -76,48 +82,48 @@ class Liquid:
         formula = self.formula
 
         path = Path(__file__).parent.absolute()
-        df = pd.read_csv(path / 'data/liquid-cp-yaws.csv')
+        df = pd.read_csv(path / "data/liquid-cp-yaws.csv")
         df.fillna(0.0, inplace=True)
 
         if cas:
             row = df.query(f"CAS == '{cas}'")
             if len(row) == 0:
-                raise ValueError(f'CAS number {cas} not found')
+                raise ValueError(f"CAS number {cas} not found")
         else:
             row = df.query(f"Formula == '{formula}'")
             if len(row) > 1:
-                raise ValueError(f'Multiple substances available for {formula}. '
-                                 'Include CAS number with input parameters.')
+                m = f"Multiple substances available for {formula}. Include CAS number with formula."
+                raise ValueError(m)
             elif len(row) == 0:
-                raise ValueError(f'Formula {formula} not found')
+                raise ValueError(f"Formula {formula} not found")
 
-        formula = row['Formula'].iloc[0]
-        name = row['Name'].iloc[0]
-        cas = row['CAS'].iloc[0]
-        tmin = row['Tmin'].iloc[0]
-        tmax = row['Tmax'].iloc[0]
-        a = row['A'].iloc[0]
-        b = row['B'].iloc[0]
-        c = row['C'].iloc[0]
-        d = row['D'].iloc[0]
-        e = row['E'].iloc[0]
+        formula = row["Formula"].iloc[0]
+        name = row["Name"].iloc[0]
+        cas = row["CAS"].iloc[0]
+        tmin = row["Tmin"].iloc[0]
+        tmax = row["Tmax"].iloc[0]
+        a = row["A"].iloc[0]
+        b = row["B"].iloc[0]
+        c = row["C"].iloc[0]
+        d = row["D"].iloc[0]
+        e = row["E"].iloc[0]
         cp = a + (b * temp) + (c * temp**2) + (d * temp**3) + (e * temp**4)
 
         if temp < tmin or temp > tmax:
-            raise ValueError('Temperature out of range. Applicable values are '
-                             f'{tmin}-{tmax} K for {formula} gas.')
+            m = f"Temperature out of range. Applicable values are {tmin}-{tmax} K for {formula}."
+            raise ValueError(m)
 
         if disp:
-            print('Formula       ', formula)
-            print('Name          ', name)
-            print('CAS           ', cas)
-            print('Min Temp. (K) ', tmin)
-            print('Max Temp. (K) ', tmax)
-            print('A             ', a)
-            print('B             ', b)
-            print('C             ', c)
-            print('D             ', d)
-            print('E             ', e)
-            print('Cp (J/mol⋅K)  ', cp)
+            print("Formula       ", formula)
+            print("Name          ", name)
+            print("CAS           ", cas)
+            print("Min Temp. (K) ", tmin)
+            print("Max Temp. (K) ", tmax)
+            print("A             ", a)
+            print("B             ", b)
+            print("C             ", c)
+            print("D             ", d)
+            print("E             ", e)
+            print("Cp (J/mol⋅K)  ", cp)
 
         return cp
