@@ -66,5 +66,3 @@ __all__ = [
     "cp_wood",
     "k_wood",
 ]
-
-__version__ = "23.11"

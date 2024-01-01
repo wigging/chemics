@@ -4,7 +4,7 @@ build-backend = "hatchling.build"
 
 [project]
 name = "chemics"
-dynamic = ["version"]
+version = "24.1"
 authors = [{name = "Gavin Wiggins"}]
 description = "A Python package for chemical engineering"
 readme = "README.md"
@@ -18,9 +18,6 @@ classifiers = [
 
 [project.urls]
 "Homepage" = "https://github.com/wigging/chemics"
-
-[tool.hatch.version]
-path = "src/chemics/__init__.py"
 
 [tool.ruff]
 line-length = 100
