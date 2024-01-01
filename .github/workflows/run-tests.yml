@@ -1,4 +1,4 @@
-name: Run tests
+name: Run tests and checks
 
 on: [push, pull_request]
 
@@ -33,3 +33,12 @@ jobs:
           pip install sphinx sphinx-rtd-theme
           cd docs
           make doctest
+
+      - name: Check with ruff linter
+        run: |
+          pip install ruff
+          ruff check src
+
+      - name: Check with ruff formatter
+        run: |
+          ruff format --check src
