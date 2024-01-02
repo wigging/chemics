@@ -31,5 +31,3 @@ This prints the output shown below.
    heat capacity         31.24 J/(mol⋅K)
    thermal conductivity  0.054 W/(m⋅K)
    viscosity             363.82 microPoise (μP)
-
-Done.

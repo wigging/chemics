@@ -4,13 +4,13 @@
 
 The following is a set of guidelines for contributing to the Chemics Python package. Submitted code that does not conform to these guidelines will not be merged into the package. Feel free to propose changes to this document in a Pull Request or Issue.
 
-## Environment
+## Development environment
 
 Use the `environment.yml` file to create a conda environment for developing the Chemics package. See the comments in the file for more details.
 
-## Code style
+## Code style, linting, and formatting
 
-All code in the Chemics package should adhere to the style enforced by the [Flake8](https://pypi.org/project/flake8/) tool. This will ensure a consistent code format throughout the package and prevent syntax errors during development. For the Flake8 style settings, ignore the E501, W503, W605 errors and warnings.
+All Python code in the Chemics package should adhere to the [PEP 8](https://peps.python.org/pep-0008/) style guide. All linting and formatting should be implemented with [ruff](https://github.com/astral-sh/ruff). Configuration for ruff is defined in the pyproject.toml file.
 
 ## Docstrings
 
@@ -18,11 +18,11 @@ All functions, classes, and other Python components should contain docstrings wi
 
 ## Examples
 
-Along with an example in the docstring, please provide a complete example in Sphinx documentation. Simple examples should also be provided in the docstrings.
+Along with an example in the docstring, please provide a complete example in the Sphinx documentation. Simple examples should also be provided in the docstrings.
 
 ## Tests
 
-New code for the Chemics package must include associated tests in the `tests/` folder. The [pytest](https://docs.pytest.org/en/latest/) framework is used to execute the test files.
+New code for the Chemics package must include associated tests in the `tests/` folder. The [pytest](https://github.com/pytest-dev/pytest) framework is used to execute the test files.
 
 ## Changelog
 
@@ -30,7 +30,7 @@ Don't forget to edit the changelog based on your contributions. Follow the style
 
 ## Sphinx documentation
 
-New source code should be included in the [Sphinx documentation](http://www.sphinx-doc.org/en/stable/) located in the `docs/` folder.
+New source code along with examples should be documented in the [Sphinx documentation](http://www.sphinx-doc.org/en/stable/) located in the `docs/` folder.
 
 ## Creating a pull request
 

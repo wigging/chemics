@@ -12,17 +12,27 @@ Install Chemics using the pip package manager:
 Usage
 =====
 
-The example below imports the chemics package and creates a ``Gas`` class to calculate the density of nitrogen gas at a pressure of 101,325 Pa and 773 K.
+The example below imports the Chemics package and uses the ``Gas`` class to calculate the density and viscosity of nitrogen gas at a temperature of 773 K and pressure of 101,325 Pa.
 
-.. code-block:: python
+.. testcode::
 
    import chemics as cm
 
-   gas = cm.Gas('N2')
-   rho = gas.density(101325, 773)
-   print(rho)
-   # This prints a value of 0.4416
+   gas = cm.Gas("N2", 773)
+   rho = gas.density()
+   mu = gas.viscosity()
 
+   print("Nitrogen gas properties at 773 K and 101,325 Pa")
+   print(f"density    {rho:.4f} kg/m³")
+   print(f"viscosity  {mu:.2f} μP")
+
+This prints the following:
+
+.. testoutput::
+
+   Nitrogen gas properties at 773 K and 101,325 Pa
+   density    0.4416 kg/m³
+   viscosity  363.82 μP
 
 This example uses the ``ChemicalEquation`` class to get properties of the reactants and products from a given chemical equation.
 
@@ -32,7 +42,7 @@ This example uses the ``ChemicalEquation`` class to get properties of the reacta
 
    ce = cm.ChemicalEquation('2 HCl + 2 Na -> 2 NaCl + H2')
    ce.is_balanced()
-   # The returns True for balanced equation
+   # This returns True for balanced equation
 
    ce.rct_properties
    # This returns a dataframe of the reactant properties
