@@ -16,8 +16,12 @@ classifiers = [
     "Operating System :: OS Independent"
 ]
 
+[project.optional-dependencies]
+docs = ["sphinx", "sphinx-rtd-theme"]
+
 [project.urls]
-"Homepage" = "https://github.com/wigging/chemics"
+Homepage = "https://github.com/wigging/chemics"
+Documentation = "https://chemics.readthedocs.io"
 
 [tool.ruff]
 line-length = 100
